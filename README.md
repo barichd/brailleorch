@@ -1,2 +1,2 @@
 # brailleorch
-An intermediate format based on musicxml for conversion between musicxml and braille music format
+A program written in python for conversion between musicxml and braille music format
