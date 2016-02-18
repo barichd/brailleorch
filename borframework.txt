@@ -1,0 +1,79 @@
+BrailleOrch Program Framework
+By Hu Haipeng
+Jan 31, 2016
+
+Copyright (C) 2016 by Hu Haipeng
+
+Purpose
+This is a detailed framework of BrailleOrch, braille music transcription software for advanced publishing requirements. The final software will convert Musicxml files, or via a separate plugin, Sibelius files, into our extended Braille Music Markup Language (BMML) format (originally created by Veia Project, Italy), which can be flexibly edited and modified, to fulfill most of the requirements of braille music publishment.
+
+Since this software is free, and under GPL license, anyone who are willing to help us can join to develop it. We welcome people around the world to do anything making convenience to braille music production for blind musicians.
+
+Requirements
+An experienced Python and XML knowledge is required for developing this software. Knowledge of music, braille and braille music is optional, but will largely enhance the efficiency of development.
+
+The software will run under any Microsoft Windows systems, from Windows 2000/XP to Windows 10, both 32 and 64 bits. A screen reader such as Jaws and NVDA is reqvired for announcing unicode braille objects. Music publishers and sighted braille transcribers are not asked for this option.
+
+Framework
+This comprehensive section will describe all menus and functions of BrailleOrch. People who wants to develop/enhance the software must read this section carefully.
+
+Menu Overview
+Describe all menus and submenus.
+
+File Menu
+New
+To create a new BMML document. This will not be considered currently, unless we decide to develop braille music composing side. Braille Music Editor 2 from Veia Project can do a intermediate level work of it, and blind musicians can now use ABC, Lilypond and Sibelius to produce print music scores. So our main goal is to develop a transcription software.
+
+Open
+Open a BMML file, both original Veia version and our extended new version. Our new version contains more information and functions, so for portability purpose, it will be a compressed xml file with the extension .bor.
+
+Save
+Save the current BMML file in either BMML or Bor format. The BMML format is not an old version of BMML, but an uncompressed Bor file. This can be used for researching the format to help developers get familiar with BMML.
+
+Save As
+Save the file using a different name or to a different location, in either BMML or Bor format.
+
+Versioning (submenu)
+Save Version
+open Version
+Versioning function is for further comparison of the score. The version files will be saved using .bor format, with a time/date stamp after the extension. E.G., foo.bor~01312016.
+Saving an earlier version will bring up a dialog, asking whether you want to save a new version or overwrite the current non-version file.
+
+Set copy protection
+This is a special function for protecting music pubisher's copyright. After they convert their scores into musicxml and import into BrailleOrch, they can immediately set this option. The file can still be edited, reformatted and embossed, but can't be exported into musicxml for back-translation. The file is also encrypted, so it also can't be saved as bmml format. Any debugging process upon the bmml score can, however, be done using the internal debugging interface.
+Be careful to use this function, since it's not reversable. We should provide two times of verification dialog for this. Another possibility is, we can toggle this item visible and invisible in the "Option" dialog, to prevent accidental operation by common users.
+
+Close
+Close All
+Close the current working document(s).
+
+Import
+Import Musicxml files, from version 1.0 to the latest version. The transcription process will begin, see Transcription for details.
+Importing MIDI and ASCII/unicode braille texts will be considered in the future.
+
+Export
+Exports MIDI and Musicxml formats. This will be considered later.
+Export to unicode or ASCII braille. This is the current function. When exporting to ASCII, an option dialog will appear for choosing braille tables. Different country uses different braille mapping table.
+
+Page Setup
+Settings for braille pages.
+In this dialog:
+Lines per page: line amount spin editbox, default 25
+Cells per page: Cell amount spin editbox, default 32
+Adding form feeds: checkbox for inserting form feeds
+Running headers: some countries have running headers at the top of page. These headers are set inside the piece.
+Print page numbers: checkbox, braille printing page numbers
+Print page number position: listbox, topleft, topmiddle, topright, bottomleft, bottommiddle and bottomright.
+Braille page numbers: checkbox, braille braille page numbers
+Braille page number position: listbox, topleft, topmiddle, topright, bottomleft, bottommiddle and bottomright.
+When these two positions get conflicted, a warning message will appear, asking the user to adjust the position correctly.
+
+Emboss
+Emboss braille music scores using installed braille embosser drivers.
+
+Exit
+Quit the software.
+
+notes In Scratch:
+02/18/2016
+We must set text combination/splitting functions, to set some words correctly. For example, something like ff-mf, must not using three word signs, but just one; or for very long words or expressions, we can split them to get correct line breaking. Only texts checked in the same measure and the same voice can be combined/splitted, so this function will look up all checked texts, and combine/split the appropriate ones.
