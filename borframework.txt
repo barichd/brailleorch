@@ -3,8 +3,11 @@ Borframework.txt - BrailleOrch Software Development Framework
 By Hu Haipeng
 
 Date: Jan 31, 2016
+First draft date: Feb 26, 2016
 
-Project devel site: https://github.com/barichd/brailleorch
+Project holder: Daniel Barich
+Project designer: Hu Haipeng
+Project development website: https://github.com/barichd/brailleorch
 
 Copyright (C) 2015 By Hu Haipeng <hhpcomposer@gmail.com> and Daniel Barich <barichd@kenyon.edu>
 
@@ -55,6 +58,7 @@ Chapter 4: Options Dialog
 4.4 Bar-over-bar Page
 4.5 Line-over-line Page
 4.6 Section-by-section Page
+Contact Information
 
 ========================================
 
@@ -315,13 +319,13 @@ Insert new print page (shift+p)
 Insert new braille page (shift+b)
 These are for modification and/or reformatting, or when no print pages are available in musicxml 1.0. Also useful when developing braille music composing. Print page will be inserted at the beginning of the measure, while braille page will be inserted at the beginning of the current braille line.
 Set current measure (m)
-Set number of current measure. The consequent measure numbers will be changed.
+Set number of current measure, overriding measure numbers in Musicxml. The consequent measure numbers will be changed accordingly, until Musicxml specifies a new sequence of measure number (e.g.,, starting a new movement from measure 1).
 Set current braille page (b)
 Set current braille page number. The extra choices for numbering are arabic, roman, lower-celled and (for title pages) none.
 Set current print page (p)
-Set current print page number. The extra choices are arabic, roman and none.
+Set current print page number, overriding Musicxml's settings. The extra choices are arabic, roman and none.
 
-Other tags and properties can be marked by right-click on selected cell(s). Transcribers can also edit the score without using the above insert and right-click marking functions, but the result input will be marked as "other" in bmml, and can't be automatically reformatted correctly. They should be manually formatted.
+Other tags and properties can be marked using context menu directly on braille objects. Transcribers can also edit the score without using the above insert and context functions, but the result input will be marked as "other" in BMML, and can't be automatically reformatted correctly. They should be manually formatted.
 
 Score management
 A tool for managing various items such as page/measure numbering, movement divisions etc for the whole score or selected block. See corresponding chapter for details.
@@ -388,9 +392,9 @@ Check for updates
 ========================================
 
 Chapter 2: Deeper View Of Transcription Function
-This is the core of the software, so please be careful to read it. For knowledge of braille music, please consult New International Manual Of Braille Music Notation (SBS, 1996) (https://www.rnib.org.uk/sites/default/files/New%20International%20Manual.pdf) and Music Braille Code 1997 (BANA) (https://www.loc.gov/nls/music/music%20braille%20code.pdf). The latter contains more information about different formats used in braille music, and also some extra signs.
+This is the core of the software, so please be careful to read it. For knowledge of braille music, please consult New International Manual Of Braille Music Notation (SBS, 1996) <https://www.rnib.org.uk/sites/default/files/New%20International%20Manual.pdf> and Music Braille Code 1997 (BANA) <https://www.loc.gov/nls/music/music%20braille%20code.pdf>. The latter contains more information about different formats used in braille music, and also some extra signs.
 
-The software will treat score with only one part with one staff as single-line format.  It will automatically treat score with only one part with two to four staves as piano (or organ, chosen by the user) format. It will treat score with one single-line part above one multi-stave part as keyboard with accompaniment part, and add dots 5 3-4-5 before the single-li>e part.
+The software will treat score with only one part with one staff as single-line format.  It will automatically treat score with only one part with two to four staves as piano (or organ, chosen by the user) format. It will treat score with one single-line part above one multi-stave part as solo with keyboard accompaniment part, and add dots 5 3-4-5 before the single-line part.
 
 2.1 Transcription dialog
 Note: All dialogs in this software have "ok" and "cancel" buttons.
@@ -484,9 +488,6 @@ All down
 All up except piano
 All down except piano
 This 4 buttons will make interval direction changes globaly. Piano applies only to parts with piano property, including organ and harp parts.
-
-Output part list
-This checkbox will generate new braille page(s) before the first music page. The list will show all parts and braille abbrev names edited in the above tables. 2-cell indentation for long names is automatic. New line can also be entered by pressing shift+enter in braille input mode in Braille part list table.
 
 ----------------------------------------
 
@@ -619,11 +620,14 @@ Ah, we come to the last chapter, wholy dedicated to the most sophisticated part-
 4.1 General Page
 Default language (listbox)
 Current English only. More languages will be added later.
+
 Show transcription dialog after importing (checkbox)
 Whether show transcription dialog before processing Musicxml file. If not, the transcription will be done according previously defined settings.
+
 Open debugging dialog when fatal error occurs (checkbox)
 When serious xml errors are found, the software will automatically open the debugging mode. You can use find error function to navigate in all 3 windows. In most case, braille window will be empty, so use Transcribe in Transcription menu after correction.
-Page setup
+
+Page setup (button)
 Bring up Page setup dialog in File menu.
 
 ----------------------------------------
@@ -631,32 +635,43 @@ Bring up Page setup dialog in File menu.
 4.2 Transcription Page
 Translation table (listbox)
 List out all translation tables for literary braille.
+
 Show capital signs (checkbox)
 Some countries don't show capital signs. Note that capital signs will always be removed when texts are using word sign prefix (dots 3-4-5).
+
 UK metronome format (checkbox)
 Braille music produced in UK uses a different metronome expression. Instead of note-equals-number, it uses a sequence of stem sign, space, UK equal sign (dots 5-6 2-3-5-6) and number.
-Signs to be transcribed
+
+Signs to be transcribed (button)
 A dialog list out some signs. Uncheck some of them when transcribing scores for beginners.
 The signs are: clefs, fingerings, articulations, ornaments, lyrics, and chords.
+
 Use doubling (checkbox)
 Apply doubling to articulations, bowings, tremolos etc.
+
 Braille repetitions (listbox)
 None
 Within measure
 Within and between measures
 All
 Use braille repetition signs. All will use measure reference, e.g., 1-8.
-Add extra accidentals
+
+Add extra accidentals (checkbox)
 For a tied accidental note in a new measure, add an extra accidental preceded by dot 5.
-Add extra tie to new section
+
+Add extra tie to new system (checkbox)
 Some countries have such a custom, to add a reference tie when the tied measure starts at a new system in bar-over-bar/line-over-line formats, or a new section in section-by-section format.
-Output interval direction description
-Checkbox, to make it as default output. See the item in Transcription dialog for details.
+
+Output interval direction description (checkbox)
+See this item in Transcription dialog for details.
+
+Output part list (checkbox)
+This will usually generate new braille page(s) before the first music page. The list will show all parts and braille abbrev names listed and edited in the part tables in Part management dialog. 2-cell indentation for long names is automatic. New line can also be entered by pressing shift+enter in braille input mode in Braille part list table.
+
 Output part list option (radio button)
-No
 On new page
 Just before music
-Print a complete list of parts and braille abbreviations. See Part management dialog. When only keyboard is available, don't use a new page, and just say "keyboard". When an solo line is above keyboard, then "keyboard with accompaniment".
+When only keyboard without part name is available, always don't use a new page, just say "keyboard". When an solo line is above the keyboard, then "solo XX (instrument name) with keyboard accompaniment".
 
 ----------------------------------------
 
@@ -703,7 +718,7 @@ Ensemble score cutoff (listbox)
 No
 Yes according to print
 Yes for all silent instruments
-This is not applied to keyboard and keyboard with accompaniment scores. No will display all staves all the time, Yes according to print will hide silent staves according to settings in Musicxml, and Yes for all silent instruments will hide all silented (rest-only) instruments. If all instruments stop for one or more measures, staves of previously playing ones are shown.
+This is not applied to keyboard and solo with keyboard accompaniment scores. No will display all staves all the time, Yes according to print will hide silent staves according to settings in Musicxml, and Yes for all silent instruments will hide all silented (rest-only) instruments. If all instruments stop for one or more measures, staves of previously playing ones are shown.
 Show all parts on first page (checkbox)
 Display full part names on first page (checkbox)
 These two are for ensemble scores.
@@ -721,7 +736,7 @@ After part prefixes
 Above system
 Two circumstances will override this setting, and print time signatures always within every part: 1. Different part has different time signature; 2. Time signature changes in the middle of a braille system.
 Place blank line between keyboard systems (checkbox)
-Sometimes for easy reading purpose, keyboard and keyboard with accompaniment scores are formatted by separating systems using blank line.
+Sometimes for easy reading purpose, keyboard and solo with keyboard accompaniment scores are formatted by separating systems using blank line.
 Place blank line between ensemble systems (checkbox)
 Most of the ensemble scores using this custom.
 Ignore page turnning (checkbox)
@@ -773,3 +788,9 @@ Other options are nearly the same as line-over-line.
 
 ========================================
 
+Contact Information
+If you are willing to help us, or want to join in the projecet, please write to Daniel for requesting of adding colleagues into Github, and/or for questions about software development. Daniel's email address is barichd@kenyon.edu.
+
+If you have any questions about music, braille and braille music, please write to me at hhpcomposer@gmail.com.
+
+Thank you in advance!
