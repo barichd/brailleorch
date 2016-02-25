@@ -19,11 +19,12 @@ You should have received a copy of the GNU General Public License along with Bra
 ========================================
 
 Contents
-Purpose
-Requirements
-About BrailleOrch Format
-Framework
-Working Progress
+Preliminary Materials
+1. Purpose
+2. Requirements
+3. About BrailleOrch Format
+4. About This Framework
+5. Working Progress
 Chapter 1: Menu Overview
 1.1 File Menu
 1.2 Edit Menu
@@ -48,26 +49,42 @@ Chapter 3: Braille Music Editing And Debugging Related Points
 3.2 Entering And Marking Items
 3.3 Debugging Mode
 Chapter 4: Options Dialog
+4.1 General Page
+4.2 Transcription Page
+4.3 Single-line Page
+4.4 Bar-over-bar Page
+4.5 Line-over-line Page
+4.6 Section-by-section Page
 
 ========================================
 
-Purpose
+Preliminary Materials
+
+1. Purpose
 This is a detailed framework of BrailleOrch, braille music transcription software for advanced publishing requirements. The final software will convert Musicxml files, or via a separate plugin, Sibelius files, into our extended Braille Music Markup Language (BMML) format (originally created and copyrighted by Veia Progetti s.r.l. [http://www.veia.it], Italy, as free software. See copyright information in the BMML package for details), which can be flexibly edited and modified, to fulfill most of the requirements of braille music publishment.
 
 Since this software is free, and under GPL and Veia free software licenses, anyone who are willing to help us can join in to develop it. We welcome people around the world to do anything making convenience to braille music production for blind musicians.
 
-Requirements
+----------------------------------------
+
+2. Requirements
 An experienced Python and XML knowledge is required for developing this software. A basic Github knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius. Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
 
 The software will run under any Microsoft Windows systems, from Windows 2000/XP to Windows 10, both 32 and 64 bits. A screen reader such as NVDA is required for announcing unicode braille objects. Music publishers and sighted braille transcribers are not asked for this option.
 
-About BrailleOrch Format
+----------------------------------------
+
+3. About BrailleOrch Format
 BrailleOrch (.bor) format is a compressed file. It contains original musicxml (if transcribed from musicxml) and bmml sources, and additional debugging information such as error records. When the final editing and correction has been finished, the musicxml source and most debugging information can be removed to save file size. People can still edit and reformat braille output, though. See Make final document in File Menu.
 
-Framework
-This comprehensive document will describe all menus and functions of BrailleOrch. People who wants to develop/enhance the software must read it carefully. It will, however, not discuss the development of current BMML and Musicxml to braille transcription issues. These will be discussed either in a separate article, or in a future mailinglist or forum.
+----------------------------------------
 
-Working Progress
+4. About This Framework
+This comprehensive document will describe all menus and functions of BrailleOrch. People who wants to develop/enhance the software must read it carefully. It will, however, not discuss the development of current BMML and Musicxml to braille transcription issues. These will be discussed either in a separate article, or in a future mailinglist or forum. Only critical requirement of changes needed to be done are shown.
+
+----------------------------------------
+
+5. Working Progress
 Since this is an extensive project for a highly sophisticated software, we have to divide the development session into several phases.
 
 The first phase is to build up a general GUI, containing basic menus and functions. Use original BMML source to define and enhance braille music transcription. Missing signs in BMML DTD must be added. Basic functions in Page setup, Score/Part/Text/Lyrics/Chords/Metronome management and Transcription options dialogs should be done. Bar-over-bar and line-over-line formats are firstly considered. The result braille music score can represent at least 95% information of print version. The score can be manually edited, but not reformatted and retagged automatically, since this requires deeper research of BMML and further development of the software. The user-edited strings are gray-colored, and simply marked as "other" in BMML, and can be tagged in future versions of the software.
@@ -139,7 +156,7 @@ Braille page numbers: braille braille page numbers. Default checked
 Braille page number position: listbox, topleft, topright, bottomleft and bottomright. Default topright
 When these two positions get conflicted, a warning message will appear, asking the user to adjust the position correctly.
 Show page turn: checkbox, visible when Print page numbers is checked. Page turn includes dots 5 2-5 with (or without) new page number.
-Page turn format: listbox. Choices are: within music line, above music, within music line without page number.
+Page turn format: listbox. Choices are: within music, above music, within music without page number.
 
 Emboss
 Emboss braille music scores using installed braille embosser drivers.
@@ -249,10 +266,10 @@ All detailed options for these formats can be found and will be discussed in the
 For single-staff instrument solo, the above will be unavailable, and settings for single-line format will be applied. See corresponding settings in Options dialog for details.
 
 Reformat
-Reformat the braille score after manual editing and correction. Formatting layout will follow rules set in Options and Page setup dialogs. Options changed after transcription process can also be applied.
+Reformat the braille score after manual editing and correction. Formatting layout will follow rules set in Score/Part/Text/Lyrics/Chords/Metronome, Options and Page setup dialogs. Options changed after transcription process can also be applied.
 
 Debugging mode
-A special mode used for checking errors and enhance the software. See Debugging Mode for details.
+A special mode used for checking errors and enhancing the software. See Debugging Mode for details.
 
 Extract parts
 Extract parts for players/singers. A dialog appears, letting you check part(s) to extract. New .bor documents with only bmml sources for individual parts will be created. You can change the order of parts, or choose whether to extract parts as individual files or just one file shwing parts one by one. If "combin individual parts" is checked, the result file will generate a full score containing selected parts (this is useful for publishing choral scores containing vocal parts only).
@@ -553,6 +570,9 @@ For moving words, please put cursor on any location within the word block, and r
 
 When the cursor is on a part prefix, word block, lyric and chord symbol line, pressing F2 will bring up an edit window for simple modification, without opening corresponding dialogs. You can choose from normal and braille inputs via radio buttons.
 
+Note: After editing a part prefix, a confirmation dialog will appear, asking you whether to change the prefix globaly. This is useful when a part switches to another instrument or ensemble changes to solo. In notation programs, sighted engraver only hides part prefix and uses normal text to make such a change, but in braille, we must use corresponding prefix to make things clear.
+Note to BMML developers: In such case, the partlist will generate an extra sub-element to show a different prefix, from and to which measure. Or we can directly insert such tag within the score itself, like temporary midi instrument changes in Musicxml.
+
 Context menu for marking items
 Besides common edit context items, here are some special ones:
 Tagging
@@ -585,7 +605,7 @@ Chapter 4: Options Dialog
 
 Ah, we come to the last chapter, wholy dedicated to the most sophisticated part--Options dialog! This is a multipage dialog, with several category pages dealing with almost all problems with braille music transcription. Settings in this dialog will apply globaly to any imported Musicxml files.
 
-General page
+4.1 General Page
 Default language (listbox)
 Current English only. More languages will be added later.
 Show transcription dialog after importing (checkbox)
@@ -595,7 +615,9 @@ When serious xml errors are found, the software will automatically open the debu
 Page setup
 Bring up Page setup dialog in File menu.
 
-Transcription page
+----------------------------------------
+
+4.2 Transcription Page
 Translation table (listbox)
 List out all translation tables for literary braille.
 Show capital signs (checkbox)
@@ -618,7 +640,9 @@ For a tied accidental note in a new measure, add an extra accidental preceded by
 Add extra tie to new section
 Some countries have such a custom, to add a reference tie when the tied measure starts at a new system in bar-over-bar/line-over-line formats, or a new section in section-by-section format.
 
-Single-line page
+----------------------------------------
+
+4.3 Single-line Page
 format: continuous, line-based
 These two radio buttons adjust format of the music. Some countries format it like section-by-section, according to measure amount of every staff in print version. When set to continuous mode, measure numbers will not be shown.
 Section prefix (listbox)
@@ -629,20 +653,25 @@ The same as system number, but with the prefix "b".
 System and measure numbers
 Combine the above to into parenthesis, separated by a space.
 
-Bar-over-bar page
+----------------------------------------
+
+4.4 Bar-over-bar Page
 This is the default format for multiple staff score.
 Measure number format (listbox)
 Don't show
 Left without number sign (default for piano/organ scores)
 Left with number sign
-Left with number sign for only first measure of a system (a format used by ONCE, Spain, for both piano and ensemble scores)
+Left with number sign for only first measure of a print system (a format used by ONCE, Spain, for both piano and ensemble scores)
 Above the system for the first measure (first measure of the braille system, default for scores more than 2 parts)
 Above system for all measures (all measures of the braille system)
-Above showing measure counts (for example, 48-49)
+Above with measure range (for example, 48-49)
 Show system number (checkbox)
 This will put a number (without number sign) before left hand sign (no space) of keyboard music, or put a parenthesized "l"+number item centered above measure number in ensemble score.
 Rehearsal mark placement (listbox)
-Within music, above music and measure number, above music and at the same line of measure number
+After part prefix
+Before part prefix
+Above music and measure number
+Above music and at the same line of measure number
 When the last choice is set, Above system for all measures must be turned to first measure in case of unsufficient room in the line. 
 Add tracking dots (checkbox)
 When a line contains 7 and more spaces, tracking dots (dot 3) are added to ease navigation. Some countries don't use them.
@@ -657,12 +686,72 @@ No
 Yes according to print
 Yes for all silent instruments
 This is not applied to keyboard and keyboard with accompaniment scores. No will display all staves all the time, Yes according to print will hide silent staves according to settings in Musicxml, and Yes for all silent instruments will hide all silented (rest-only) instruments. If all instruments stop for one or more measures, staves of previously playing ones are shown.
-TBC
+Show all parts on first page (checkbox)
+Display full part names on first page (checkbox)
+These two are for ensemble scores.
+Key signature placement (radio buttons)
+Before part prefix
+After part prefix
+For scores with parts in different keys, or with transposing instruments with different key signatures. When at the left, all other part names must be shifted right. For scores with the same key in all parts, key signature will be automatically brailled above system, below measure numbers.
+Key signature display (listbox)
+All the time
+Only once (appear at the beginning of part. If Show all parts on first page is checked, they are present there. If not, they will appear at the places where the paqts appear for the first time.)
+Reappear after silence
+The same as the second one, but will reappear after the instrument staves' cutoff.
+Time signature placement (radio button)
+After part prefixes
+Above system
+Two circumstances will override this setting, and print time signatures always within every part: 1. Different part has different time signature; 2. Time signature changes in the middle of a braille system.
+Place blank line between keyboard systems (checkbox)
+Sometimes for easy reading purpose, keyboard and keyboard with accompaniment scores are formatted by separating systems using blank line.
+Place blank line between ensemble systems (checkbox)
+Most of the ensemble scores using this custom.
+Ignore page turnning (checkbox)
+The first part of a parallel will not be forced to put in a new page. This is for l9ng orchestral music to save paper.
+Ignore new system (checkbox)
+By default, both bar-over-bar and line-over-line will start a new parallel when Musicxml starts a new system. Checking this will prevent BrailleOrch from starting a new parallel if there's room for the following measure(s) on next system. In this case, new system number will be moved to the next parallel in keyboard score, while shown above system right at the beginning of new system in ensemble score. If page turn is met, the turning page sign will be brailled at its right place.
 
-Line-over-line page
+----------------------------------------
+
+4.5 Line-over-line Page
 The main difference of these two formats is whether to vertically align measures in all staves of the system. In line-over-line, all measures in a system are not aligned, and once there's a staff which doesn't come to line break, other staves can continue with several lines of music. The advantage of line-over-line is saving paper.
-TBC
+Most of the settings of bar-over-bar are the same, except the following:
+Measure number format: no Above system for all measures
+No Add tracking dots
+Ignore new system will turn off system number completely.
 
-Section-by-section page
-TBC
-                  
+----------------------------------------
+
+4.6 Section-by-section Page
+Section-by-section is used in many countries with varied layouts. Here, I choose some classical features for the users. If anyone who wants a different layout, please contact Daniel Barich for implementation.
+
+Indentation (radio button)
+First line indent
+Following lines indent
+These are two main different indentation styles.
+Line-over-line style (checkbox)
+Only applicable to keyboard music. The layout is much like line-over-line, but line breaking is free for all staves.
+Measure number placement for line-over-line style (radio button)
+Left of music
+Above system
+Section head format (radio button)
+Section only (section number)
+Measure only (measure number)
+Section and measure (plus number of first measure, no space and number sign. See next control)
+Section and measure range (section number, space, measure range)
+These are 4 classical head styles of a section.
+Section and measure number format (radio button)
+Section uper-celled
+Measure upper-celled
+These two numbers are often in different type, one upper-celled while the other lower-celled.
+Use system number as section number (checkbox)
+It uses system number on a print page for section number. So if a new page is here, the section number will return to 1.
+Place blank line between sections (checkbox)
+See previous explanation.
+Key signature placement: no Before part prefix
+Other options of key and time signatures are the same as previous two formats.
+Braille page turn is ignored, but print system change can't. This ensures the sections to sync to systems in print.
+Other options are nearly the same as line-over-line.
+
+========================================
+
