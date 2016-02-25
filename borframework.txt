@@ -271,6 +271,17 @@ Reformat the braille score after manual editing and correction. Formatting layou
 Debugging mode
 A special mode used for checking errors and enhancing the software. See Debugging Mode for details.
 
+Output interval direction description
+A dialog appears, letting you to view the description. There are 2 kinds of description:
+1. When all intervals are up/down, it will let you choose from two methods of descriptions:
+a. Literary: All intervals are read upwards/downwards;
+2. Notation: a C with second interval sign, space, two dots 3-5's, space, two notes with in-accord, either C-D or C-B.
+2. When different intervals are used, it will show as:
+All intervals are read upwards/downwards, except blah blah, which is/are read downwards/upwards.
+
+Output part list
+See this item in Part management dialog for details.
+
 Extract parts
 Extract parts for players/singers. A dialog appears, letting you check part(s) to extract. New .bor documents with only bmml sources for individual parts will be created. You can change the order of parts, or choose whether to extract parts as individual files or just one file shwing parts one by one. If "combin individual parts" is checked, the result file will generate a full score containing selected parts (this is useful for publishing choral scores containing vocal parts only).
 
@@ -377,7 +388,7 @@ Check for updates
 ========================================
 
 Chapter 2: Deeper View Of Transcription Function
-This is the core of the software, so please be careful to read it. For knowledge of braille music, please consult New International Manual Of Braille Music Notation (SBS, 1996) (https://www.rnib.org.uk/sites/default/files/New%20International%20Manual.pdf) and Music Braille Code 1997 (BANA) (https://www.loc.gov/nls/music/music%20braille%20code.pdf).
+This is the core of the software, so please be careful to read it. For knowledge of braille music, please consult New International Manual Of Braille Music Notation (SBS, 1996) (https://www.rnib.org.uk/sites/default/files/New%20International%20Manual.pdf) and Music Braille Code 1997 (BANA) (https://www.loc.gov/nls/music/music%20braille%20code.pdf). The latter contains more information about different formats used in braille music, and also some extra signs.
 
 The software will treat score with only one part with one staff as single-line format.  It will automatically treat score with only one part with two to four staves as piano (or organ, chosen by the user) format. It will treat score with one single-line part above one multi-stave part as keyboard with accompaniment part, and add dots 5 3-4-5 before the single-li>e part.
 
@@ -474,7 +485,7 @@ All up except piano
 All down except piano
 This 4 buttons will make interval direction changes globaly. Piano applies only to parts with piano property, including organ and harp parts.
 
-List part and abbreviation names
+Output part list
 This checkbox will generate new braille page(s) before the first music page. The list will show all parts and braille abbrev names edited in the above tables. 2-cell indentation for long names is automatic. New line can also be entered by pressing shift+enter in braille input mode in Braille part list table.
 
 ----------------------------------------
@@ -639,6 +650,13 @@ Add extra accidentals
 For a tied accidental note in a new measure, add an extra accidental preceded by dot 5.
 Add extra tie to new section
 Some countries have such a custom, to add a reference tie when the tied measure starts at a new system in bar-over-bar/line-over-line formats, or a new section in section-by-section format.
+Output interval direction description
+Checkbox, to make it as default output. See the item in Transcription dialog for details.
+Output part list option (radio button)
+No
+On new page
+Just before music
+Print a complete list of parts and braille abbreviations. See Part management dialog. When only keyboard is available, don't use a new page, and just say "keyboard". When an solo line is above keyboard, then "keyboard with accompaniment".
 
 ----------------------------------------
 
