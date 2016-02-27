@@ -179,7 +179,7 @@
 <!ELEMENT inaccord (#PCDATA)>
 <!ATTLIST inaccord
     %id;
-    value CDATA         #REQUIRED>
+    value (full|part|division)         #REQUIRED>
 
 <!ELEMENT interval (shift_line?,
     harmonic?,accordion_row?,accidental?,octave?,interval_type,
@@ -366,7 +366,7 @@
             right_string_fingering|fermata|
             unknown)+)>
 <!ATTLIST part
-    %id;>
+    %id_ref;>
 
 <!ELEMENT part_data (name, abbr_name?, clef?, midi_instrument?, family?)>
 <!ATTLIST part_data
