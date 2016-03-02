@@ -520,7 +520,7 @@ This will add Chinese music parenthesis (dots 5-6 3-6 and dots 3-6 2-3) around t
 Treat as texts outside music
 Treat as texts inside music
 Treat as non-music texts
-These 3 choices will move current text item outside or inside the score. When outside the music, it will be normal text without word signs, placed on top of the staff it belongs to. You can still add parenthesis around it. Non-music texts are some long text blocks such as title or performace instructions (somemusicmxl files have title information attached to score, or marked as Sibelius system texts). The format of such text can be freely edited.
+These 3 choices will move current text item outside or inside the score. When outside the music, it will be normal text without word signs, placed on top of the staff it belongs to. You can still add parenthesis around it. Non-music texts are some long text blocks such as title or performace instructions (some musicmxl files have title information attached to score, or marked as Sibelius system texts), or top-system texts attached to the first staff. When the first staff is empty, this option will move the text out and remove the empty staff in cutoff mode. The format of such text can be freely edited.
 Combine selected texts
 Select at least two text items and choose this option. It brings up a dialog showing the result for you to edit, e.g., adding space etc. Sometimes special dynamics are entered this way, e.g.,, "sf-mf", entered as "sf" "-" and "mf", should be combined into one text item. Only items in the same voice, the same part and the same measure can be combined.
 Split text
@@ -575,7 +575,7 @@ Items in the edit window must be announced via screen readers such as NVDA. The 
 
 ----------------------------------------
 
-3.2 Entering And Marking Items
+3.2 Entering, selecting And Marking Items
 When correcting the music, for example, adding missing signs, moving words' position etc, please press letter n to start entering notes/rests/articulations. BrailleOrch will recognize them automatically. Unfinished enter will be tagged and announced as "other".
 (Note: make this complicated function later, now just tag all user-entered strings as "other". So reformatting of individual lines must be done manually, like manual transcription.)
 For moving words, please put cursor on any location within the word block, and right-click, choose "Cut", and paste it to new location. BrailleOrch always treats a word block as a single object.
@@ -584,6 +584,9 @@ When the cursor is on a part prefix, word block, lyric and chord symbol line, pr
 
 Note: After editing a part prefix, a confirmation dialog will appear, asking you whether to change the prefix globaly. This is useful when a part switches to another instrument or ensemble changes to solo. In notation programs, sighted engraver only hides part prefix and uses normal text to make such a change, but in braille, we must use corresponding prefix to make things clear.
 Note to BMML developers: In such case, the partlist will generate an extra sub-element to show a different prefix, from and to which measure. Or we can directly insert such tag within the score itself, like temporary midi instrument changes in Musicxml.
+
+Selecting parts
+This function is copied from notation and sequencing softwares like Sibelius and Sonar. You can use ctrl+, to select parts you want to delete, rename and move globaly. For example, selecting parts 1 (piccolo) and 3 (oboes) and then select measure 5-12, then choose Part management, renaming the prefixes will ask you whether to rename them globally or just for selected measures. This will also ease modification for temporary divisi or instrument changes for multiple parts.
 
 Context menu for marking items
 Besides common edit context items, here are some special ones:
