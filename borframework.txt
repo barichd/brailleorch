@@ -279,7 +279,7 @@ Output interval direction description
 A dialog appears, letting you to view the description. There are 2 kinds of description:
 1. When all intervals are up/down, it will let you choose from two methods of descriptions:
 a. Literary: All intervals are read upwards/downwards;
-2. Notation: a C with second interval sign, space, two dots 3-5's, space, two notes with in-accord, either C-D or C-B.
+b. Notation: a C with second interval sign, space, two dots 3-5's, space, two notes with in-accord, either C-D or C-B.
 2. When different intervals are used, it will show as:
 All intervals are read upwards/downwards, except blah blah, which is/are read downwards/upwards.
 
@@ -359,7 +359,7 @@ Choose instruments
 List out all parts and their midi instruments. Assign button will bring up a dialog containing a 128-line list of GM instruments. By default, BrailleOrch will assign correct instruments according to settings in Musicxml.
 BrailleOrch should be able to use multiple instances of GM modules to handle more than 16 parts.
 
-Play sounds when navigating
+Play sounds when navigating (default checked)
 Whether to play MIDI sounds during cursor navigation. Default: checked.
 
 Playback device
@@ -417,7 +417,7 @@ Bring up Transcription settings in Options dialog.
 Translation table
 Used for text translation. This can also be seen in Options and Score/Part/Text/Lyrics/Chords management dialogs.
 
-Don't show this dialog
+Don't show this dialog (default unchecked)
 Disable this dialog, using options previously set.
 
 ----------------------------------------
@@ -481,18 +481,19 @@ This table is used for editing braille which can't be correctly transcribed. Bra
 These two tables are linked, so scrolling one of them will also make the other scroll.
 
 Interval direction
-Radio button up/down to control interval and voice reading direction of current selected part(s). Default is down for all parts in score without piano-property parts.
+Radio buttons up/down to control interval and voice reading direction of current selected part(s). Default is down for all parts in score without piano-property parts.
 
+Keyboard (including keyboard with solo)
 All up
 All down
 All up except piano
 All down except piano
-This 4 buttons will make interval direction changes globaly. Piano applies only to parts with piano property, including organ and harp parts.
+This 5 buttons will make interval direction changes globaly. Piano applies only to parts with piano property, including organ and harp parts.
 
 ----------------------------------------
 
 2.4 Text Management Dialog
-A comprehensive dialog like Part management dialog. It lists out all texts items in the score. For dialog opened this way, only words, DoletSibelius unrecognized system texts and rehearsal marks are listed. When opened using context menu, items such as title page and TOC info can be displayed.
+A comprehensive dialog like Part management dialog. It lists out all texts items in the score. For dialog opened in this way, only words, credit items, DoletSibelius unrecognized system texts and rehearsal marks are listed. When opened using context menu, items such as title page and TOC info can be displayed.
 
 Text list
 A same table as part list, but with different layout:
@@ -520,7 +521,7 @@ This will add Chinese music parenthesis (dots 5-6 3-6 and dots 3-6 2-3) around t
 Treat as texts outside music
 Treat as texts inside music
 Treat as non-music texts
-These 3 choices will move current text item outside or inside the score. When outside the music, it will be normal text without word signs, placed on top of the staff it belongs to. You can still add parenthesis around it. Non-music texts are some long text blocks such as title or performace instructions (some musicmxl files have title information attached to score, or marked as Sibelius system texts), or top-system texts attached to the first staff. When the first staff is empty, this option will move the text out and remove the empty staff in cutoff mode. The format of such text can be freely edited.
+These 3 choices will move current text item outside or inside the score. By default, non-title/credit texts are inside the music. When texts are outside the music, it will be normal text without word signs, placed on top of the staff it belongs to. You can still add parenthesis around it. Non-music texts are some long text blocks such as title or performace instructions (some musicmxl files have title information attached to score, or marked as Sibelius system texts), or top-system texts attached to the first staff. When the first staff is empty, this option will move the text out and remove the empty staff in cutoff mode. The format of such text can be freely edited.
 Combine selected texts
 Select at least two text items and choose this option. It brings up a dialog showing the result for you to edit, e.g., adding space etc. Sometimes special dynamics are entered this way, e.g.,, "sf-mf", entered as "sf" "-" and "mf", should be combined into one text item. Only items in the same voice, the same part and the same measure can be combined.
 Split text
@@ -528,7 +529,7 @@ Split current text block into separate ones. A dialog appears, and you can press
 Move text
 Move current text to different voice/part. A dialog will let you scroll through the part+voice to re-place the text. When the same beat position is not available due to note/rest value difference, the text will be shifted backwards to the nearest note/rest.
 Hyphenation
-For long text blocks, hyphenation is required. The options are (English) End of line and (Chinese) Begin of line.
+Radio buttons. For long text blocks, hyphenation is required. The options are (English) End of line and (Chinese) Begin of line. Default is EOF, but we must finally recognize Chinese texts and switch to BOF for them automatically.
 
 ----------------------------------------
 
@@ -546,14 +547,14 @@ Listbox. Choose a table for current selected lyrics part.
 Chinese lyrics
 Checkbox. Chinese lyrics has different format from English one. This will be done later (todo item).
 
-Use lyric sign
-Checkbox. Toggle lyric sign (dots 5-6 2-3) on/off. Some countries don't use lyric sign.
+Use lyric sign (checkbox, default checked)
+Toggle lyric sign (dots 5-6 2-3) on/off. Some countries don't use lyric sign.
 
 Lyrics position
-Radio button, put lyric line above/below music.
+Radio button, put lyric line above/below music. Default is below.
 
-Use repetition
-Checkbox. If same word(s) are repeated, use repeat signs (one or two dots 3-5's and one 3-5 around the block, or number plus dots 3-5 before and dots 3-5 alone after it, when repetition is more than 3 times).
+Use repetition (checkbox, default checked)
+If same word(s) are repeated, use repeat signs (one or two dots 3-5's and one 3-5 around the block, or number plus dots 3-5 before and dots 3-5 alone after it, when repetition is more than 3 times).
 
 2.6 Chords Management
 (to do it later)
@@ -624,11 +625,20 @@ Ah, we come to the last chapter, wholy dedicated to the most sophisticated part-
 Default language (listbox)
 Current English only. More languages will be added later.
 
-Show transcription dialog after importing (checkbox)
-Whether show transcription dialog before processing Musicxml file. If not, the transcription will be done according previously defined settings.
+Show transcription dialog after importing (checkbox, default checked)
+Whether show transcription dialog before processing Musicxml file. If not, the transcription will be done according to previously defined settings.
 
-Open debugging dialog when fatal error occurs (checkbox)
-When serious xml errors are found, the software will automatically open the debugging mode. You can use find error function to navigate in all 3 windows. In most case, braille window will be empty, so use Transcribe in Transcription menu after correction.
+Open debugging dialog when fatal error occurs (radio button)
+Yes
+No
+Ask me first (default)
+When serious xml errors are found, the software will automatically open the debugging mode if Yes. You can use find error function to navigate in all 3 windows. In most case, braille window will be empty, so please choose Transcribe in Transcription menu after correction.
+
+Workspace color (listbox)
+White screen black braille (default)
+Black screen white braille
+Black screen green braille
+Black screen blue braille
 
 Page setup (button)
 Bring up Page setup dialog in File menu.
@@ -639,121 +649,155 @@ Bring up Page setup dialog in File menu.
 Translation table (listbox)
 List out all translation tables for literary braille.
 
-Show capital signs (checkbox)
+Show capital signs (checkbox, default checked)
 Some countries don't show capital signs. Note that capital signs will always be removed when texts are using word sign prefix (dots 3-4-5).
 
-UK metronome format (checkbox)
+UK metronome format (checkbox, default unchecked)
 Braille music produced in UK uses a different metronome expression. Instead of note-equals-number, it uses a sequence of stem sign, space, UK equal sign (dots 5-6 2-3-5-6) and number.
 
 Signs to be transcribed (button)
 A dialog list out some signs. Uncheck some of them when transcribing scores for beginners.
-The signs are: clefs, fingerings, articulations, ornaments, lyrics, and chords.
+The signs are: clefs, fingerings, articulations, ornaments, lyrics, and chords. All are checked by default.
 
-Use doubling (checkbox)
+Use doubling (checkbox, default checked)
 Apply doubling to articulations, bowings, tremolos etc.
 
 Braille repetitions (listbox)
 None
 Within measure
 Within and between measures
-All
+All (default)
 Use braille repetition signs. All will use measure reference, e.g., 1-8.
 
-Add extra accidentals (checkbox)
-For a tied accidental note in a new measure, add an extra accidental preceded by dot 5.
+Add extra accidentals (listbox)
+None
+Voice only (default)
+Voice and measure
+For the same altered note in another voice, or a tied altered note in a new measure, add an extra accidental preceded by dot 5.
 
-Add extra tie to new system (checkbox)
+Add extra tie to new system (checkbox, default unchecked)
 Some countries have such a custom, to add a reference tie when the tied measure starts at a new system in bar-over-bar/line-over-line formats, or a new section in section-by-section format.
 
-Output interval direction description (checkbox)
+Output interval direction description (checkbox, default checked)
 See this item in Transcription dialog for details.
 
-Output part list (checkbox)
+Output part list (checkbox, default checked)
 This will usually generate new braille page(s) before the first music page. The list will show all parts and braille abbrev names listed and edited in the part tables in Part management dialog. 2-cell indentation for long names is automatic. New line can also be entered by pressing shift+enter in braille input mode in Braille part list table.
 
 Output part list option (radio button)
-On new page
+On new page (default)
 Just before music
-When only keyboard without part name is available, always don't use a new page, just say "keyboard". When an solo line is above the keyboard, then "solo XX (instrument name) with keyboard accompaniment".
+When only keyboard without part name is available, always don't use a new page, just say "keyboard". When there's an solo line above the keyboard, then "solo XX (instrument name) with keyboard accompaniment".
 
 ----------------------------------------
 
 4.3 Single-line Page
-format: continuous, line-based
+format (radio button)
+Continuous
+Line-based (default)
 These two radio buttons adjust format of the music. Some countries format it like section-by-section, according to measure amount of every staff in print version. When set to continuous mode, measure numbers will not be shown.
+
 Section prefix (listbox)
 System number only
 Show system numbers before every section of music. The format is a parenthesised item with "l"+number with number sign.
 Measure numbers only
 The same as system number, but with the prefix "b".
-System and measure numbers
+System and measure numbers (default)
 Combine the above to into parenthesis, separated by a space.
 
 ----------------------------------------
 
 4.4 Bar-over-bar Page
-This is the default format for multiple staff score.
-Measure number format (listbox)
+Keyboard measure number format (listbox)
 Don't show
-Left without number sign (default for piano/organ scores)
+Left without number sign (default)
 Left with number sign
 Left with number sign for only first measure of a print system (a format used by ONCE, Spain, for both piano and ensemble scores)
-Above the system for the first measure (first measure of the braille system, default for scores more than 2 parts)
+This includes piano, organ and solo with keyboard accompaniment.
+
+Full score measure number format (listbox)
+Don't show
+Left without number sign
+Left with number sign
+Left with number sign for only first measure of a print system
+Above the system for the first measure (first measure of the braille system, default)
 Above system for all measures (all measures of the braille system)
 Above with measure range (for example, 48-49)
-Show system number (checkbox)
+
+Show system number (checkbox, default checked)
 This will put a number (without number sign) before left hand sign (no space) of keyboard music, or put a parenthesized "l"+number item centered above measure number in ensemble score.
+
 Rehearsal mark placement (listbox)
 After part prefix
 Before part prefix
-Above music and measure number
-Above music and at the same line of measure number
+Above music and measure number (default)
+Above music and left of measure number
 When the last choice is set, Above system for all measures must be turned to first measure in case of unsufficient room in the line. 
-Add tracking dots (checkbox)
+
+Add tracking dots (checkbox, default checked)
 When a line contains 7 and more spaces, tracking dots (dot 3) are added to ease navigation. Some countries don't use them.
-Multi-piano format (listbox)
-Piano style
+
+Multi-piano format (radio button)
+Piano style (default)
 Chamber style
-When transcribing a multi-piano score, there are two different formats. Piano style is to add a lower-celled number after dots 3-4-5 of hand signs; chamber style will use the style like orchestral music, showing part prefixes.
-Use parallel motion
-Use parallel motion sign for doubled parts in an ensemble score.
+When transcribing a multi-piano score, there are two different formats. Piano style is to add a lower-celled number after dots 3-4-5 of hand signs (e.g. 4-6 3-4-5 2 and 4-5-6 3-4-5 2 for second piano); chamber style will use the style like orchestral music, showing part prefixes.
+
+Use parallel motion (checkbox, default unchecked)
+Use parallel motion sign for doubled parts.
+
 Ensemble score cutoff (listbox)
 No
-Yes according to print
+Yes according to print (default)
 Yes for all silent instruments
-This is not applied to keyboard and solo with keyboard accompaniment scores. No will display all staves all the time, Yes according to print will hide silent staves according to settings in Musicxml, and Yes for all silent instruments will hide all silented (rest-only) instruments. If all instruments stop for one or more measures, staves of previously playing ones are shown.
-Show all parts on first page (checkbox)
-Display full part names on first page (checkbox)
+This is not applied to keyboard and solo with keyboard accompaniment scores. No will display all staves all the time, Yes according to print will hide silent staves according to settings in Musicxml, and Yes for all silent instruments will hide all silented (rest-only) instruments. If all instruments stop for one or more measures, staves of previously playing parts are shown, or show the ones according to Musicxml's setting.
+
+Show all parts on first page (checkbox, default unchecked)
+Display full part names on first page (checkbox, default unchecked)
 These two are for ensemble scores.
-Key signature placement (radio buttons)
+
+Key signature placement (radio button)
 Before part prefix
-After part prefix
-For scores with parts in different keys, or with transposing instruments with different key signatures. When at the left, all other part names must be shifted right. For scores with the same key in all parts, key signature will be automatically brailled above system, below measure numbers.
+After part prefix (default)
+For scores with parts in different keys, or with transposing instruments with different key signatures. When at the left, all other part names must be shifted right. For scores with the same key in all parts, key signature will be automatically brailled above the system, below measure numbers.
+
 Key signature display (listbox)
-All the time
-Only once (appear at the beginning of part. If Show all parts on first page is checked, they are present there. If not, they will appear at the places where the paqts appear for the first time.)
+All the time (default)
+Only once
+Appear at the beginning of a part or a key change. If Show all parts on first page is checked, they are present at the first page. If not, they will appear at the places where the paqt(s) appear for the first time.
 Reappear after silence
 The same as the second one, but will reappear after the instrument staves' cutoff.
-Time signature placement (radio button)
+This option is again for score with transposing instruments.
+
+Piano time signature placement (radio button)
 After part prefixes
+Above system (default)
+Full score time signature placement (radio button)
+After part prefixes (default)
 Above system
 Two circumstances will override this setting, and print time signatures always within every part: 1. Different part has different time signature; 2. Time signature changes in the middle of a braille system.
-Place blank line between keyboard systems (checkbox)
+
+Place blank line between keyboard systems (checkbox, default unchecked)
 Sometimes for easy reading purpose, keyboard and solo with keyboard accompaniment scores are formatted by separating systems using blank line.
-Place blank line between ensemble systems (checkbox)
+
+Place blank line between ensemble systems (checkbox, default checked)
 Most of the ensemble scores using this custom.
-Ignore page turnning (checkbox)
-The first part of a parallel will not be forced to put in a new page. This is for l9ng orchestral music to save paper.
-Ignore new system (checkbox)
+
+Ignore page turnning (checkbox, default unchecked)
+The first part of a parallel will not be forced to put on a new page if checked. This is for long orchestral music to save paper.
+
+Ignore new system (checkbox, default unchecked)
 By default, both bar-over-bar and line-over-line will start a new parallel when Musicxml starts a new system. Checking this will prevent BrailleOrch from starting a new parallel if there's room for the following measure(s) on next system. In this case, new system number will be moved to the next parallel in keyboard score, while shown above system right at the beginning of new system in ensemble score. If page turn is met, the turning page sign will be brailled at its right place.
 
 ----------------------------------------
 
 4.5 Line-over-line Page
 The main difference of these two formats is whether to vertically align measures in all staves of the system. In line-over-line, all measures in a system are not aligned, and once there's a staff which doesn't come to line break, other staves can continue with several lines of music. The advantage of line-over-line is saving paper.
+
 Most of the settings of bar-over-bar are the same, except the following:
 Measure number format: no Above system for all measures
+
 No Add tracking dots
+
 Ignore new system will turn off system number completely.
 
 ----------------------------------------
@@ -762,28 +806,38 @@ Ignore new system will turn off system number completely.
 Section-by-section is used in many countries with varied layouts. Here, I choose some classical features for the users. If anyone who wants a different layout, please contact Daniel Barich for implementation.
 
 Indentation (radio button)
-First line indent
+First line indent (default)
 Following lines indent
 These are two main different indentation styles.
-Line-over-line style (checkbox)
+
+Line-over-line style (checkbox, default unchecked)
 Only applicable to keyboard music. The layout is much like line-over-line, but line breaking is free for all staves.
+
 Measure number placement for line-over-line style (radio button)
-Left of music
+Left of music (default)
 Above system
+
 Section head format (radio button)
 Section only (section number)
 Measure only (measure number)
-Section and measure (plus number of first measure, no space and number sign. See next control)
+Section and measure (default, plus number of first measure, no space and number sign. See next control)
 Section and measure range (section number, space, measure range)
 These are 4 classical head styles of a section.
-Section and measure number format (radio button)
+
+Section+measure format (radio button)
 Section uper-celled
+Measure upper-celled (default)
+Section+measure range format (radio button)
+Section uper-celled (default)
 Measure upper-celled
 These two numbers are often in different type, one upper-celled while the other lower-celled.
-Use system number as section number (checkbox)
+
+Use system number as section number (checkbox, default unchecked)
 It uses system number on a print page for section number. So if a new page is here, the section number will return to 1.
-Place blank line between sections (checkbox)
+
+Place blank line between sections (checkbox, default unchecked)
 See previous explanation.
+
 Key signature placement: no Before part prefix
 Other options of key and time signatures are the same as previous two formats.
 Braille page turn is ignored, but print system change can't. This ensures the sections to sync to systems in print.
