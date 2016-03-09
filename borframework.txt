@@ -65,14 +65,14 @@ Contact Information
 Preliminary Materials
 
 1. Purpose
-This is a detailed framework of BrailleOrch, braille music transcription software for advanced publishing requirements. The final software will convert Musicxml files, or via a separate plugin, Sibelius files, into our extended Braille Music Markup Language (BMML) format (originally created and copyrighted by Veia Progetti s.r.l. [http://www.veia.it], Italy, as free software. See copyright information in the BMML package for details), which can be flexibly edited and modified, to fulfill most of the requirements of braille music publishment.
+This is a detailed framework of BrailleOrch, braille music transcription software for advanced formatting and publishing purpose. The final software will convert Musicxml files, or via a separate plugin, Sibelius files, into our extended Braille Music Markup Language (BMML) format (originally created, developed and copyrighted by Veia Progetti s.r.l. [http://www.veia.it], Italy, as free software. See copyright information in the BMML package for details), which can be flexibly edited and modified, to fulfill most of the requirements of braille music publishment.
 
-Since this software is free, and under GPL and Veia free software licenses, anyone who are willing to help us can join in to develop it. We welcome people around the world to do anything making convenience to braille music production for blind musicians.
+Since this software is free, and under GPL and Veia free software licenses, anyone who are willing to help us can join in to develop and enhance it. We welcome people around the world to do anything making convenience to braille music production for blind musicians.
 
 ----------------------------------------
 
 2. Requirements
-An experienced Python and XML knowledge is required for developing this software. A basic Github knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius. Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
+An experienced Python and XML knowledge is required for developing this software. A basic Github knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius (see the fourth phase in section 5). Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
 
 The software will run under any Microsoft Windows systems, from Windows 2000/XP to Windows 10, both 32 and 64 bits. A screen reader such as NVDA is required for announcing unicode braille objects. Music publishers and sighted braille transcribers are not asked for this option.
 
@@ -397,7 +397,7 @@ Check for updates
 Chapter 2: Deeper View Of Transcription Function
 This is the core of the software, so please be careful to read it. For knowledge of braille music, please consult New International Manual Of Braille Music Notation (SBS, 1996) <https://www.rnib.org.uk/sites/default/files/New%20International%20Manual.pdf> and Music Braille Code 1997 (BANA) <https://www.loc.gov/nls/music/music%20braille%20code.pdf>. The latter contains more information about different formats used in braille music, and also some extra signs.
 
-The software will treat score with only one part with one staff as single-line format.  It will automatically treat score with only one part with two to four staves as piano (or organ, chosen by the user) format. It will treat score with one single-line part above one multi-stave part as solo with keyboard accompaniment part, and add dots 5 3-4-5 before the single-line part.
+The software will treat score with only one part with one staff as single-line format. It will automatically treat score with only one part with two to four staves as piano (or organ, chosen by the user) format. It will treat score with one single-line part above one multi-stave part as solo with keyboard accompaniment part, and add dots 5 3-4-5 before the single-line part.
 
 2.1 Transcription dialog
 Note: All dialogs in this software have "ok" and "cancel" buttons.
@@ -485,11 +485,13 @@ Change current group into piano format, thus adding hand signs before each staff
 Treat as organ
 The same as piano, but treat the 3rd staff as organ pedal.
 Treat as multi-stave parts
-Some divisi parts have only two staves, and will be ocassionally transcribed as piano parts. Use this to turn them into common multi-stave parts.
+Some divisi parts have only two staves, and will be ocassionally transcribed as piano parts. Use this to turn them into common multi-stave parts. The individual names of the staves can be further edited.
 Use group name
 select if the part names in a group are missing or just arabic or roman numbers. E.g., some scores mark "Horns in F" as group name, and "I II" "III IV" as part names, no abbreviations or abbreviations are the same as part names. But such modified abbreviation names must still be edited for braille use.
 Use letter sequences for multi-stave part
 Select if you want to use letters for current multi-stave part, e.g., vln1a, where numbers have already been used.
+Use number sequences for multi-stave part
+The opposite way of previous item.
 
 Braille part list
 This table is used for editing braille which can't be correctly transcribed. Braille input will be activated by pressing F2.
