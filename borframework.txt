@@ -41,6 +41,7 @@ Chapter 1: Menu Overview
 1.10 Help Menu
 Chapter 2: Deeper view of transcription function
 2.1 Transcription Dialog
+2.2 Transpose dialog
 2.3 Score Management Dialog
 2.4 Part Management Dialog
 2.5 Text Management Dialog
@@ -65,14 +66,14 @@ Contact Information
 Preliminary Materials
 
 1. Purpose
-This is a detailed framework of BrailleOrch, braille music transcription software for advanced publishing requirements. The final software will convert Musicxml files, or via a separate plugin, Sibelius files, into our extended Braille Music Markup Language (BMML) format (originally created and copyrighted by Veia Progetti s.r.l. [http://www.veia.it], Italy, as free software. See copyright information in the BMML package for details), which can be flexibly edited and modified, to fulfill most of the requirements of braille music publishment.
+This is a detailed framework of BrailleOrch, braille music transcription software for advanced formatting and publishing purpose. The final software will convert Musicxml files, or via a separate plugin, Sibelius files, into our extended Braille Music Markup Language (BMML) format (originally created, developed and copyrighted by Veia Progetti s.r.l. [http://www.veia.it], Italy, as free software. See copyright information in the BMML package for details), which can be flexibly edited and modified, to fulfill most of the requirements of braille music publishment.
 
-Since this software is free, and under GPL and Veia free software licenses, anyone who are willing to help us can join in to develop it. We welcome people around the world to do anything making convenience to braille music production for blind musicians.
+Since this software is free, and under GPL and Veia free software licenses, anyone who are willing to help us can join in to develop and enhance it. We welcome people around the world to do anything making convenience to braille music production for blind musicians.
 
 ----------------------------------------
 
 2. Requirements
-An experienced Python and XML knowledge is required for developing this software. A basic Github knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius. Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
+An experienced Python and XML knowledge is required for developing this software. A basic Github knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius (see the fourth phase in section 5). Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
 
 The software will run under any Microsoft Windows systems, from Windows 2000/XP to Windows 10, both 32 and 64 bits. A screen reader such as NVDA is required for announcing unicode braille objects. Music publishers and sighted braille transcribers are not asked for this option.
 
@@ -327,6 +328,11 @@ Set current print page number, overriding Musicxml's settings. The extra choices
 
 Other tags and properties can be marked using context menu directly on braille objects. Transcribers can also edit the score without using the above insert and context functions, but the result input will be marked as "other" in BMML, and can't be automatically reformatted correctly. They should be manually formatted.
 
+Display images
+This menu is for extracting pictures contained in compressed Musicxml files (.mxl), which may be cover page images or special music symbols not being able to enter in notation programs. The listbox describes the details of every image file as this:
+filename, part number, staff number, and bar number.
+Press View to read the image on screen, and press OK to bring the cursor to the location for transcribers to enter appropriate braille symbols.
+
 Transpose
 This dialog will handle score/parts transposition. See corresponding chapter for details.
 
@@ -397,7 +403,7 @@ Check for updates
 Chapter 2: Deeper View Of Transcription Function
 This is the core of the software, so please be careful to read it. For knowledge of braille music, please consult New International Manual Of Braille Music Notation (SBS, 1996) <https://www.rnib.org.uk/sites/default/files/New%20International%20Manual.pdf> and Music Braille Code 1997 (BANA) <https://www.loc.gov/nls/music/music%20braille%20code.pdf>. The latter contains more information about different formats used in braille music, and also some extra signs.
 
-The software will treat score with only one part with one staff as single-line format.  It will automatically treat score with only one part with two to four staves as piano (or organ, chosen by the user) format. It will treat score with one single-line part above one multi-stave part as solo with keyboard accompaniment part, and add dots 5 3-4-5 before the single-line part.
+The software will treat score with only one part with one staff as single-line format. It will automatically treat score with only one part with two to four staves as piano (or organ, chosen by the user) format. It will treat score with one single-line part above one multi-stave part as solo with keyboard accompaniment part, and add dots 5 3-4-5 before the single-line part.
 
 2.1 Transcription dialog
 Note: All dialogs in this software have "ok" and "cancel" buttons.
@@ -411,6 +417,11 @@ When one format is chosen, the corresponding option button will be shown, bringi
 Page setup
 Brings up Page setup dialog in File menu.
 
+Starting braille page
+Starting print page
+Starting measure number
+These 3 edit boxes let the user fill in specific numbers overriding musicxml's values and default braille transcription settings.
+
 Score/Part/Text/Lyrics/Chords/metronome management
 Bring up corresponding dialogs which are also available in Braille Music menu.
 
@@ -419,6 +430,9 @@ Bring up Transcription settings in Options dialog.
 
 Translation table
 Used for text translation. This can also be seen in Options and Score/Part/Text/Lyrics/Chords management dialogs.
+
+Add hand change signs for selected passage
+This is for piano or other 2-staff music. See the same item in 3.2 for details.
 
 Don't show this dialog (default unchecked)
 Disable this dialog, using options previously set.
@@ -463,14 +477,15 @@ Note: 1. Current untranslatabre texts such as Chinese characters can be manually
 ----------------------------------------
 
 2.4 Part Management Dialog
-Some Musicxml files have long part/abbreviation names, some have missing part/abbrev names, and some have group names for group of staves. These are not able to be transcribed correctly. Here's a powerful tool for solving this problem.
+Some Musicxml files have long part/abbreviation names, some have missing part/abbrev names, some have group names for group of staves, and some have instrument changes during the music,. These are not able to be transcribed correctly. Here's a powerful tool for solving this problem.
 Part names and abbreviations will be automatically transcribed into braille, except Chinese, which can be edited in the Braille parts list table.
 All line breaks in the Musicxml part field will be shown as \n, and discarded in braille version. Such kind of part names must be manually edited.
 
 Print part list
-List all original items in <score-partlist> of Musicxml.
+List all original items in <score-partlist> of Musicxml, plus part names caused by any instrument changes during the music.
 Items in this extensive table view can be navigated using arrow keys, selected using shift+arrow, edited by pressing F2, and deleted using Del key. Its format is managed as follows:
 group name, group abbreviation, part ID, part name, and part abbreviation.
+If there are part names of instrument changes, these names and abbreviations will be marked as "instrument change".
 Any item will be left empty when no one is found.
 Staves in a group will display group name and abbrev on all staves.
 When a multi-stave part is available, number or letter sequences will be added after the abbreviation names. Default is number.
@@ -485,11 +500,13 @@ Change current group into piano format, thus adding hand signs before each staff
 Treat as organ
 The same as piano, but treat the 3rd staff as organ pedal.
 Treat as multi-stave parts
-Some divisi parts have only two staves, and will be ocassionally transcribed as piano parts. Use this to turn them into common multi-stave parts.
+Some divisi parts have only two staves, and will be ocassionally transcribed as piano parts. Use this to turn them into common multi-stave parts. The individual names of the staves can be further edited.
 Use group name
 select if the part names in a group are missing or just arabic or roman numbers. E.g., some scores mark "Horns in F" as group name, and "I II" "III IV" as part names, no abbreviations or abbreviations are the same as part names. But such modified abbreviation names must still be edited for braille use.
 Use letter sequences for multi-stave part
 Select if you want to use letters for current multi-stave part, e.g., vln1a, where numbers have already been used.
+Use number sequences for multi-stave part
+The opposite way of previous item.
 
 Braille part list
 This table is used for editing braille which can't be correctly transcribed. Braille input will be activated by pressing F2.
@@ -505,6 +522,9 @@ All down
 All up except keyboard
 All down except keyboard
 This 5 buttons will make interval direction changes globaly. Keyboard applies only to parts with piano property, including organ and harp parts. When All up or All down applies to keyboard, the special hand signs should be used, i.e., 4-6 3-4-5 3-4-5 for treble reads upwards, etc.
+
+Disregard instrument changes
+Will always use default part names and abbreviations.
 
 ----------------------------------------
 
@@ -611,6 +631,9 @@ Change the property of current selected braille character(s). Available choices 
 Part/Text/Lyrics/Chords/Metronome management
 These are the same dialogs introduced before, but only display selected items on-the-fly. When on a specified item, dialogs of other properties will be grayed.
 
+Add hand change signs for selected passage
+This is for piano or other 2-staff music where some hand changes occur on one staff with direction change of stems. This dialog will let you choose which direction is for which hand, and add hand signs into the passage.
+
 ----------------------------------------
 
 3.3 Debugging Mode
@@ -629,6 +652,10 @@ Ignore (ctrl+)
 Mark such item as "other" quickly.
 
 In the two xml windows, you can't do any copy/paste functions, but can still enter and delete, for example, correcting or deleting garbage codes (Finale often exports Chinese as garbage codes), and fix mismatched element entry. This way, copyrighted print materials will not be duplicated by end-users (unless he/she has enough time and patience to re-type thousands or millions of xml lines!).
+
+For compressed Musicxml files (.mxl), some pieces may contain pictures for either cover pages or unusual music symbols or others. When images are available, there are two ways to access them visually on the screen:
+1. Press Ctrl+I in the Musicxml window. If BrailleOrch finds any images, a list will appear, describing filename, part, staff and bar numbers. Choose one and press enter or OK, the picture can display on the screen, and the cursor will locate on the image link code.
+2. On a line of image source link, press Ctrl+Alt+I to view this image.
 
 ========================================
 
