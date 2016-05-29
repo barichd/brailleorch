@@ -25,7 +25,7 @@ Contents
 Preliminary Materials
 1. Purpose
 2. Requirements
-3. About BrailleOrch Format
+3. About BrailleOrch and BMML Format
 4. About This Framework
 5. Working Progress
 Chapter 1: Menu Overview
@@ -79,8 +79,12 @@ The software will run under any Microsoft Windows systems, from Windows 2000/XP 
 
 ----------------------------------------
 
-3. About BrailleOrch Format
+3. About BrailleOrch and BMML Format
 BrailleOrch (.bor) format is a compressed file. It contains original musicxml (if transcribed from musicxml) and bmml sources, and additional debugging information such as error records. When the final editing and correction has been finished, the musicxml source and most debugging information can be removed to save file size. People can still edit and reformat braille output, though. See Make final document in File Menu.
+
+For BMML format, I think we should design two stages.
+The one is the current format, and we can just extend it to include more signs and functions. This kind of BMML file contains both musical and braille information.
+The second one is a BMML file which is just a mapped format from Musicxml, and is ready for braille transcription. Music publishers can first generate such an intermediate file for transcribers or end users, and the braille users can check and format music with their own preferences. This format can be developed later, since it needs very smart on-the-fly formatting. and previewing functions of the software. This format is inspired by Sunshine professional, a Chinese braille translation software made by China Braille Publishing House. The wording, hyphening and formatting are constantly changed while the user is editing the file, like MS Word, and this interface is very friendly and smart.
 
 ----------------------------------------
 
@@ -270,8 +274,8 @@ These 3 options will change the current format of score. The formatting will be 
 All detailed options for these formats can be found and will be discussed in the Options Dialog section.
 For single-staff instrument solo, the above will be unavailable, and settings for single-line format will be applied. See corresponding settings in Options dialog for details.
 
-Reformat
-Reformat the braille score after manual editing and correction. Formatting layout will follow rules set in Score/Part/Text/Lyrics/Chords/Metronome, Options and Page setup dialogs. Options changed after transcription process can also be applied.
+Format
+Format or reformat the braille score after manual editing and correction. Formatting layout will follow rules set in Score/Part/Text/Lyrics/Chords/Metronome, Options and Page setup dialogs. Options changed after transcription process can also be applied.
 
 Debugging mode
 A special mode used for checking errors and enhancing the software. See Debugging Mode for details.
@@ -409,6 +413,9 @@ The software will treat score with only one part with one staff as single-line f
 Note: All dialogs in this software have "ok" and "cancel" buttons.
 
 When importing a Musicxml file, the software brings up a dialog, giving the users options for adjusting transcription appearance. It can be turned off by checking Don't show this dialog again at the bottom of the dialog, or via Options dialog. The last settings will be stored, and users can override these options in Options dialog. The Transcription dialog also contains lots of buttons to bring up corresponding options in that dialog.
+
+Transcribe without formatting
+This checkbox will generate a non-formatted braille score, disregarding layout settings. This kind of bmml file only has musicxml-mirrored objects, no braille indications are included. Users can edit the score and then use Format in Transcription menu.
 
 Braille score format
 Radio buttons: bar-over-bar, line-over-line and section-by-section. Default is bar-over-bar.
@@ -628,6 +635,8 @@ Context menu for marking items
 Besides common edit context items, here are some special ones:
 Tagging
 Change the property of current selected braille character(s). Available choices are text-music, text-non-music, text-title, text-subtitle, text-composer, text-lyricist, lyrics, chords, metronome marks, rehearsal marks, articulation and other.
+Property
+This dialog will define the property of current selected character(s). Choices are: isolate, before note and after note. When isolated, a line break can take place on either side of the object; before note will put line break only before it; and after note puts line break only after it.
 Part/Text/Lyrics/Chords/Metronome management
 These are the same dialogs introduced before, but only display selected items on-the-fly. When on a specified item, dialogs of other properties will be grayed.
 
