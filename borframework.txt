@@ -416,6 +416,7 @@ When importing a Musicxml file, the software brings up a dialog, giving the user
 
 Transcribe without formatting
 This checkbox will generate a non-formatted braille score, disregarding layout settings. This kind of bmml file only has musicxml-mirrored objects, no braille indications are included. Users can edit the score and then use Format in Transcription menu.
+This must be reserved for future use when we develop the second stage of BMML.
 
 Braille score format
 Radio buttons: bar-over-bar, line-over-line and section-by-section. Default is bar-over-bar.
