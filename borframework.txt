@@ -50,7 +50,7 @@ Chapter 2: Deeper view of transcription function
 2.8 Metronome Dialog
 Chapter 3: Braille Music Editing And Debugging Related Points
 3.1 GUI specifications
-3.2 Entering And Marking Items
+3.2 Entering And Marking Items, transcription related
 3.3 Debugging Mode
 Chapter 4: Options Dialog
 4.1 General Page
@@ -619,7 +619,7 @@ Items in the edit window must be announced via screen readers such as NVDA. The 
 
 ----------------------------------------
 
-3.2 Entering, selecting And Marking Items
+3.2 Entering, selecting And Marking Items, transcription related
 When correcting the music, for example, adding missing signs, moving words' position etc, please press letter n to start entering notes/rests/articulations. BrailleOrch will recognize them automatically. Unfinished enter will be tagged and announced as "other".
 (Note: make this complicated function later, now just tag all user-entered strings as "other". So reformatting of individual lines must be done manually, like manual transcription.)
 For moving words, please put cursor on any location within the word block, and right-click, choose "Cut", and paste it to new location. BrailleOrch always treats a word block as a single object.
@@ -643,6 +643,14 @@ These are the same dialogs introduced before, but only display selected items on
 
 Add hand change signs for selected passage
 This is for piano or other 2-staff music where some hand changes occur on one staff with direction change of stems. This dialog will let you choose which direction is for which hand, and add hand signs into the passage.
+
+combining and split
+There must be a submenu of this. When in post production, sometimes a braille system containing only one measure can be combined to another one, or a multimeasure braille system has to be splitted into two (after adding missing items) in bar-over-bar format, these options are useful.
+Combine with
+Placing the cursor to the measure and choose this, will let you choose whether to combine with previous or next measure. A confirmation prompt appears, answer Yes.
+When in bar-over-bar mode, a warning will appear if the result will make extra line break(s). In line-over-line format, a warning appears if all parts have new line breaks. Choose Cancel to abort.
+Make new braille system
+Will start a new braille system from the current measure. A confirmation prompt will appear. Answer Yes.
 
 ----------------------------------------
 
