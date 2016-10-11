@@ -14,6 +14,7 @@ class XMLAnalyzer:
         "note": "parse_note",
         "part": "parse_part",
         "part-list": "loop_over_children",
+        "part-name": "parse_part_name",
         "score-part": "parse_score_part",
     }
     parse = lambda self, node: getattr(self, self.handlers[node.tag])(node)
@@ -66,6 +67,8 @@ class XMLAnalyzer:
         self.t += self.current_note.duration
         self.current_block.append(self.current_note)
         del self.current_note
+    def parse_part_name(self, xml_part_header):
+        self.current_part_header.name = xml_part_header.text
     def parse_score_part(self, node):
         self.current_part_header = self.score.add_part(node.get("id"))
         self.loop_over_children(node)
