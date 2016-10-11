@@ -2,6 +2,10 @@ class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
     def __init__(self):
         self._octave = 4
         self._step = 'C'
+    def __lt__(self, another):
+        if self.octave < another.octave: return True
+        elif self.octave > another.octave: return False
+        return self.step < another.step
     @property
     def display_octave(self):
         return self._octave
@@ -11,14 +15,13 @@ class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
             value = int(value)
             assert 0 <= value and value <= 9
         self._octave = value
-    step2midi = dict(zip(('C', 'D', 'E', 'F', 'G', 'A', 'B'), (0, 2, 4, 5, 7, 9, 11)))
+    _step2midi = dict(zip(('C', 'D', 'E', 'F', 'G', 'A', 'B'), (0, 2, 4, 5, 7, 9, 11)))
     @property
     def display_step(self):
         return self._step
     @display_step.setter
     def display_step(self, value):
-        assert value in self.step2midi or value is None
-        self._step = value
+        self._step = value if value is None else self._step2midi[value]
 
 class Pitch(Diatonic_Pitch): # Regular-note pitch.
     def __init__(self):
@@ -32,7 +35,7 @@ class Pitch(Diatonic_Pitch): # Regular-note pitch.
         value = float(value)
         self._alter = value
     def midi(self):
-        return self.step2midi[self.step] + round(self.alter) + 12 * (self.octave + 1)
+        return self.step + round(self.alter) + 12 * (self.octave + 1)
     @property
     def octave(self):
         return self.display_octave
