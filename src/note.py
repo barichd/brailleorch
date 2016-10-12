@@ -5,6 +5,8 @@ class Note(object):
     def __init__(self):
         self._duration = 0
         self._pitch = None
+    def __lt__(self, another):
+        return self._pitch.__lt__(another._pitch)
     @property
     def duration(self):
         return self._duration
