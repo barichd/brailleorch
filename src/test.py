@@ -54,6 +54,10 @@ class XMLAnalyzer:
         for node in xml_note:
             if node.tag == "duration":
                 self.current_note.duration = node.text
+            elif node.tag == "stem":
+                self.current_note.stem = node.text
+            elif node.tag == "staff":
+                self.current_note.staff = node.text
             elif node.tag in {"pitch", "rest", "unpitched"}:
                 if node.tag=="pitch":
                     self.current_note.pitch = (node.findtext("step"), node.findtext("alter", "0"), node.findtext("octave"))
