@@ -4,11 +4,14 @@ class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
         self._octave = 4
         self._step = self._step2midi['C']
     def __lt__(self, another):
-        if self._octave < another._octave: return True
-        elif self._octave > another._octave: return False
-        if self._step < another._step: return True
-        elif self._step > another._step: return False
-        return self._alter < another._alter
+        try:
+            if self._octave < another._octave: return True
+            elif self._octave > another._octave: return False
+            if self._step < another._step: return True
+            elif self._step > another._step: return False
+            return self._alter < another._alter
+        except TypeError:
+            return self._octave is None and another._octave is not None
     @property
     def alter(self):
         raise NotImplementedError("This is only implemented by Pitch.")
