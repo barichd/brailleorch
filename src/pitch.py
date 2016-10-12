@@ -1,11 +1,20 @@
 class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
     def __init__(self):
+        self._alter = .0
         self._octave = 4
-        self._step = 'C'
+        self._step = self._step2midi['C']
     def __lt__(self, another):
-        if self.octave < another.octave: return True
-        elif self.octave > another.octave: return False
-        return self.step < another.step
+        if self._octave < another._octave: return True
+        elif self._octave > another._octave: return False
+        if self._step < another._step: return True
+        elif self._step > another._step: return False
+        return self._alter < another._alter
+    @property
+    def alter(self):
+        raise NotImplementedError("This is only implemented by Pitch.")
+    @alter.setter
+    def alter(self, value):
+        raise NotImplementedError("This is only implemented by Pitch.")
     @property
     def display_octave(self):
         return self._octave
@@ -26,7 +35,6 @@ class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
 class Pitch(Diatonic_Pitch): # Regular-note pitch.
     def __init__(self):
         super(Pitch, self).__init__()
-        self._alter = .0
     @property
     def alter(self):
         return self._alter
