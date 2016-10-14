@@ -14,6 +14,11 @@ class Note(object):
         self._staff = 1
         self._stem = STEM_DIRECTION["none"]
     def __lt__(self, another):
+        if self._staff > another.staff: return True
+        elif self._staff < another.staff: return False
+        if type(self._pitch) is Pitch and type(another._pitch) is Pitch:
+            if self._stem < another._stem: return True
+            elif self._stem > another._stem: return False
         return self._pitch.__lt__(another._pitch)
     @property
     def duration(self):
