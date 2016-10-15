@@ -1,3 +1,4 @@
+from duration import Note_Type
 from pitch import Pitch, Rest
 from pitch import Diatonic_Pitch as Unpitched
 
@@ -7,8 +8,9 @@ STEM_DIRECTION = { # "double" not implemented.
     "none": 1,
 }
 
-class Note(object):
+class Note(Note_Type):
     def __init__(self):
+        super(Note, self).__init__()
         self._duration = 0
         self._pitch = None
         self._staff = 1

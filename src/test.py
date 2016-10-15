@@ -54,6 +54,10 @@ class XMLAnalyzer:
         for node in xml_note:
             if node.tag == "duration":
                 self.current_note.duration = node.text
+            elif node.tag == "type":
+                self.current_note.type = node.text
+            elif node.tag == "dot":
+                self.current_note.dot += 1
             elif node.tag == "stem":
                 self.current_note.stem = node.text
             elif node.tag == "staff":
