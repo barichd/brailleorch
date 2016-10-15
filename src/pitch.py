@@ -12,6 +12,8 @@ class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
             return self._alter < another._alter
         except TypeError:
             return self._octave is None and another._octave is not None
+    def __repr__(self):
+        return "<%s step=%s alter=%s octave=%s>" % (str(self.__class__)[1:-1], self._step, self._alter, self._octave)
     @property
     def alter(self):
         raise NotImplementedError("This is only implemented by Pitch.")
