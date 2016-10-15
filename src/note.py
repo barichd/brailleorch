@@ -1,4 +1,4 @@
-from duration import Note_Type
+from duration import Note_Type, Time_Modification
 from pitch import Pitch, Rest
 from pitch import Diatonic_Pitch as Unpitched
 
@@ -15,6 +15,7 @@ class Note(Note_Type):
         self._pitch = None
         self._staff = 1
         self._stem = STEM_DIRECTION["none"]
+        self._time_modification = None
     def __lt__(self, another):
         if self._staff > another.staff: return True
         elif self._staff < another.staff: return False
@@ -60,6 +61,17 @@ class Note(Note_Type):
     @stem.setter
     def stem(self, value):
         self._stem = STEM_DIRECTION[value]
+    @property
+    def time_modification(self):
+        return self._time_modification
+    @time_modification.setter
+    def time_modification(self, value):
+        if self._time_modification is None:
+            self._time_modification = Time_Modification()
+        self._time_modification.actual_notes = value[0]
+        self._time_modification.normal_notes = value[1]
+        self._time_modification.normal_type = value[2]
+        self._time_modification.normal_dot = value[3]
     @property
     def unpitched(self):
         assert type(self._pitch) is Unpitched

@@ -70,6 +70,13 @@ class XMLAnalyzer:
                     self.current_note.rest.measure = node.get("measure", "no")
                 else:
                     self.current_note.unpitched = (node.findtext("display-step"), node.findtext("display-octave"))
+            elif node.tag == "time-modification":
+                value = [node.findtext("actual-notes"), node.findtext("normal-notes"),
+                         node.findtext("normal-type"), len(node.findall("normal-dot"))]
+                if value[2] is None:
+                    value[2] = self.current_note.type
+                if value[3] == 0:
+                    value[3] = self.current_note.dot
             elif node.tag in ("grace", "cue", "chord"):
                 return
         self.t += self.current_note.duration

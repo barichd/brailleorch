@@ -41,3 +41,36 @@ class Note_Type(object):
             value = NOTE_TYPE.index(value)
             assert value >= 0
         self._type = value
+
+class Time_Modification(object):
+    def __init__(self):
+        self._normal = Note_Type()
+        self._notes = [1, 1]
+    @property
+    def actual_notes(self):
+        return self._notes[1]
+    @actual_notes.setter
+    def actual_notes(self, value):
+        value = int(value)
+        assert value > 0
+        self._notes[1] = value
+    @property
+    def normal_notes(self):
+        return self._notes[0]
+    @normal_notes.setter
+    def normal_notes(self, value):
+        value = int(value)
+        assert value > 0
+        self._notes[0] = value
+    @property
+    def normal_dot(self):
+        return self._normal.dot
+    @normal_dot.setter
+    def normal_dot(self, value):
+        self._normal.dot = value
+    @property
+    def normal_type(self):
+        return self._normal.type
+    @normal_type.setter
+    def normal_type(self, value):
+        self._normal.type = value
