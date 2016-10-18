@@ -40,15 +40,47 @@ class Chord_Common_Data(Note_Type): # The common data among chord notes.
         self._time_modification.normal_type = value[2]
         self._time_modification.normal_dot = value[3]
 
-class Chord_Individual_Data: # The individual data for each chord note.
+class Chord_Individual_Data(object): # The individual data for each chord note.
     def __init__(self):
         self._duration = 0
         self._pitch = None
+    @property
+    def duration(self):
+        return self._duration
+    @duration.setter
+    def duration(self, value):
+        value = int(value)
+        assert value > 0
+        self._duration = value
+    @property
+    def pitch(self):
+        assert type(self._pitch) is Pitch
+        return self._pitch
+    @pitch.setter
+    def pitch(self, value):
+        self._pitch = Pitch()
+        (self._pitch.step, self._pitch.alter, self._pitch.octave) = value
+    @property
+    def rest(self):
+        assert type(self._pitch) is Rest
+        return self._pitch
+    @rest.setter
+    def rest(self, value):
+        self._pitch = Rest()
+        (self._pitch.display_step, self._pitch.display_octave) = value
+    @property
+    def unpitched(self):
+        assert type(self.chord[0]._pitch) is Unpitched
+        return self._pitch
+    @unpitched.setter
+    def unpitched(self, value):
+        self._pitch = Unpitched()
+        (self._pitch.display_step, self._pitch.display_octave) = value
 
 class Note(Chord_Common_Data):
     def __init__(self):
         super(Note, self).__init__()
-        self._chord = [Chord_Individual_Data()]
+        self._chord = []
     def __lt__(self, another):
         if self._staff > another.staff: return True
         elif self._staff < another.staff: return False
@@ -57,34 +89,5 @@ class Note(Chord_Common_Data):
             elif self._stem > another._stem: return False
         return self._chord[0]._pitch.__lt__(another._chord[0]._pitch)
     @property
-    def duration(self):
-        return self._chord[0]._duration
-    @duration.setter
-    def duration(self, value):
-        value = int(value)
-        assert value > 0
-        self._chord[0]._duration = value
-    @property
-    def pitch(self):
-        assert type(self._chord[0]._pitch) is Pitch
-        return self._chord[0]._pitch
-    @pitch.setter
-    def pitch(self, value):
-        self._chord[0]._pitch = Pitch()
-        (self._chord[0]._pitch.step, self._chord[0]._pitch.alter, self._chord[0]._pitch.octave) = value
-    @property
-    def rest(self):
-        assert type(self._chord[0]._pitch) is Rest
-        return self._chord[0]._pitch
-    @rest.setter
-    def rest(self, value):
-        self._chord[0]._pitch = Rest()
-        (self._chord[0]._pitch.display_step, self._chord[0]._pitch.display_octave) = value
-    @property
-    def unpitched(self):
-        assert type(self.chord[0]._pitch) is Unpitched
-        return self._chord[0]._pitch
-    @unpitched.setter
-    def unpitched(self, value):
-        self._chord[0]._pitch = Unpitched()
-        (self._chord[0]._pitch.display_step, self._chord[0]._pitch.display_octave) = value
+    def chord(self): # [!] No setter.
+        return self._chord

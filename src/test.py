@@ -51,9 +51,10 @@ class XMLAnalyzer:
         self.t += int(node.find("duration").text)
     def parse_note(self, xml_note):
         self.current_note = Note()
+        chord_data = Chord_Individual_Data()
         for node in xml_note:
             if node.tag == "duration":
-                self.current_note.duration = node.text
+                chord_data.duration = node.text
             elif node.tag == "type":
                 self.current_note.type = node.text
             elif node.tag == "dot":
@@ -64,12 +65,12 @@ class XMLAnalyzer:
                 self.current_note.staff = node.text
             elif node.tag in {"pitch", "rest", "unpitched"}:
                 if node.tag=="pitch":
-                    self.current_note.pitch = (node.findtext("step"), node.findtext("alter", "0"), node.findtext("octave"))
+                    chord_data.pitch = (node.findtext("step"), node.findtext("alter", "0"), node.findtext("octave"))
                 elif node.tag=="rest":
-                    self.current_note.rest = (node.findtext("display-step"), node.findtext("display-octave"))
-                    self.current_note.rest.measure = node.get("measure", "no")
+                    chord_data.rest = (node.findtext("display-step"), node.findtext("display-octave"))
+                    chord_data.rest.measure = node.get("measure", "no")
                 else:
-                    self.current_note.unpitched = (node.findtext("display-step"), node.findtext("display-octave"))
+                    chord_data.unpitched = (node.findtext("display-step"), node.findtext("display-octave"))
             elif node.tag == "time-modification":
                 value = [node.findtext("actual-notes"), node.findtext("normal-notes"),
                          node.findtext("normal-type"), len(node.findall("normal-dot"))]
@@ -79,7 +80,8 @@ class XMLAnalyzer:
                     value[3] = self.current_note.dot
             elif node.tag in ("grace", "cue", "chord"):
                 return
-        self.t += self.current_note.duration
+        self.t += chord_data.duration
+        self.current_note.chord.append(chord_data)
         self.current_block.append(self.current_note)
         del self.current_note
     def parse_part_name(self, xml_part_header):
