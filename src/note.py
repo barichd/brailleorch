@@ -14,6 +14,16 @@ class Chord_Common_Data(Note_Type): # The common data among chord notes.
         self._staff = 1
         self._stem = STEM_DIRECTION["none"]
         self._time_modification = None
+    def __eq__(self, another):
+        try:
+            return super(Chord_Common_Data, self).__eq__(another) \
+                and self._staff == another._staff \
+                and self._stem == another._stem \
+                and self._time_modification == another._time_modification
+        except TypeError: # Two instances have time_modification of different types.
+            return False
+    def __ne__(self, another):
+        return not (self == another)
     @property
     def staff(self):
         return self._staff
