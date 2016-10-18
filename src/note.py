@@ -14,16 +14,16 @@ class Chord_Common_Data(Note_Type): # The common data among chord notes.
         self._staff = 1
         self._stem = STEM_DIRECTION["none"]
         self._time_modification = None
-    def __eq__(self, another):
+    def __eq__(self, other):
         try:
-            return super(Chord_Common_Data, self).__eq__(another) \
-                and self._staff == another._staff \
-                and self._stem == another._stem \
-                and self._time_modification == another._time_modification
+            return super(Chord_Common_Data, self).__eq__(other) \
+                and self._staff == other._staff \
+                and self._stem == other._stem \
+                and self._time_modification == other._time_modification
         except TypeError: # Two instances have time_modification of different types.
             return False
-    def __ne__(self, another):
-        return not (self == another)
+    def __ne__(self, other):
+        return not (self == other)
     @property
     def staff(self):
         return self._staff
@@ -94,13 +94,13 @@ class Note(Chord_Common_Data):
     def __init__(self):
         super(Note, self).__init__()
         self._chord = []
-    def __lt__(self, another):
-        if self._staff > another.staff: return True
-        elif self._staff < another.staff: return False
-        if type(self._chord[0]._pitch) is Pitch and type(another._chord[0]._pitch) is Pitch:
-            if self._stem < another._stem: return True
-            elif self._stem > another._stem: return False
-        return self._chord[0]._pitch.__lt__(another._chord[0]._pitch)
+    def __lt__(self, other):
+        if self._staff > other.staff: return True
+        elif self._staff < other.staff: return False
+        if type(self._chord[0]._pitch) is Pitch and type(other._chord[0]._pitch) is Pitch:
+            if self._stem < other._stem: return True
+            elif self._stem > other._stem: return False
+        return self._chord[0]._pitch.__lt__(other._chord[0]._pitch)
     @property
     def chord(self): # [!] No setter.
         return self._chord

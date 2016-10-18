@@ -19,10 +19,10 @@ class Note_Type(object):
     def __init__(self):
         self._dot = 0
         self._type = "whole"
-    def __eq__(self, another):
-        return self.type == another.type and self.dot == another.dot
-    def __ne__(self, another):
-        return not (self == another)
+    def __eq__(self, other):
+        return self.type == other.type and self.dot == other.dot
+    def __ne__(self, other):
+        return not (self == other)
     def __repr__(self):
         return "<%s type=%s dot=%d>" % (str(self.__class__)[1:-1], self.type, self.dot)
     @property
@@ -48,10 +48,10 @@ class Time_Modification(object):
     def __init__(self):
         self._normal = Note_Type()
         self._notes = [1, 1]
-    def __eq__(self, another):
-        return self._normal == another._normal and self._notes == another._notes
-    def __ne__(self, another):
-        return not (self == another)
+    def __eq__(self, other):
+        return self._normal == other._normal and self._notes == other._notes
+    def __ne__(self, other):
+        return not (self == other)
     @property
     def actual_notes(self):
         return self._notes[1]

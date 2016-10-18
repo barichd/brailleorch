@@ -70,9 +70,9 @@ class XMLAnalyzer:
             elif node.tag == "staff":
                 self.current_note.staff = node.text
             elif node.tag in {"pitch", "rest", "unpitched"}:
-                if node.tag=="pitch":
+                if node.tag == "pitch":
                     chord_data.pitch = (node.findtext("step"), node.findtext("alter", "0"), node.findtext("octave"))
-                elif node.tag=="rest":
+                elif node.tag == "rest":
                     chord_data.rest = (node.findtext("display-step"), node.findtext("display-octave"))
                     chord_data.rest.measure = node.get("measure", "no")
                 else:

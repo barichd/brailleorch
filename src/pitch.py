@@ -3,15 +3,15 @@ class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
         self._alter = .0
         self._octave = 4
         self._step = self._step2midi['C']
-    def __lt__(self, another):
+    def __lt__(self, other):
         try:
-            if self._octave < another._octave: return True
-            elif self._octave > another._octave: return False
-            if self._step < another._step: return True
-            elif self._step > another._step: return False
-            return self._alter < another._alter
+            if self._octave < other._octave: return True
+            elif self._octave > other._octave: return False
+            if self._step < other._step: return True
+            elif self._step > other._step: return False
+            return self._alter < other._alter
         except TypeError:
-            return self._octave is None and another._octave is not None
+            return self._octave is None and other._octave is not None
     def __repr__(self):
         return "<%s step=%s alter=%s octave=%s>" % (str(self.__class__)[1:-1], self._step, self._alter, self._octave)
     @property
