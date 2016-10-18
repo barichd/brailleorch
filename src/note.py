@@ -63,6 +63,9 @@ class Chord_Individual_Data(object): # The individual data for each chord note.
         assert value > 0
         self._duration = value
     @property
+    def pitch_type(self): # [!] No setter.
+        return type(self._pitch)
+    @property
     def pitch(self):
         assert type(self._pitch) is Pitch
         return self._pitch
