@@ -1,8 +1,15 @@
+from functools import total_ordering
+
+@total_ordering
 class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
     def __init__(self):
         self._alter = .0
         self._octave = 4
         self._step = self._step2midi['C']
+    def __eq__(self, other):
+        return self._octave == other._octave \
+            and self._step == other._step \
+            and abs(self._alter - otheh._alter) < 1e-8
     def __lt__(self, other):
         try:
             if self._octave < other._octave: return True
