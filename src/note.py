@@ -13,6 +13,7 @@ STEM_DIRECTION = { # "double" not implemented.
 class Chord_Common_Data(Note_Type): # The common data among chord notes.
     def __init__(self):
         super(Chord_Common_Data, self).__init__()
+        self._begin_time = 0
         self._stem = STEM_DIRECTION["none"]
         self._time_modification = None
     def __eq__(self, other):
@@ -24,6 +25,14 @@ class Chord_Common_Data(Note_Type): # The common data among chord notes.
             return False
     def __ne__(self, other):
         return not (self == other)
+    @property
+    def begin_time(self):
+        return self._begin_time
+    @begin_time.setter
+    def begin_time(self, value):
+        value = int(value)
+        assert value >= 0
+        self._begin_time = value
     @property
     def stem(self):
         return self._stem
@@ -104,6 +113,8 @@ class Note(Chord_Common_Data):
         self._chord = tuple()
         self._duration_ref = 0
         self._staff_ref = 0
+    def __call__(self): # For transparency with a weakref object.
+        return self
     def __hash__(self):
         return hash((type(self), self._chord))
     def __lt__(self, other):

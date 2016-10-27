@@ -5,10 +5,13 @@ import sys
 
 from note import *
 from pitch import *
+from py2to3compatibility import *
 from score import *
+import voice
 
 class XMLAnalyzer:
     handlers = {
+        "attributes": "parse_attributes",
         "backup": "parse_backup",
         "forward": "parse_forward",
         "measure": "parse_measure",
@@ -36,16 +39,24 @@ class XMLAnalyzer:
         self.loop_over_children(music_data_parent)
     def read_part(self, part_node): # Partwise score only.
         current_part_id = part_node.get("id")
+        self.current_part_header = self.score(current_part_id, None)
         self.t, self.t_max = 0, 0
         for measure in part_node.iterfind("measure"):
             self.current_block = self.score(current_part_id, measure.get("number"), False)
+            self.current_block.begin_time = self.t
             self.current_note = None
             self.previous_note = None
             self.t = max(self.t, self.t_max)
             self.read_music_data(measure)
+            voice.organize(self.current_block, self.current_part_header.staves)
         del self.current_block
         del self.current_note
         del self.previous_note
+    def parse_attributes(self, attributes_node):
+        for node in attributes_node:
+            if node.tag == "staves":
+                self.current_part_header.staves = node.text
+                print(self.current_part_header.id, "<staves> at", self.t)
     def parse_backup(self, node):
         self.t_max = max(self.t_max, self.t)
         self.t -= int(node.find("duration").text)
@@ -53,6 +64,7 @@ class XMLAnalyzer:
         self.t += int(node.find("duration").text)
     def parse_note(self, xml_note):
         self.current_note = Note()
+        self.current_note.begin_time = self.t
         chord_data = Chord_Individual_Data()
         is_chord = False
         for node in xml_note:
@@ -88,17 +100,19 @@ class XMLAnalyzer:
         if is_chord:
             if chord_data.pitch_type is Rest: # A rest note is in the chord.
                 self.current_note.chord_append(chord_data)
-                self.current_block.append(self.current_note)
+                self.current_note.begin_time = self.previous_note.begin_time
+                self.current_block.add(self.current_note.begin_time, self.current_note)
             elif Chord_Common_Data.__eq__(self.current_note, self.previous_note):
                 self.previous_note.chord_append(chord_data)
             else: # The common data changes within a chord.
                 self.current_note.chord_append(chord_data)
-                self.current_block.append(self.current_note)
+                self.current_note.begin_time = self.previous_note.begin_time
+                self.current_block.add(self.current_note.begin_time, self.current_note)
                 self.previous_note = self.current_note
         else:
             self.t += chord_data.duration
             self.current_note.chord_append(chord_data)
-            self.current_block.append(self.current_note)
+            self.current_block.add(self.current_note.begin_time, self.current_note)
             self.previous_note = self.current_note
     def parse_part_name(self, xml_part_header):
         self.current_part_header.name = xml_part_header.text
@@ -109,3 +123,6 @@ class XMLAnalyzer:
 
 s = XMLAnalyzer(sys.argv[1]).score
 print(len(s.part_list), len(s.measures))
+for m in s.measures:
+    for i in range(len(m.data)):
+        print(s.part_list[i].id, m.number)

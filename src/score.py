@@ -1,8 +1,26 @@
+class Music_Data_Block(dict):
+    def __init__(self):
+        self._begin_time = 0
+    def add(self, t, data):
+        t -= self.begin_time
+        try:
+            self[t].append(data)
+        except KeyError:
+            self[t] = [data]
+    @property
+    def begin_time(self):
+        return self._begin_time
+    @begin_time.setter
+    def begin_time(self, value):
+        value = int(value)
+        assert value >= 0
+        self._begin_time = value
+
 class Measure:
     def __init__(self, score, number):
         self.number = number
         self.score = score
-        self.data = [[] for k in range(len(self.score.part_list))]
+        self.data = [Music_Data_Block() for k in range(len(self.score.part_list))]
 
 class Part(object):
     def __init__(self, id):
