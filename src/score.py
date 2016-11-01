@@ -1,6 +1,6 @@
 class Measure:
-    def __init__(self, score):
-        self.number = ""
+    def __init__(self, score, number):
+        self.number = number
         self.score = score
         self.data = [[] for k in range(len(self.score.part_list))]
 
@@ -19,7 +19,7 @@ class Score:
             if not create_if_not_exist:
                 raise e
             self.measure_number_map[number] = len(self.measures)
-            self.measures.append(Measure(self))
+            self.measures.append(Measure(self, number))
             return self.measures[-1].data[id]
     def __init__(self):
         self.part_id_map = {}
