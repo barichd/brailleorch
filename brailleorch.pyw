@@ -9,6 +9,7 @@ class BrailleOrchFrame(wx.Frame):
 
 		fileMenu = wx.Menu()
 		fileMenu.Append(wx.ID_NEW, "&New", "Create a new BrailleOrch score")
+		self.Bind(wx.EVT_MENU, self.OnNew, wx.ID_NEW)
 		fileMenu.Append(wx.ID_OPEN, "&Open...", "Open an existing BrailleOrch score")
 		fileMenu.Append(101, "&Open recent...", "Open a recently opened score")
 		fileMenu.Append(wx.ID_SAVE, "&Save", "Saves the current score")
@@ -28,6 +29,7 @@ class BrailleOrchFrame(wx.Frame):
 		fileMenu.Append(107, "Emboss...", "Emboss the current score")
 		fileMenu.AppendSeparator()
 		fileMenu.Append(wx.ID_EXIT, "E&xit", "Exit BrailleOrch")
+		self.Bind(wx.EVT_MENU, self.OnExit, wx.ID_EXIT)
 		menuBar.Append(fileMenu, "&File")
 
 		editMenu = wx.Menu()
@@ -206,6 +208,12 @@ class BrailleOrchFrame(wx.Frame):
 		self.brailleInput.SetInsertionPoint(0)
 		self.Show(True)
 
+	def OnNew(self, event):
+		pass
+
+	def OnExit(self, event):
+		self.Close()
+		
 app = wx.App(False)
 frame = BrailleOrchFrame()
 app.MainLoop()

@@ -42,7 +42,9 @@ class BrailleTextCtrl(wx.TextCtrl):
 		self.Bind(wx.EVT_KEY_UP, self.EvtKeyUp, self)
 
 	def EvtKeyDown(self, event):
-		#TODO: if control or alt key is pressed then evnt.Skip()
+		if event.ControlDown() or event.AltDown():
+			event.Skip()
+			return
 		vkCode = event.GetKeyCode()
 		dot = VKCODES_TO_DOTS.get(vkCode)
 		if dot is None:
