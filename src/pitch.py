@@ -12,10 +12,8 @@ class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
             and abs(self._alter - otheh._alter) < 1e-8
     def __lt__(self, other):
         try:
-            if self._octave < other._octave: return True
-            elif self._octave > other._octave: return False
-            if self._step < other._step: return True
-            elif self._step > other._step: return False
+            if self._octave != other._octave: return self._octave < other._octave
+            if self._step != other._step: return self._step < other._step
             return self._alter < other._alter
         except TypeError:
             return self._octave is None and other._octave is not None

@@ -95,11 +95,9 @@ class Note(Chord_Common_Data):
         self._chord = []
         self._staff_index = 0
     def __lt__(self, other):
-        if self.staff > other.staff: return True
-        elif self.staff < other.staff: return False
+        if self.staff != other.staff: return self.staff > other.staff
         if type(self._chord[0]._pitch) is Pitch and type(other._chord[0]._pitch) is Pitch:
-            if self._stem < other._stem: return True
-            elif self._stem > other._stem: return False
+            if self._stem != other._stem: return self._stem < other._stem
         return self._chord[0]._pitch.__lt__(other._chord[0]._pitch)
     @property
     def chord(self): # [!] No setter.
