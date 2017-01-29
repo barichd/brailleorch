@@ -82,7 +82,7 @@ class Chord_Individual_Data(object): # The individual data for each chord note.
         self._staff = value
     @property
     def unpitched(self):
-        assert type(self.chord[0]._pitch) is Unpitched
+        assert type(self._pitch) is Unpitched
         return self._pitch
     @unpitched.setter
     def unpitched(self, value):
