@@ -90,17 +90,17 @@ class XMLAnalyzer:
                 return
         if is_chord:
             if chord_data.pitch_type is Rest: # A rest note is in the chord.
-                self.current_note.chord.append(chord_data)
+                self.current_note.chord_append(chord_data)
                 self.current_block.append(self.current_note)
             elif Chord_Common_Data.__eq__(self.current_note, self.previous_note):
-                self.previous_note.chord.append(chord_data)
+                self.previous_note.chord_append(chord_data)
             else: # The common data changes within a chord.
-                self.current_note.chord.append(chord_data)
+                self.current_note.chord_append(chord_data)
                 self.current_block.append(self.current_note)
                 self.previous_note = self.current_note
         else:
             self.t += chord_data.duration
-            self.current_note.chord.append(chord_data)
+            self.current_note.chord_append(chord_data)
             self.current_block.append(self.current_note)
             self.previous_note = self.current_note
     def parse_part_name(self, xml_part_header):

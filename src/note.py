@@ -92,7 +92,7 @@ class Chord_Individual_Data(object): # The individual data for each chord note.
 class Note(Chord_Common_Data):
     def __init__(self):
         super(Note, self).__init__()
-        self._chord = []
+        self._chord = tuple()
         self._staff_ref = 0
     def __lt__(self, other):
         if self.staff != other.staff: return self.staff > other.staff
@@ -102,6 +102,10 @@ class Note(Chord_Common_Data):
     @property
     def chord(self): # [!] No setter.
         return self._chord
+    def chord_append(self, new_data):
+        self._chord += (new_data,)
+    def chord_sort(self):
+        self._chord = tuple(sorted(self._chord))
     @property
     def duration(self):
         return max(self, key=lambda p: p.duration) if self._chord else 0
