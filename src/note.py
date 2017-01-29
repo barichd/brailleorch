@@ -1,3 +1,5 @@
+from functools import total_ordering
+
 from duration import Note_Type, Time_Modification
 from pitch import Pitch, Rest
 from pitch import Diatonic_Pitch as Unpitched
@@ -40,13 +42,18 @@ class Chord_Common_Data(Note_Type): # The common data among chord notes.
         self._time_modification.normal_type = value[2]
         self._time_modification.normal_dot = value[3]
 
+@total_ordering
 class Chord_Individual_Data(object): # The individual data for each chord note.
     def __init__(self):
         self._duration = 0
         self._pitch = None
         self._staff = 1
+    def __eq__(self, other):
+        return hash(self) == hash(other)
     def __hash__(self):
         return hash((type(self), self._pitch))
+    def __lt__(self, other):
+        return self._pitch < other._pitch
     @property
     def duration(self):
         return self._duration
