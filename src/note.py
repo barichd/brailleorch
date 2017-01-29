@@ -45,6 +45,8 @@ class Chord_Individual_Data(object): # The individual data for each chord note.
         self._duration = 0
         self._pitch = None
         self._staff = 1
+    def __hash__(self):
+        return hash((type(self), self._pitch))
     @property
     def duration(self):
         return self._duration
@@ -94,6 +96,8 @@ class Note(Chord_Common_Data):
         super(Note, self).__init__()
         self._chord = tuple()
         self._staff_ref = 0
+    def __hash__(self):
+        return hash((type(self), self._chord))
     def __lt__(self, other):
         if self.staff != other.staff: return self.staff > other.staff
         if type(self._chord[0]._pitch) is Pitch and type(other._chord[0]._pitch) is Pitch:

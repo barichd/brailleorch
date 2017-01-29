@@ -10,6 +10,8 @@ class Diatonic_Pitch(object): # General displayed pitch (<unpitched> included).
         return self._octave == other._octave \
             and self._step == other._step \
             and abs(self._alter - otheh._alter) < 1e-8
+    def __hash__(self):
+        return hash((type(self), self._alter, self._octave, self._step))
     def __lt__(self, other):
         try:
             if self._octave != other._octave: return self._octave < other._octave
