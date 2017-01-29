@@ -93,7 +93,7 @@ class Note(Chord_Common_Data):
     def __init__(self):
         super(Note, self).__init__()
         self._chord = []
-        self._staff_index = 0
+        self._staff_ref = 0
     def __lt__(self, other):
         if self.staff != other.staff: return self.staff > other.staff
         if type(self._chord[0]._pitch) is Pitch and type(other._chord[0]._pitch) is Pitch:
@@ -104,11 +104,11 @@ class Note(Chord_Common_Data):
         return self._chord
     @property
     def staff(self): # [!] No setter.
-        return self._chord[self._staff_index].staff if self._chord else 1
+        return self._chord[self._staff_ref].staff if self._chord else 1
     @property
     def stem(self):
         return super(Note, self).stem
     @stem.setter
     def stem(self, value):
         type(self).__base__.stem.fset(self, value)
-        self._staff_index = -1 if super(Note, self).stem == STEM_DIRECTION["down"] else 0
+        self._staff_ref = -1 if super(Note, self).stem == STEM_DIRECTION["down"] else 0
