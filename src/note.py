@@ -103,6 +103,9 @@ class Note(Chord_Common_Data):
     def chord(self): # [!] No setter.
         return self._chord
     @property
+    def duration(self):
+        return max(self, key=lambda p: p.duration) if self._chord else 0
+    @property
     def staff(self): # [!] No setter.
         return self._chord[self._staff_ref].staff if self._chord else 1
     @property
