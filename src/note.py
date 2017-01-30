@@ -102,6 +102,7 @@ class Note(Chord_Common_Data):
     def __init__(self):
         super(Note, self).__init__()
         self._chord = tuple()
+        self._duration_ref = 0
         self._staff_ref = 0
     def __hash__(self):
         return hash((type(self), self._chord))
@@ -115,11 +116,14 @@ class Note(Chord_Common_Data):
         return self._chord
     def chord_append(self, new_data):
         self._chord += (new_data,)
+        if new_data.duration > self._chord[self._duration_ref].duration:
+            self._duration_ref = len(self._chord) - 1 # Don't use negative index.
     def chord_sort(self):
         self._chord = tuple(sorted(self._chord))
+        self._duration_ref = self._chord.index(max(self._chord, key=lambda p: p.duration))
     @property
     def duration(self):
-        return max(self, key=lambda p: p.duration) if self._chord else 0
+        return self._chord[self._duration_ref].duration if self._chord else 0
     @property
     def staff(self): # [!] No setter.
         return self._chord[self._staff_ref].staff if self._chord else 1
