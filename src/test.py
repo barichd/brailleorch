@@ -41,7 +41,7 @@ class XMLAnalyzer:
         current_part_id = part_node.get("id")
         self.t, self.t_max = 0, 0
         for measure in part_node.iterfind("measure"):
-            self.current_block = self.score(current_part_id, measure.get("number"), True)
+            self.current_block = self.score(current_part_id, measure.get("number"), False)
             self.current_note = None
             self.previous_note = None
             self.t = max(self.t, self.t_max)
@@ -106,7 +106,7 @@ class XMLAnalyzer:
     def parse_part_name(self, xml_part_header):
         self.current_part_header.name = xml_part_header.text
     def parse_score_part(self, node):
-        self.current_part_header = self.score.add_part(node.get("id"))
+        self.current_part_header = self.score(node.get("id"), None, False)
         self.loop_over_children(node)
         del self.current_part_header
 

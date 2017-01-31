@@ -19,30 +19,36 @@ class Part(object):
         self._staves = value
 
 class Score:
-    def __call__(self, id, number, create_if_not_exist=False):
-        id = self.part_id_map[id]
-        try:
-            number = self.measure_number_map[number]
-            return self.measures[number].data[id]
-        except KeyError as e:
-            if not create_if_not_exist:
-                raise e
-            self.measure_number_map[number] = len(self.measures)
-            self.measures.append(Measure(self, number))
-            return self.measures[-1].data[id]
     def __init__(self):
         self.part_id_map = {}
         self.part_list = []
         self.measure_number_map = {}
         self.measures = []
-    def add_part(self, id):
-        if id in self.part_id_map:
-            raise Exception("Multiple part ID:" + id)
-        self.part_id_map[id] = len(self.part_list)
-        self.part_list.append(Part(id))
-        for m in self.measures:
-            m.append([])
-        return self.part_list[-1]
+    def __call__(self, id, number, no_create=True):
+        try: # Add a new part if needed.
+            id = self.part_id_map[id]
+        except KeyError as e:
+            if id is not None:
+                if no_create:
+                    raise e
+                self.part_id_map[id] = len(self.part_list)
+                self.part_list.append(Part(id))
+                for m in self.measures:
+                    m.append([]) # An element mapped to the new part.
+                id = -1
+        if number is None: # This fails when id is also None.
+            return self.part_list[id]
+        try: # Add a new measure if needed.
+            number = self.measure_number_map[number]
+        except KeyError as e:
+            if no_create:
+                raise e
+            self.measure_number_map[number] = len(self.measures)
+            self.measures.append(Measure(self, number))
+            number = -1
+        if id is None:
+            return self.measures[number]
+        return self.measures[number].data[id]
     def iter_part(self, id):
         for m in measures:
             yield m[id]
