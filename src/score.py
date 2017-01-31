@@ -4,10 +4,19 @@ class Measure:
         self.score = score
         self.data = [[] for k in range(len(self.score.part_list))]
 
-class Part:
+class Part(object):
     def __init__(self, id):
         self.id = id
         self.name = ""
+        self._staves = 1
+    @property
+    def staves(self):
+        return self._staves
+    @staves.setter
+    def staves(self, value):
+        value = int(value)
+        assert value > 0
+        self._staves = value
 
 class Score:
     def __call__(self, id, number, create_if_not_exist=False):
