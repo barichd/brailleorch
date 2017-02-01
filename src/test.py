@@ -18,7 +18,7 @@ class XMLAnalyzer:
         "part-name": "parse_part_name",
         "score-part": "parse_score_part",
     }
-    parse = lambda self, node: getattr(self, self.handlers[node.tag])(node)
+    parse = lambda self, node: getattr(self, self.handlers[node.tag])(node) if node.tag in self.handlers else None
     def __init__(self, path):
         root = etree.parse(path).getroot()
         self.score = Score()
@@ -31,10 +31,7 @@ class XMLAnalyzer:
         self.loop_over_children(root)
     def loop_over_children(self, parent):
         for child in parent:
-            try:
-                self.parse(child)
-            except KeyError:
-                pass
+            self.parse(child)
     def read_music_data(self, music_data_parent):
         self.loop_over_children(music_data_parent)
     def read_part(self, part_node): # Partwise score only.
