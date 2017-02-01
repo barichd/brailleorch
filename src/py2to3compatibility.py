@@ -13,3 +13,8 @@ try:
 except AttributeError:
     dict_itervalues = lambda d: d.values()
     dict_values = lambda d: list(d.values())
+
+try:
+    xrange
+except NameError:
+    xrange = range
