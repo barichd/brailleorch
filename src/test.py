@@ -79,8 +79,8 @@ class XMLAnalyzer:
                          node.findtext("normal-type"), len(node.findall("normal-dot"))]
                 if value[2] is None:
                     value[2] = self.current_note.type
-                if value[3] == 0:
-                    value[3] = self.current_note.dot
+                    if value[3] == 0:
+                        value[3] = self.current_note.dot
             elif node.tag == "chord":
                 is_chord = True
             elif node.tag in ("grace", "cue"):
