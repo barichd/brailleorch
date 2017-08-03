@@ -3,7 +3,8 @@ Borframework.txt - BrailleOrch Software Development Framework
 By Hu Haipeng
 
 Date: Jan 31, 2016
-First draft date: Feb 26, 2016
+First draft: Feb 26, 2016
+Last updated: Jun 21, 2017
 
 Project holder: Daniel Barich
 Project designer: Hu Haipeng
@@ -25,7 +26,7 @@ Contents
 Preliminary Materials
 1. Purpose
 2. Requirements
-3. About BrailleOrch Format
+3. About BrailleOrch and BMML Format
 4. About This Framework
 5. Working Progress
 Chapter 1: Menu Overview
@@ -41,6 +42,7 @@ Chapter 1: Menu Overview
 1.10 Help Menu
 Chapter 2: Deeper view of transcription function
 2.1 Transcription Dialog
+2.2 Transpose dialog
 2.3 Score Management Dialog
 2.4 Part Management Dialog
 2.5 Text Management Dialog
@@ -49,7 +51,7 @@ Chapter 2: Deeper view of transcription function
 2.8 Metronome Dialog
 Chapter 3: Braille Music Editing And Debugging Related Points
 3.1 GUI specifications
-3.2 Entering And Marking Items
+3.2 Entering And Marking Items, transcription related
 3.3 Debugging Mode
 Chapter 4: Options Dialog
 4.1 General Page
@@ -58,6 +60,8 @@ Chapter 4: Options Dialog
 4.4 Bar-over-bar Page
 4.5 Line-over-line Page
 4.6 Section-by-section Page
+4.7 BrailleOrch format Page
+Chapter 5: Play-along Design Overview
 Contact Information
 
 ========================================
@@ -78,8 +82,12 @@ The software will run under any Microsoft Windows systems, from Windows 2000/XP 
 
 ----------------------------------------
 
-3. About BrailleOrch Format
+3. About BrailleOrch and BMML Format
 BrailleOrch (.bor) format is a compressed file. It contains original musicxml (if transcribed from musicxml) and bmml sources, and additional debugging information such as error records. When the final editing and correction has been finished, the musicxml source and most debugging information can be removed to save file size. People can still edit and reformat braille output, though. See Make final document in File Menu.
+
+For BMML format, I think we should design two stages.
+The one is the current format, and we can just extend it to include more signs and functions. This kind of BMML file contains both musical and braille information.
+The second one is a BMML file which is just a mapped format from Musicxml, and is ready for braille transcription. Music publishers can first generate such an intermediate file for transcribers or end users, and the braille users can check and format music with their own preferences. This format can be developed later, since it needs very smart on-the-fly formatting. and previewing functions of the software. This format is inspired by Sunshine professional, a Chinese braille translation software made by China Braille Publishing House. The wording, hyphening and formatting are constantly changed while the user is editing the file, like MS Word, and this interface is very friendly and smart.
 
 ----------------------------------------
 
@@ -91,13 +99,15 @@ This comprehensive document will describe all menus and functions of BrailleOrch
 5. Working Progress
 Since this is an extensive project for a highly sophisticated software, we have to divide the development session into several phases.
 
-The first phase is to build up a general GUI, containing basic menus and functions. Use original BMML source to define and enhance braille music transcription. Missing signs in BMML DTD must be added. Basic functions in Page setup, Score/Part/Text/Lyrics/Chords/Metronome management and Transcription options dialogs should be done. Bar-over-bar and line-over-line formats are firstly considered. The result braille music score can represent at least 95% information of print version. The score can be manually edited, but not reformatted and retagged automatically, since this requires deeper research of BMML and further development of the software. The user-edited strings are gray-colored, and simply marked as "other" in BMML, and can be tagged in future versions of the software.
+The first phase is to build up a general GUI, containing basic menus and functions. Use original BMML source to define and enhance braille music transcription. Missing signs in BMML DTD must be added. Basic functions in Page setup, Score/Part/Text/Lyrics/Chords/Metronome management and Transcription options dialogs should be done. Bar-over-bar and line-over-line formats are firstly considered, also my special format is OK. The result braille music score can represent at least 95% information of print version. The score can be manually edited, but not reformatted and retagged automatically, since this requires deeper research of BMML and further development of the software. The user-edited strings are gray-colored, and simply marked as "other" in BMML, and can be tagged in future versions of the software.
 
-The second phase is to enhance transcription quality. Items in Musicxml 3.0 or later should be added, and the formatting function must be more flexible. Add section-by-section format. Enhance translation table to add support to Chinese Mandarin braille (Cantonese and Taiwanese Chinese braille have already been done in Liblouis).
+The second phase is to enhance transcription quality. Items in Musicxml 3.1 or later should be added, and the formatting function must be more flexible. Add section-by-section format. Enhance translation table to add support to Chinese Mandarin braille (Cantonese and Taiwanese Chinese braille have already been done in Liblouis).
 
 The third phase is to enhance the reformatting function. The software can recognize most user-entered strings as music signs, texts etc, and can correctly break lines when reformatted.
 
-The fourth phase is to develop a Sibelius plug-in, directly exporting .bor files from Sibelius. Musicxml exported from Sibelius has some information missing, because there are special user items. We can use Manuscript Language to make the braille version more close to the original score. Unspecified items can also be exported and tagged for manual editing. BMML exported from this plugin is not correctly formatted, so this tool has to be delayed to the time BrailleOrch is powerful and flexible enough.
+The fourth phase is to develop the Play-along function described in the last chapter. This will ease braille music reading, and enhance the learning progress and quality for blind musicians.
+
+The fifth phase is to develop a Sibelius plug-in, directly exporting .bor files from Sibelius. Musicxml exported from Sibelius has some information missing, because there are special user items. We can use Manuscript Language to make the braille version more close to the original score. Unspecified items can also be exported and tagged for manual editing. BMML exported from this plugin is not correctly formatted, so this tool has to be delayed to the time BrailleOrch is powerful and flexible enough.
 
 The last phase is to develop the braille music composing function. Since the software can already recognize common braille music signs entered, the main focus is on advanced signs, creating parts and groups, writing chord symbols, handling visual appearance, Midi functions etc.
 
@@ -265,12 +275,13 @@ This is a manual action of transcription. If the user wants to start from fresh 
 Bar-over-bar (default)
 Line-over-line
 Section-by-section
-These 3 options will change the current format of score. The formatting will be done according to settings in Options dialog. We highly recommend people to set their preferred format as default in the Options dialog, to reduce any messy formatting problems.
+HBrailleorch
+These 4 options will change the current format of score. The formatting will be done according to settings in Options dialog. We highly recommend people to set their preferred format as default in the Options dialog, to reduce any messy formatting problems.
 All detailed options for these formats can be found and will be discussed in the Options Dialog section.
 For single-staff instrument solo, the above will be unavailable, and settings for single-line format will be applied. See corresponding settings in Options dialog for details.
 
-Reformat
-Reformat the braille score after manual editing and correction. Formatting layout will follow rules set in Score/Part/Text/Lyrics/Chords/Metronome, Options and Page setup dialogs. Options changed after transcription process can also be applied.
+Format
+Format or reformat the braille score after manual editing and correction. Formatting layout will follow rules set in Score/Part/Text/Lyrics/Chords/Metronome, Options and Page setup dialogs. Options changed after transcription process can also be applied.
 
 Debugging mode
 A special mode used for checking errors and enhancing the software. See Debugging Mode for details.
@@ -327,6 +338,11 @@ Set current print page number, overriding Musicxml's settings. The extra choices
 
 Other tags and properties can be marked using context menu directly on braille objects. Transcribers can also edit the score without using the above insert and context functions, but the result input will be marked as "other" in BMML, and can't be automatically reformatted correctly. They should be manually formatted.
 
+Display images
+This menu is for extracting pictures contained in compressed Musicxml files (.mxl), which may be cover page images or special music symbols not being able to enter in notation programs. The listbox describes the details of every image file as this:
+filename, part number, staff number, bar number, and beat position.
+Press View to read the image on screen, and press OK to bring the cursor to the location for transcribers to enter appropriate braille symbols.
+
 Transpose
 This dialog will handle score/parts transposition. See corresponding chapter for details.
 
@@ -357,8 +373,10 @@ Play current measure (shift+l)
 Play current part (ctrl+;)
 Play current voice (shift+;)
 Play metronome (default unchecked)
+Enter Play-along mode: ctrl+alt+l
+See the 5th Chapter for Play-along descriptions.
 
-Choose instruments
+Choose Midi instruments
 List out all parts and their midi instruments. Assign button will bring up a dialog containing a 128-line list of GM instruments. By default, BrailleOrch will assign correct instruments according to settings in Musicxml.
 BrailleOrch should be able to use multiple instances of GM modules to handle more than 16 parts.
 
@@ -404,12 +422,21 @@ Note: All dialogs in this software have "ok" and "cancel" buttons.
 
 When importing a Musicxml file, the software brings up a dialog, giving the users options for adjusting transcription appearance. It can be turned off by checking Don't show this dialog again at the bottom of the dialog, or via Options dialog. The last settings will be stored, and users can override these options in Options dialog. The Transcription dialog also contains lots of buttons to bring up corresponding options in that dialog.
 
+Transcribe without formatting
+This checkbox will generate a non-formatted braille score, disregarding layout settings. This kind of bmml file only has musicxml-mirrored objects, no braille indications are included. Users can edit the score and then use Format in Transcription menu.
+This must be reserved for future use when we develop the second stage of BMML.
+
 Braille score format
-Radio buttons: bar-over-bar, line-over-line and section-by-section. Default is bar-over-bar.
+Radio buttons: bar-over-bar, line-over-line, section-by-section and BrailleOrch. Default is bar-over-bar.
 When one format is chosen, the corresponding option button will be shown, bringing user to corresponding items in Options dialog.
 
 Page setup
 Brings up Page setup dialog in File menu.
+
+Starting braille page
+Starting print page
+Starting measure number
+These 3 edit boxes let the user fill in specific numbers overriding musicxml's values and default braille transcription settings.
 
 Score/Part/Text/Lyrics/Chords/metronome management
 Bring up corresponding dialogs which are also available in Braille Music menu.
@@ -419,6 +446,9 @@ Bring up Transcription settings in Options dialog.
 
 Translation table
 Used for text translation. This can also be seen in Options and Score/Part/Text/Lyrics/Chords management dialogs.
+
+Add hand change signs for selected passage
+This is for piano or other 2-staff music. See the same item in 3.2 for details.
 
 Don't show this dialog (default unchecked)
 Disable this dialog, using options previously set.
@@ -440,7 +470,7 @@ When transposed, the BMML must have a record of original key. So if we come back
 
 2.3 Score Management Dialog
 Description of the score
-This is a read-only text box, showing summary of the score. Available items are: general header, individual headers (headers with their starting print/braille pages), number of print/braille pages, number of measures, page format, score format (single-line, bar-over-bar, line-over-line, section-by-section).
+This is a read-only text box, showing summary of the score. Available items are: general header, individual headers (headers with their starting print/braille pages), number of print/braille pages, number of measures, page format, score format (single-line, bar-over-bar, line-over-line, section-by-section and BrailleOrch).
 
 Running header: some countries have running headers at the top of page. A general header can be set here. Some books use different header on different piece. This can be done by specifying individual headers using context menu within the score, and will override the general header.
 
@@ -463,14 +493,15 @@ Note: 1. Current untranslatabre texts such as Chinese characters can be manually
 ----------------------------------------
 
 2.4 Part Management Dialog
-Some Musicxml files have long part/abbreviation names, some have missing part/abbrev names, and some have group names for group of staves. These are not able to be transcribed correctly. Here's a powerful tool for solving this problem.
+Some Musicxml files have long part/abbreviation names, some have missing part/abbrev names, some have group names for group of staves, and some have instrument changes during the music,. These are not able to be transcribed correctly. Here's a powerful tool for solving this problem.
 Part names and abbreviations will be automatically transcribed into braille, except Chinese, which can be edited in the Braille parts list table.
 All line breaks in the Musicxml part field will be shown as \n, and discarded in braille version. Such kind of part names must be manually edited.
 
 Print part list
-List all original items in <score-partlist> of Musicxml.
+List all original items in <score-partlist> of Musicxml, plus part names caused by any instrument changes during the music.
 Items in this extensive table view can be navigated using arrow keys, selected using shift+arrow, edited by pressing F2, and deleted using Del key. Its format is managed as follows:
 group name, group abbreviation, part ID, part name, and part abbreviation.
+If there are part names of instrument changes, these names and abbreviations will be marked as "instrument change".
 Any item will be left empty when no one is found.
 Staves in a group will display group name and abbrev on all staves.
 When a multi-stave part is available, number or letter sequences will be added after the abbreviation names. Default is number.
@@ -507,6 +538,9 @@ All down
 All up except keyboard
 All down except keyboard
 This 5 buttons will make interval direction changes globaly. Keyboard applies only to parts with piano property, including organ and harp parts. When All up or All down applies to keyboard, the special hand signs should be used, i.e., 4-6 3-4-5 3-4-5 for treble reads upwards, etc.
+
+Disregard instrument changes
+Will always use default part names and abbreviations.
 
 ----------------------------------------
 
@@ -593,7 +627,7 @@ Items in the edit window must be announced via screen readers such as NVDA. The 
 
 ----------------------------------------
 
-3.2 Entering, selecting And Marking Items
+3.2 Entering, selecting And Marking Items, transcription related
 When correcting the music, for example, adding missing signs, moving words' position etc, please press letter n to start entering notes/rests/articulations. BrailleOrch will recognize them automatically. Unfinished enter will be tagged and announced as "other".
 (Note: make this complicated function later, now just tag all user-entered strings as "other". So reformatting of individual lines must be done manually, like manual transcription.)
 For moving words, please put cursor on any location within the word block, and right-click, choose "Cut", and paste it to new location. BrailleOrch always treats a word block as a single object.
@@ -601,17 +635,33 @@ For moving words, please put cursor on any location within the word block, and r
 When the cursor is on a part prefix, word block, lyric and chord symbol line, pressing F2 will bring up an edit window for simple modification, without opening corresponding dialogs. You can choose from normal and braille inputs via radio buttons.
 
 Note: After editing a part prefix, a confirmation dialog will appear, asking you whether to change the prefix globaly. This is useful when a part switches to another instrument or ensemble changes to solo. In notation programs, sighted engraver only hides part prefix and uses normal text to make such a change, but in braille, we must use corresponding prefix to make things clear.
-Note to BMML developers: In such case, the partlist will generate an extra sub-element to show a different prefix, from and to which measure. Or we can directly insert such tag within the score itself, like temporary midi instrument changes in Musicxml.
+Note to BMML developers: In such case, the partlist will generate an extra sub-element to show a different prefix, from and to which measure. Or we can directly insert such tag within the score itself, like temporary midi instrument changes or part naming elements in Musicxml.
 
 Selecting parts
 This function is copied from notation and sequencing softwares like Sibelius and Sonar. You can use ctrl+, to select parts you want to delete, rename and move globaly. For example, selecting parts 1 (piccolo) and 3 (oboes) and then select measure 5-12, then choose Part management, renaming the prefixes will ask you whether to rename them globally or just for selected measures. This will also ease modification for temporary divisi or instrument changes for multiple parts.
 
 Context menu for marking items
 Besides common edit context items, here are some special ones:
+Hide/Unhide
+This is an option for selected objects such as rests, to hide them in braille. For example, a harp glissando with 7 32nd notes to indicate string tuning, and then a gliss line to a note far from them. The intermediate rests can be hidden if the measure has no other notes after this series of notes. If unhide, the rests will be preceded by dot 5.
+The same thing is applicable for repeated texts which appear for more than one times vertically. For example, a tempo mark will appear on top of both flute and first violin parts, or even all parts.
 Tagging
 Change the property of current selected braille character(s). Available choices are text-music, text-non-music, text-title, text-subtitle, text-composer, text-lyricist, lyrics, chords, metronome marks, rehearsal marks, articulation and other.
+Property
+This dialog will define the property of current selected character(s). Choices are: isolate, before note and after note. When isolated, a line break can take place on either side of the object; before note will put line break only before it; and after note puts line break only after it.
 Part/Text/Lyrics/Chords/Metronome management
-These are the same dialogs introduced before, but only display selected items on-the-fly. When on a specified item, dialogs of other properties will be grayed.
+These are the same dialogs introduced before, but only display selected items on-the-fly. When on a specified item, dialogs of other properties will be unavailable.
+
+Add hand change signs for selected passage
+This is for piano or other 2-staff music where some hand changes occur on one staff with direction change of stems. This dialog will let you choose which direction is for which hand, and add hand signs into the passage.
+
+combining and split
+There must be a submenu of this. When in post production, sometimes a multipart braille system containing only one measure can be combined to another one, or a multimeasure braille system has to be splitted into two (after adding missing items) or more.
+Combine with
+Placing the cursor to the measure and choose this, will let you choose whether to combine with previous or next measure. A confirmation prompt appears, answer Yes.
+When in bar-over-bar and BrailleOrch mode, a warning will appear if the result will make extra line break(s). In line-over-line format, a warning appears if all parts have new line breaks. Choose Cancel to abort.
+Make new braille system
+Will start a new braille system from the current measure. A confirmation prompt will appear. Answer Yes.
 
 ----------------------------------------
 
@@ -632,11 +682,15 @@ Mark such item as "other" quickly.
 
 In the two xml windows, you can't do any copy/paste functions, but can still enter and delete, for example, correcting or deleting garbage codes (Finale often exports Chinese as garbage codes), and fix mismatched element entry. This way, copyrighted print materials will not be duplicated by end-users (unless he/she has enough time and patience to re-type thousands or millions of xml lines!).
 
+For compressed Musicxml files (.mxl), some pieces may contain pictures for either cover pages or unusual music symbols or others. When images are available, there are two ways to access them visually on the screen:
+1. Press Ctrl+I in the Musicxml window. If BrailleOrch finds any images, a list will appear, describing filename, part, staff and bar numbers. Choose one and press enter or OK, the picture can display on the screen, and the cursor will locate on the image link code.
+2. On a line of image source link, press Ctrl+Alt+I to view this image.
+
 ========================================
 
 Chapter 4: Options Dialog
 
-Ah, we come to the last chapter, wholy dedicated to the most sophisticated part--Options dialog! This is a multipage dialog, with several category pages dealing with almost all problems with braille music transcription. Settings in this dialog will apply globaly to any imported Musicxml files.
+Ah, we come to the most detailed chapter, wholely dedicated to the most sophisticated part--Options dialog! This is a multipage dialog, with several category pages dealing with almost all problems with braille music transcription. Settings in this dialog will apply globaly to any imported Musicxml files.
 
 4.1 General Page
 Default language (combo box)
@@ -686,6 +740,9 @@ Within and between measures (default)
 All
 Use braille repetition signs. All will use measure reference, e.g., 1-8. Since ensemble scores are too complicated, All should not be used.
 
+Use repeats across system (checkbox, default checked)
+In keyboard and vocal scores, this should be checked. In ensemble scores, some countries use full-measure repetition sign when the first measure of the next braille system is the same as the previous measure in previous braille system; while other countries write the measure out verbatimly.
+
 Add extra accidentals (combo box)
 None
 Voice only (default)
@@ -697,6 +754,11 @@ When the above combo box is switched to Off, this checkbox will disappear.
 
 Add extra tie to new system (checkbox, default unchecked)
 Some countries have such a custom, to add a reference tie when the tied measure starts at a new system in bar-over-bar/line-over-line formats, or a new section in section-by-section format.
+
+Harp pedalling format (combobox)
+Text
+USA
+The text format treats harp pedalling in common text format, converting the table into note names and accidentals. The USA new format (came out in the Music Braille Code 2015) will generate a set of symbols on top of the harp staves.
 
 Output interval direction description (checkbox, default checked)
 See this item in Transcription dialog for details.
@@ -724,6 +786,10 @@ Measure numbers only
 The same as system number, but with the prefix "b".
 System and measure numbers (default)
 Combine the above to into parenthesis, separated by a space.
+
+Combine full-measure rests (checkbox)
+If not checked, multiple full-measure rests will not be combined, leaving every empty bar separated by space.
+If checked, two or three full-measure rests will be combined without spaces, and more than three full-measure rests will be combined as a number with one whole rest.
 
 ----------------------------------------
 
@@ -825,6 +891,8 @@ Measure number format: no Above system for all measures
 
 No Add tracking dots
 
+Add Combine full-measure rests checkbox
+
 Ignore new system will turn off system number completely.
 
 ----------------------------------------
@@ -868,7 +936,34 @@ See previous explanation.
 Key signature placement: no Before part prefix
 Other options of key and time signatures are the same as previous two formats.
 Braille page turn is ignored, but print system change can't. This ensures the sections to sync to systems in print.
-Other options are nearly the same as line-over-line.
+Other options are nearly the same as line-over-line, including the Combine full-measure rests.
+
+----------------------------------------
+
+4.7 Brailleorch format Page
+When transcribing orchestral scores, I developed a special format, and now name it BrailleOrch, because these scores are solely for my braille music project.
+In such a format, the layout is between bar-over-bar and line-over-line, where all measures in all parts are not vertically aligned, while all parts shouldn't have line break unless there's only one measure.
+
+The options are nearly the same as in the previous two referred formats, and I extract them out for my format to have a specific control. If one would like to have some line breaks, there's also a checkbox to allow line breaks in any part.
+
+========================================
+
+Chapter 5: Play-along Design Overview
+
+The Play-along function will make BrailleOrch like a common notation program, letting blind musicians read music along playing. the cursor and line will follow the playback. Since the current braille displays only has one line to display braille, the user must first choose an instrument or hand of the piano to follow.
+When pressing ctrl+alt+l, we enter the mode. A dialog will appear, asking you to choose which instrument and which measure it will follow. The default will be the current instrument and cthe current measure. By pressing Enter or OK button, the software comes back to normal working area. But now, all editing functions will be disabled, and we enter the play-along mode. To exit this mode, choose Play-along from the Playback menu or press the shortcut again.
+
+In this mode:
+pressing Space will start/stop playback;
+Pressing "b" to play the current measure;
+Pressing "v" to play the current voice:
+Pressing "p" to play the current measure of the current part;
+Pressing shift+p to play the current part from the current location;
+Pressing left+right arrow to jump backward/forward one measure;
+Pressing up/down arrow to jump to the previous/next instrument or hand;
+Pressing alt+up/down to cycle among voices on the staff.
+Press ctrl+up/down to make tempo faster/slower regardless the tempo setting in the original file;
+TBC: playback of other selections; navigation and playback etc.
 
 ========================================
 
