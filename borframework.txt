@@ -27,8 +27,9 @@ Preliminary Materials
 1. Purpose
 2. Requirements
 3. About BrailleOrch and BMML Format
-4. About This Framework
-5. Working Progress
+4. About braille codebooks used in this development
+5. About This Framework
+6. Working Progress
 Chapter 1: Menu Overview
 1.1 File Menu
 1.2 Edit Menu
@@ -91,12 +92,21 @@ The second one is a BMML file which is just a mapped format from Musicxml, and i
 
 ----------------------------------------
 
-4. About This Framework
+4. About braille codebooks used in this development
+The braille music code used to manage the transcription work is based on New International Manual Of Braille Music Notation published in 1996 in Switzerland. You can download a MS Word version:
+http://www.rnib.org.uk/sites/default/files/New%20International%20Manual.doc
+Also, some additional features and symbols may be taken from the newer codebook Music Braille Code 2015 published in The US. Since this book is mainly used by American countries, the New International Manual will always be the first reference. You can download the 2015 American code as both PDF and Braille formats at:
+http://www.brailleauthority.org/music/music.html
+In future development, we can implement both codebooks to output both formats via the users' choice.
+
+----------------------------------------
+
+5. About This Framework
 This comprehensive document will describe all menus and functions of BrailleOrch. People who wants to develop/enhance the software must read it carefully. It will, however, not discuss the development of current BMML and Musicxml to braille transcription issues. These will be discussed either in a separate article, or in a future mailinglist or forum. Only critical requirement of changes needed to be done are shown.
 
 ----------------------------------------
 
-5. Working Progress
+6. Working Progress
 Since this is an extensive project for a highly sophisticated software, we have to divide the development session into several phases.
 
 The first phase is to build up a general GUI, containing basic menus and functions. Use original BMML source to define and enhance braille music transcription. Missing signs in BMML DTD must be added. Basic functions in Page setup, Score/Part/Text/Lyrics/Chords/Metronome management and Transcription options dialogs should be done. Bar-over-bar and line-over-line formats are firstly considered, also my special format is OK. The result braille music score can represent at least 95% information of print version. The score can be manually edited, but not reformatted and retagged automatically, since this requires deeper research of BMML and further development of the software. The user-edited strings are gray-colored, and simply marked as "other" in BMML, and can be tagged in future versions of the software.
