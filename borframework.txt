@@ -676,7 +676,7 @@ Will start a new braille system from the current measure. A confirmation prompt 
 ----------------------------------------
 
 3.3 Debugging Mode
-This is a special tool for advanced users or developers to find errors in both Musicxml and BMML. Most of the errors are from incomplete musicxml, or some undeveloped features making BrailleOrch ill. The debugging mode will show errors and let you correct fatal errors on-the-fly.
+This is a special tool for advanced users or developers to find errors in both Musicxml and BMML, or define new translation features when new version of Musicxml is released. Most of the errors are from incomplete musicxml, or some undeveloped features making BrailleOrch ill. The debugging mode will show errors and let you correct fatal errors on-the-fly. Newly defined features can be stored in the user definition file for future use. If I die one day, or if my team dismiss one day, future users can still keep my software new with the latest version of musicxml, as long as they know how to do it.
 
 This mode will generate two extra windows linked to the main braille edit window (ctrl+1), one for Musicxml (ctrl+2) and the other BMML (ctrl+3) respectively. Ctrl+tab and shift+ctrl+tab can also cycle among these windows.
 
@@ -684,7 +684,7 @@ When navigating in one window, the other two will also be updated. For example, 
 
 Toolbar:
 find error (ctrl+F2)
-Liit all errors in a box to choose. The list shows errors layouted as part-measure-voice-beat. Press OK to jump there.
+List all errors in a box to choose. The list shows errors layouted as part-measure-voice-beat. Press OK to jump there.
 Next error (Ctrl+F5)
 Previous error (ctrl+F3)
 Ignore (ctrl+)
@@ -695,6 +695,8 @@ In the two xml windows, you can't do any copy/paste functions, but can still ent
 For compressed Musicxml files (.mxl), some pieces may contain pictures for either cover pages or unusual music symbols or others. When images are available, there are two ways to access them visually on the screen:
 1. Press Ctrl+I in the Musicxml window. If BrailleOrch finds any images, a list will appear, describing filename, part, staff and bar numbers. Choose one and press enter or OK, the picture can display on the screen, and the cursor will locate on the image link code.
 2. On a line of image source link, press Ctrl+Alt+I to view this image.
+
+TODO: Write advanced function plan for defining new features.
 
 ========================================
 
