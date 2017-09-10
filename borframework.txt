@@ -77,7 +77,7 @@ Since this software is free, and under GPL and Veia free software licenses, anyo
 ----------------------------------------
 
 2. Requirements
-An experienced Python and XML knowledge is required for developing this software. A basic Github knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius (see the fourth phase in section 5). Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
+An experienced Python (or C++ or others, depending on what language the psoftware will be written finally) and XML knowledge is required for developing this software. A basic Github knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius (see the fourth phase in section 5). Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
 
 The software will run under any Microsoft Windows systems, from Windows 2000/XP to Windows 10, both 32 and 64 bits. A screen reader such as NVDA is required for announcing unicode braille objects. Music publishers and sighted braille transcribers are not asked for this option.
 
