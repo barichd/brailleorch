@@ -99,7 +99,7 @@ The second one is a BMML file which is just a mapped format from Musicxml, and i
 ### 4. About braille music codebooks used in this development {#codebooks}
 
 The braille music code used to manage the transcription work is based on New International Manual Of Braille Music Notation published in 1996 in Switzerland. You can download a MS Word version [here](http://www.rnib.org.uk/sites/default/files/New%20International%20Manual.doc).  
-Also, some additional features and symbols may be taken from the newer codebook Music Braille Code 2015 published in The US. Since this book is mainly used by American countries, the New International Manual will always be the first reference. You can download the 2015 American code as both PDF and Braille formats [here}(http://www.brailleauthority.org/music/music.html).  
+Also, some additional features and symbols may be taken from the newer codebook Music Braille Code 2015 published in The US. Since this book is mainly used by American countries, the New International Manual will always be the first reference. You can download the 2015 American code as both PDF and Braille formats [here](http://www.brailleauthority.org/music/music.html).  
 In future development, we can implement both codebooks to output both formats via the users' choice.
 
 **********
