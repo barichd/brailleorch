@@ -33,38 +33,38 @@ You should have received a copy of the GNU General Public License along with Bra
 [6. Development Requirements](#requirements)  
 [7. Working Progress](#progress)  
 [Chapter 1: Menu Overview](#overview)  
-[1.1 File Menu](#1.1)  
-[1.2 Edit Menu](#1.2)  
-[1.3 View Menu](#1.3)  
-[1.4 Navigation Menu](#1.4)  
-[1.5 Transcription Menu](1.5)  
-[1.6 Braille Music Menu](#1.6)  
-[1.7 Playback Menu](#1.7)  
-[1.8 Options Menu](1.8)  
-[1.9 Window Menu](#1.9)  
-[1.10 Help Menu](#1.10)  
+[1.1 File Menu](#aa)  
+[1.2 Edit Menu](#ab)  
+[1.3 View Menu](#ac)  
+[1.4 Navigation Menu](ad#)  
+[1.5 Transcription Menu](#ae)  
+[1.6 Braille Music Menu](#af)  
+[1.7 Playback Menu](#ag)  
+[1.8 Options Menu](#ah)  
+[1.9 Window Menu](#ai)  
+[1.10 Help Menu](#aj)  
 [Chapter 2: Deeper view of transcription function](#transcription)  
-[2.1 Transcription Dialog](#2.1)  
-[2.2 Transpose dialog](#2.2)  
-[2.3 Score Management Dialog](#2.3)  
-[2.4 Part Management Dialog](#2.4)  
-[2.5 Text Management Dialog](#2.5)  
-[2.6 Lyrics Management Dialog](#2.6)  
-[2.7 Chords dialog](#2.7=  
-[2.8 Metronome Dialog](#2.8)  
+[2.1 Transcription Dialog](#ba)  
+[2.2 Transpose dialog](#bb)  
+[2.3 Score Management Dialog](#bc)  
+[2.4 Part Management Dialog](#bd)  
+[2.5 Text Management Dialog](#be)  
+[2.6 Lyrics Management Dialog](#bf)  
+[2.7 Chords dialog](#bg)  
+[2.8 Metronome Dialog](#bh)  
 [Chapter 3: Braille Music Editing And Debugging Related Points](#edit)  
-[3.1 GUI specifications](#3.1)  
-[3.2 Entering And Marking Items, transcription related](#3.2)  
-[3.3 Debugging Mode](#3.3)  
-[3.4 Define New Features](#3.4)  
+[3.1 GUI specifications](#ca)  
+[3.2 Entering And Marking Items, transcription related](#cb)  
+[3.3 Debugging Mode](#cc)  
+[3.4 Define New Features](#cd)  
 [Chapter 4: Options Dialog](#options)  
-[4.1 General Page](#4.1)  
-[4.2 Transcription Page](#4.2)  
-[4.3 Single-line Page](4.3)  
-[4.4 Bar-over-bar Page](#4.4)  
-[4.5 Line-over-line Page](#4.5)  
-[4.6 Section-by-section Page](#4.6)  
-[4.7 BrailleOrch format Page](#4.7)  
+[4.1 General Page](#da)  
+[4.2 Transcription Page](#db)  
+[4.3 Single-line Page](#dc)  
+[4.4 Bar-over-bar Page](#dd)  
+[4.5 Line-over-line Page](#de)  
+[4.6 Section-by-section Page](#df)  
+[4.7 BrailleOrch format Page](#dg)  
 [Chapter 5: Play-along Design Overview](#playalong)  
 [Contact Information](#contact)  
 
@@ -135,7 +135,7 @@ Since this is an extensive project for a highly sophisticated software, we have 
 
 The first phase is to build up a general GUI, containing basic menus and functions. Use original BMML source and extend it. Map most Musicxml elements except visual layout to BMML, create coresponding braille symbol elements, and define rules for transcription. Basic functions in Page setup, Score/Part/Text/Lyrics/Chords/Metronome management and Transcription options dialogs should be done. Bar-over-bar and line-over-line formats are firstly considered, also my special BrailleOrch format is OK. The result braille music score can represent at least 95% information of print version. The  score can be manually edited, but not reformatted and retagged automatically, since this requires deeper research of BMML and further development of the software. The user-edited strings are gray-colored, and simply marked as "other" in BMML, and can be tagged in future versions of the software.
 
-The second phase is to enhance transcription quality. Items in Musicxml 3.1 or later should be added, and the formatting function must be more flexible. Add [Define New Features](#3.4) function. Add section-by-section format. Enhance translation table to add support to Chinese Mandarin braille (Cantonese and Taiwanese Chinese braille have already been done in Liblouis).
+The second phase is to enhance transcription quality. Items in Musicxml 3.1 or later should be added, and the formatting function must be more flexible. Add [Define New Features](#cd) function. Add section-by-section format. Enhance translation table to add support to Chinese Mandarin braille (Cantonese and Taiwanese Chinese braille have already been done in Liblouis).
 
 The third phase is to enhance the reformatting function. The software can recognize most user-entered strings as music signs, texts etc, and can correctly break lines when reformatted.
 
@@ -151,7 +151,7 @@ The last phase is to develop the braille music composing function. Since the sof
 
 This chapter describes all menus and submenus. It gives us a brief view of the major functions of BrailleOrch.
 
-### 1.1 File Menu {#1.1}
+### 1.1 File Menu {#aa}
 
 New  
 To create a new BMML document. This will not be considered currently, unless we decide to develop braille music composing side. Braille Music Editor 2 from [Veia Progetti](http://www.veia.it) can do a intermediate level work of it, and blind musicians can now use ABC, Lilypond and Sibelius to produce print music scores. So our main goal is to develop a transcription software.
@@ -175,7 +175,7 @@ Versioning function is for further comparison of the score. The version files wi
 Saving an earlier version will bring up a dialog, asking whether you want to save a new version or overwrite the current non-version file.
 
 Set copy protection  
-This is a special function for protecting music pubisher's copyright. After they convert their scores into musicxml and import into BrailleOrch, they can immediately set this option. The braille score can still be edited, reformatted and embossed, but can't be exported into musicxml for back-translation. The file is also encrypted, so it also can't be saved as bmml format. Any debugging process upon the xml source and bmml score can, however, be done using the internal [debugging](#3.3) interface.  
+This is a special function for protecting music pubisher's copyright. After they convert their scores into musicxml and import into BrailleOrch, they can immediately set this option. The braille score can still be edited, reformatted and embossed, but can't be exported into musicxml for back-translation. The file is also encrypted, so it also can't be saved as bmml format. Any debugging process upon the xml source and bmml score can, however, be done using the internal [debugging](#cc) interface.  
 Be careful to use this function, since it's not reversable. We should provide two times of verification dialog for this. Another possibility is, we can toggle this item visible and invisible in the ["Options"](#options) dialog, to prevent accidental operation by common users.
 
 Make final document  
@@ -186,7 +186,7 @@ Close All
 Close the current working document(s).
 
 Import  
-Import Musicxml files, from version 1.0 to the latest version, both compressed (.mxl) and uncompressed (.xml and .musicxml). The transcription process will begin, see [Transcription dialog](#2.1) for details.  
+Import Musicxml files, from version 1.0 to the latest version, both compressed (.mxl) and uncompressed (.xml and .musicxml). The transcription process will begin, see [Transcription dialog](#ba) for details.  
 Import ASCII/unicode braille file, making ASCII2Unicode or vice versa conversion according to chosen braille table. This will not automatically generate a BMML format, but just storing and converting original data. This way, the .bor file is just a compressed version of original source. When we decide to develop braille music composing side, this situation will be changed.  
 Importing MIDI file will also be considered in the future.
 
@@ -216,7 +216,7 @@ Quit the software.
 
 **********
 
-### 1.2 Edit Menu {#1.2}
+### 1.2 Edit Menu {#ab}
 
 Undo  
 Undo the previous operations.
@@ -253,14 +253,14 @@ However, there's an checkbox to switch on "searching for texts", which switches 
 
 **********
 
-### 1.3 View Menu {#1.3}
+### 1.3 View Menu {#ac}
 
 The common view menu for sighted users. It includes simple view options such as zooming, visibility of toolbar, and braille reading modes etc.  
 Braille reading mode will give us options to choose white-screen-black-dots or black-screen-white/blue/green-dots.
 
 **********
 
-### 1.4 Navigation Menu {#1.4}
+### 1.4 Navigation Menu {#ad}
 
 Besides common arrow navigations of individual braille cells or lines, there are some special functions.
 
@@ -300,12 +300,12 @@ Go to end of selection (Ctrl+F6)
 
 **********
 
-### 1.5 Transcription Menu {#1.5}
+### 1.5 Transcription Menu {#ae}
 
 This menu handles various transcription functions.
 
 Transcribe  
-This is a manual action of transcription. If the user wants to start from fresh beginning to undo all previous modification, or after debugging problematic musicxml file, this will start a new transcription session. The [Transcription dialog](#2.1) will or will not appear according to settings in the dialog or [Options dialog](#options).
+This is a manual action of transcription. If the user wants to start from fresh beginning to undo all previous modification, or after debugging problematic musicxml file, this will start a new transcription session. The [Transcription dialog](#ba) will or will not appear according to settings in the dialog or [Options dialog](#options).
 
 Format (submenu)  
 Bar-over-bar (default)  
@@ -314,13 +314,13 @@ Section-by-section
 Brailleorch  
 These 4 options will change the current format of score. The formatting will be done according to settings in [Options dialog](#options). We highly recommend users to set their preferred formats as default in the [options dialog](#options), to reduce any messy formatting problems.  
 All detailed options for these formats can be found and will be discussed in the [Options Dialog](#options) section.  
-For single-staff instrument solo, the above will be unavailable, and settings for [single-line format](#4.3) will be applied. See corresponding settings in [Options dialog](#options) for details.
+For single-staff instrument solo, the above will be unavailable, and settings for [single-line format](#dc) will be applied. See corresponding settings in [Options dialog](#options) for details.
 
 Format  
 Format or reformat the braille score after manual editing and correction. Formatting layout will follow rules set in Score/Part/Text/Lyrics/Chords/Metronome, Options and Page setup dialogs. Options changed after transcription process can also be applied.
 
 Debugging mode  
-A special mode used for checking errors and enhancing the software. See [Debugging Mode](#3.3) for details.
+A special mode used for checking errors and enhancing the software. See [Debugging Mode](#cc) for details.
 
 Output interval direction description  
 A dialog appears, letting you to view the description. There are 2 kinds of description:  
@@ -331,7 +331,7 @@ b. Notation: a C with second interval sign, space, two dots 3-5's, space, two no
 All intervals are read upwards/downwards, except blah blah, which is/are read downwards/upwards.
 
 Output part list  
-See this item in [Part management dialog](#2.4) for details.
+See this item in [Part management dialog](#bd) for details.
 
 Extract parts  
 Extract parts for players/singers. A dialog appears, letting you check part(s) to extract. New .bor documents with only bmml sources for individual parts will be created. You can change the order of parts, or choose whether to extract parts as individual files or just one file shwing parts one by one. If "combine individual parts" is checked, the result file will generate a full score containing selected parts (this is useful for publishing choir-with-orchestra scores containing choir parts only).
@@ -341,7 +341,7 @@ A reversed operation of part extraction. A dialog appears, letting you add files
 
 **********
 
-### 1.6 Braille Music Menu {#1.6}
+### 1.6 Braille Music Menu {#af}
 
 This menu gives us several functions of editing and correcting braille music score. Some are very sophisticated functions.  
 This menu will be modified and extended when we decide to develop braille music composing function.
@@ -350,14 +350,14 @@ Input (submenu)
 Insert notes (n)  
 Enter notes/rests/voices, generally all music-related signs.  
 Insert texts (x)  
-Enter texts using standard input method. Untranslated unicode texts such as Chinese will be accepted, and can be edited later. All text-related adjustment can be done in [Text management dialog](#2.5).  
+Enter texts using standard input method. Untranslated unicode texts such as Chinese will be accepted, and can be edited later. All text-related adjustment can be done in [Text management dialog](#be).  
 Insert key signature (shift+k) (to solve conflict with braille key)  
 Insert time signature (t)  
 These two use braille input.  
 Insert chord names and figured bass (c)  
 Braille input of chord and figure symbols.  
 Insert title page information (i)  
-Insert title info at top of system. See [Score management dialog](#2.3) for details.  
+Insert title info at top of system. See [Score management dialog](#bc) for details.  
 There's a checkbox for inserting title information on a blank page. If checked, a blank page will be created.  
 Insert footnotes (o)  
 Add a line of dots 2-5's plus footnotes.  
@@ -378,33 +378,33 @@ Other tags and properties can be marked using context menu directly on braille o
 Display images  
 This menu is for extracting pictures contained in compressed Musicxml files (.mxl), which may be cover page images or special music symbols not being able to enter in notation programs. The listbox describes the details of every image file as this:  
 filename, part number, staff number, bar number, and beat position.  
-Press View to read the image on screen, and press OK to bring the cursor to the location for transcribers to enter appropriate braille symbols. Press Define to define a symbol globally in this score. See [Define New Features](#3.4) for details.
+Press View to read the image on screen, and press OK to bring the cursor to the location for transcribers to enter appropriate braille symbols. Press Define to define a symbol globally in this score. See [Define New Features](#cd) for details.
 
 Transpose  
-This dialog will handle score/parts transposition. See [corresponding section](#2.2) for details.
+This dialog will handle score/parts transposition. See [corresponding section](#bb) for details.
 
 Score management  
-A tool for managing various items such as page/measure numbering, movement divisions etc for the whole score or selected block. See [corresponding section](#2.3) for details.
+A tool for managing various items such as page/measure numbering, movement divisions etc for the whole score or selected block. See [corresponding section](#bc) for details.
 
 Part management  
-A very powerful tool for managing part names and grouping properties in the score. See [corresponding section](#2.4) for details.
+A very powerful tool for managing part names and grouping properties in the score. See [corresponding section](#bd) for details.
 
 Text management  
-A very powerful tool for managing various text items in the score. See [corresponding section](#2.5) for details.
+A very powerful tool for managing various text items in the score. See [corresponding section](#be) for details.
 
 Lyrics management  
-A tool for managing lyrics in the score. See [corresponding section](#2.6) for details.
+A tool for managing lyrics in the score. See [corresponding section](#bf) for details.
 
 Chords management  
 (to do it later)
-A tool for modifying chord symbols. See [coresponding section](#2.7) for details.
+A tool for modifying chord symbols. See [coresponding section](#bg) for details.
 
 Metronome management  
-A tool to manage metronome marks in the score. See [corresponding section](#2.8) for details.
+A tool to manage metronome marks in the score. See [corresponding section](#bh) for details.
 
 **********
 
-### 1.7 Playback Menu {#1.7}
+### 1.7 Playback Menu {#ag}
 
 Play/stop (ctrl+l)  
 Play current measure (shift+l)  
@@ -426,7 +426,7 @@ Choose from available sound devices for Midi playback.
 
 **********
 
-### 1.8 Options Menu {#1.8}
+### 1.8 Options Menu {#ah}
 
 Options  
 Comprehensive settings dialog. Discussed in [separate chapter](#options).
@@ -441,13 +441,13 @@ Generally, Braille will announce things like "dot 5, dots 1 4 5", and Object wil
 
 **********
 
-### 1.9 Window Menu {#1.9}
+### 1.9 Window Menu {#ai}
 
 Standard window menu, such as tile, cascade etc.
 
 **********
 
-### 1.10 Help Menu {#1.10}
+### 1.10 Help Menu {#aj}
 
 About  
 User manual (F1)  
@@ -462,7 +462,7 @@ This is the core of the software, so please be careful to read it. For knowledge
 
 The software will treat score with only one part with one staff as single-line format. It will automatically treat score with only one part with two to four staves as piano (or organ, chosen by the user) format. It will treat score with one single-line part above one multi-stave part as solo with keyboard accompaniment part, and add dots 5 3-4-5 prefix before the single-line part.
 
-### 2.1 Transcription dialog {#2.1}
+### 2.1 Transcription dialog {#ba}
 
 Note: All dialogs in this software have "ok" and "cancel" buttons.
 
@@ -477,7 +477,7 @@ bar-over-bar, line-over-line, section-by-section and BrailleOrch. Default is bar
 When one format is chosen, the corresponding option button will be shown, bringing user to corresponding items in Options dialog.
 
 Page setup  
-Brings up Page setup dialog in [File menu](#1.1).
+Brings up Page setup dialog in [File menu](#aa).
 
 Starting braille page  
 Starting print page  
@@ -485,23 +485,23 @@ Starting measure number
 These 3 edit boxes let the user fill in specific numbers overriding musicxml's values and default braille transcription settings.
 
 Score/Part/Text/Lyrics/Chords/metronome management  
-Bring up corresponding dialogs which are also available in [Braille Music menu](#1.6).
+Bring up corresponding dialogs which are also available in [Braille Music menu](#af).
 
 Transcription settings  
-Bring up [Transcription settings](#4.2) in [Options dialog](#options).
+Bring up [Transcription settings](#db) in [Options dialog](#options).
 
 Translation table  
 Used for text translation. This can also be seen in Options and Score/Part/Text/Lyrics/Chords management dialogs.
 
 Add hand change signs for selected passage  
-This is for piano or other 2-staff music. See the same item in [section 3.2](#3.2) for details.
+This is for piano or other 2-staff music. See the same item in [section 3.2](#cb) for details.
 
 Don't show this dialog (default unchecked)  
 Disable this dialog, using options previously set.
 
 **********
 
-### 2.2 Transpose dialog {#2.2}
+### 2.2 Transpose dialog {#bb}
 
 Transpose (radio button)  
 Display original transposition (default)  
@@ -513,7 +513,7 @@ When transposed, the BMML must leave a record of the original key. So if we come
 
 **********
 
-### 2.3 Score Management Dialog {#2.3}
+### 2.3 Score Management Dialog {#bc}
 
 Description of the score  
 This is a read-only text box, showing summary of the score. Available items are: general header, individual headers (headers with their starting print/braille pages), number of print/braille pages, number of measures and parts, page format, score format (single-line, bar-over-bar, line-over-line, section-by-section and BrailleOrch).
@@ -534,12 +534,12 @@ Indentation: edit box. Default, by 2 cells.
 Context menu for the above items should add "Translation table" to handle the braille manually.
 
 Note:  
-1\. Current untranslatabre texts such as Chinese characters can be manually translated via [Text management dialog](#2.5) in context menu.  
+1\. Current untranslatabre texts such as Chinese characters can be manually translated via [Text management dialog](#be) in context menu.  
 2\. If items in this dialog are removed completely, and no user-entered info are on title and TOC pages, the blank pages will always be removed automatically. Division signs will be removed even they are not deleted here.
 
 **********
 
-### 2.4 Part Management Dialog {#2.4}
+### 2.4 Part Management Dialog {#bd}
 
 Some Musicxml files have long part/abbreviation names, some have these names missing, some have group names and abbreviations for grouped staves, and some have instrument changes during the music. These are not able to be transcribed correctly. Here's a powerful tool for solving this problem.  
 Part names and abbreviations will be automatically transcribed into braille, except Chinese, which can be edited in the Braille parts list table.  
@@ -593,9 +593,9 @@ Will always use default part names and abbreviations.
 
 **********
 
-### 2.5 Text Management Dialog {#2.5}
+### 2.5 Text Management Dialog {#be}
 
-A comprehensive dialog like [Part management dialog](#2.4). It lists out all texts items in the score. For dialog opened in this way, only words, credit items, rehearsal marks, instrument change texts, percussion beaters and DoletSibelius unrecognized system texts are listed. When opened using context menu in the braille score, items such as title page and TOC info can be displayed.
+A comprehensive dialog like [Part management dialog](#bd). It lists out all texts items in the score. For dialog opened in this way, only words, credit items, rehearsal marks, instrument change texts, percussion beaters and DoletSibelius unrecognized system texts are listed. When opened using context menu in the braille score, items such as title page and TOC info can be displayed.
 
 Text list  
 A same table as part list, but with different grids:  
@@ -634,9 +634,9 @@ Radio buttons. For long text blocks, hyphenation is required. The options are (E
 
 **********
 
-### 2.6 Lyrics Management Dialog {#2.6}
+### 2.6 Lyrics Management Dialog {#bf}
 
-A dialog showing table like [Text management](#2.5). The layout is:  
+A dialog showing table like [Text management](#be). The layout is:  
 part, lyrics  
 But since the lyrics are long blocks, they will not be displayed completely here. The beginning 5 words will be shown, and when pressing F2, a dialog containing multiple line editbox will appear for you to edit. In the dialog, there are radio buttons to switch between print and braille mode.
 
@@ -661,13 +661,13 @@ If same word(s) are repeated, use repeat signs (one or two dots 3-5's and one 3-
 Add prefix before lyrics  
 Add a singer prefix (without word sign) according to the part this lyric line is associated to.
 
-### 2.7 Chords Management {#2.7}
+### 2.7 Chords Management {#bg}
 
 (to do it later)
 
 **********
 
-### 2.8 Metronome Dialog {#2.8}
+### 2.8 Metronome Dialog {#bh}
 
 This is a list of all metronome marks in the score. Press F2 to edit in either braille or common mode (e.g., 4=120, 4.=80).
 
@@ -677,15 +677,15 @@ This is a list of all metronome marks in the score. Press F2 to edit in either b
 
 This chapter discusses braille music editing and correction related subjects.
 
-### 3.1 GUI specifications {#3.1}
+### 3.1 GUI specifications {#ca}
 
-The working area of BrailleOrch is an edit window like Windows notepad. Items entered and displayed here are all unicode braille. Untranslatable items such as Chinese characters are displayed as yellow question marks, and in braille output, a set of computer-braille question marks (dots 1-4-5-6). Untagged items such as user-entered customized items are marked as "other" in bmml and displayed in gray. BrailleOrch can also ignore non-fatal musicxml errors, and displays such problematic items in red. Very serious error such as unmatched element tags will generate warnings, and store the xml into .bor file for debugging. Once debugging is finished, it can then be transcribed using Transcribe under [Transcription Menu](#1.5).
+The working area of BrailleOrch is an edit window like Windows notepad. Items entered and displayed here are all unicode braille. Untranslatable items such as Chinese characters are displayed as yellow question marks, and in braille output, a set of computer-braille question marks (dots 1-4-5-6). Untagged items such as user-entered customized items are marked as "other" in bmml and displayed in gray. BrailleOrch can also ignore non-fatal musicxml errors, and displays such problematic items in red. Very serious error such as unmatched element tags will generate warnings, and store the xml into .bor file for debugging. Once debugging is finished, it can then be transcribed using Transcribe under [Transcription Menu](#ae).
 
 Items in the edit window must be announced via screen readers such as NVDA. The description should be as brief but clear as possible. Dots should also be announced. Settings of announcing modes are in Options Menu.
 
 **********
 
-### 3.2 Entering, selecting And Marking Items, transcription related {#3.2}
+### 3.2 Entering, selecting And Marking Items, transcription related {#cb}
 
 When correcting the music, for example, adding missing signs, moving words' position etc, please press letter n to start entering notes/rests/articulations. BrailleOrch will recognize them automatically. Unfinished enter will be tagged and announced as "other".  
 (Note: make this complicated function later, now just tag all user-entered strings as "other". So reformatting of individual lines must be done manually, like manual transcription.)  
@@ -697,7 +697,7 @@ Note: After editing a part prefix, a confirmation dialog will appear, asking you
 Note to BMML developers: In such case, the partlist will generate an extra sub-element to show a different prefix, from and to which measure. Or we can directly insert such tag within the score itself, like temporary midi instrument changes or part naming elements in Musicxml.
 
 Selecting parts  
-This function is copied from notation and sequencing softwares like Sibelius and Sonar. You can use ctrl+comma to select parts you want to delete, rename and move globally. For example, selecting parts 1 (piccolo) and 3 (oboes) and then select measure 5-12, then choose [Part management](#2.4), renaming the prefixes will ask you whether to rename them globally or just for selected measures. This will also ease modification for temporary divisi or instrument changes for multiple parts.
+This function is copied from notation and sequencing softwares like Sibelius and Sonar. You can use ctrl+comma to select parts you want to delete, rename and move globally. For example, selecting parts 1 (piccolo) and 3 (oboes) and then select measure 5-12, then choose [Part management](#bd), renaming the prefixes will ask you whether to rename them globally or just for selected measures. This will also ease modification for temporary divisi or instrument changes for multiple parts.
 
 Context menu for marking items  
 Besides common edit context items, here are some special ones:  
@@ -724,7 +724,7 @@ Will start a new braille system from the current measure. A confirmation prompt 
 
 **********
 
-### 3.3 Debugging Mode {#3.3}
+### 3.3 Debugging Mode {#cc}
 
 This is a special tool for advanced users or developers to find errors in both Musicxml and BMML, or define new translation features when new version of Musicxml is released. Most of the errors are from incomplete musicxml, or some undeveloped features making BrailleOrch ill. The debugging mode will show errors and let you correct fatal errors on-the-fly. Newly defined features can be stored in the user definition file for future use. If I die one day, or if my team dismiss one day, future users can still keep my software new with the latest version of musicxml, as long as they know how to do it.
 
@@ -748,7 +748,7 @@ For compressed Musicxml files (.mxl), some pieces may contain pictures for eithe
 
 **********
 
-### 3.4 Defining New Features {#3.4}
+### 3.4 Defining New Features {#cd}
 
 Sometimes a musicxml file contains advanced symbols which are not available in braille, or there are unexported signs marked as certain tags, or there may contain dozens of images. Moreover, as musicxml version updates, more unknown elements can be included. So we must invent a tool to store our new definitions, without troubling the programmers to update the software too frequently. The defined rules and signs will be stored as a user configuration file in "My Document\BrailleOrch\User Config" folder, and can be shared and even included in future versions of the software.
 
@@ -778,19 +778,19 @@ You can create a branch on Github, and upload your definitions there. Or we can 
 
 Ah, we come to the most detailed chapter, wholely dedicated to the most sophisticated part--Options dialog! This is a multipage dialog, with several category pages dealing with almost all problems with braille music transcription. Settings in this dialog will apply globally to any imported Musicxml files.
 
-### 4.1 General Page {#4.1}
+### 4.1 General Page {#da}
 
 Default language (combo box)  
 Current English only. More languages will be added later. You can even create your own language file.
 
 Show transcription dialog after importing (checkbox, default checked)  
-Whether show [Transcription dialog](#2.1) before processing Musicxml file. If not, the transcription will be done according to previously defined settings.
+Whether show [Transcription dialog](#ba) before processing Musicxml file. If not, the transcription will be done according to previously defined settings.
 
 Open debugging dialog when fatal error occurs (radio button)  
 Yes  
 No  
 Ask me first (default)  
-When serious xml errors are found, the software will automatically open the [Debugging mode](#3.3) if Yes. You can use find error function to navigate in all 3 windows. In most case, braille window will be empty, so please choose Transcribe in [Transcription menu](#1.5) after correction.
+When serious xml errors are found, the software will automatically open the [Debugging mode](#cc) if Yes. You can use find error function to navigate in all 3 windows. In most case, braille window will be empty, so please choose Transcribe in [Transcription menu](#ae) after correction.
 
 Workspace color (combo box)  
 White screen black braille (default)  
@@ -799,11 +799,11 @@ Black screen green braille
 Black screen blue braille
 
 Page setup (button)  
-Bring up Page setup dialog in [File menu](#1.1).
+Bring up Page setup dialog in [File menu](#aa).
 
 **********
 
-### 4.2 Transcription Page {#4.2}
+### 4.2 Transcription Page {#bd}
 
 Translation table (combo box)  
 List out all translation tables for literary braille.
@@ -849,10 +849,10 @@ USA
 The text format treats harp pedalling in common text format, converting the table into note names and accidentals. The USA new format (came out in the Music Braille Code 2015) will generate a set of symbols on top of the harp staves.
 
 Output interval direction description (checkbox, default checked)  
-See this item in [Transcription dialog](#2.1) for details.
+See this item in [Transcription dialog](#ba) for details.
 
 Output part list (checkbox, default checked)  
-This will usually generate new braille page(s) before the first music page. The list will show all parts and braille abbrev names listed and edited in the part tables in [Part management dialog](#2.4). 2-cell indentation for long names is automatic. New line can also be entered by pressing shift+enter in braille input mode in Braille part list table.
+This will usually generate new braille page(s) before the first music page. The list will show all parts and braille abbrev names listed and edited in the part tables in [Part management dialog](#bd). 2-cell indentation for long names is automatic. New line can also be entered by pressing shift+enter in braille input mode in Braille part list table.
 
 Output part list option (radio button)  
 On new page (default)  
@@ -861,7 +861,7 @@ When only keyboard without part name is available, always don't use a new page, 
 
 **********
 
-### 4.3 Single-line Page {#4.3}
+### 4.3 Single-line Page {#dc}
 
 format (radio button)  
 Continuous  
@@ -882,7 +882,7 @@ If checked, two or three full-measure rests will be combined without spaces, and
 
 **********
 
-### 4.4 Bar-over-bar Page {#4.4}
+### 4.4 Bar-over-bar Page {#dd}
 
 Extra octave marks (radio button)  
 None  
@@ -973,7 +973,7 @@ By default, both bar-over-bar and line-over-line will start a new parallel when 
 
 **********
 
-### 4.5 Line-over-line Page {#4.5}
+### 4.5 Line-over-line Page {#de}
 
 The main difference of these two formats is whether to vertically align measures in all staves of the system. In line-over-line, all measures in a system are not aligned, and once there's a staff which doesn't come to line break, other staves can continue with several lines of music. The advantage of line-over-line is saving paper.
 
@@ -989,7 +989,7 @@ Ignore new system will turn off system number completely.
 
 **********
 
-### 4.6 Section-by-section Page {#4.6}
+### 4.6 Section-by-section Page {#df}
 
 Section-by-section is used in many countries with varied layouts. Here, I choose some classical features for the users. If anyone who wants a different layout, please contact Daniel Barich for implementation.
 
@@ -1033,7 +1033,7 @@ Other options are nearly the same as line-over-line, including the Combine full-
 
 **********
 
-### 4.7 Brailleorch format Page {#4.7}
+### 4.7 Brailleorch format Page {#dg}
 
 When transcribing orchestral scores, I developed a special format, and now name it BrailleOrch, because these scores are solely for my braille music project.  
 In such a format, the layout is between bar-over-bar and line-over-line, where all measures in all parts are not vertically aligned, while all parts shouldn't have line break unless there's only one measure.
