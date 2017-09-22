@@ -106,11 +106,11 @@ In future development, we can implement both codebooks to output both formats vi
 
 ### 5. Capabilities The Software Must Reach{#capability}
 
-- Convert Musicxml files directly into well-formated braille music scores, leaving few post-editing effort to the users
+- Convert Musicxml files directly into well-formatted braille music scores, leaving few post-editing effort to the users
 - Transcribe all kinds of music from instrumental and vocal solo to complicated symphonic and dramatic works
 - Brief and clear description of music objects via screen readers while navigating
 - Flexible playback functions, including a smart play-along mode, to enhance the learning speed for blind musicians
-- Powerful and flexible editing and formating ability for both blind users and sighted transcribers
+- Powerful and flexible editing and formatting ability for both blind users and sighted transcribers
 - Support bar-over-bar, line-over-line, section-by-section and customized BrailleOrch formats, to fit most countries' braille music publishing standards
 - Support transposition, part extraction etc, producing various editions from one document
 - Support multiple language braille output with the help of Liblouis translation tables
