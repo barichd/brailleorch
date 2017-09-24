@@ -68,6 +68,8 @@ Part I: General Overview Of The Software
 Part II: General References Of Points During Development
 
 - [Chapter 4: BMML Enhancements](#bmml)
+- [4.1 Limited Learning Resources](4-1)
+- [4.2 Implementation Steps](#4-2)
 - [Chapter 5: Braille Specified Points](#braille)
 - [5.1 Braille Window](#5-1)
 - [5.2 Navigation In The Score](#5-2)
@@ -118,11 +120,11 @@ In future development, we can implement both codebooks to output both formats vi
 
 <h2 id="capability">E. Capabilities The Software Must Reach</h2>
 
-- Convert Musicxml files directly into well-formated braille music scores, leaving few post-editing effort to the users
+- Convert Musicxml files directly into well-formatted braille music scorres, leaving few post-editing effort to the users
 - Transcribe all kinds of music from instrumental and vocal solo to complicated symphonic and dramatic works
 - Brief and clear description of music objects via screen readers while navigating
 - Flexible playback functions, including a smart play-along mode, to enhance the learning speed for blind musicians
-- Powerful and flexible editing and formating ability for both blind users and sighted transcribers
+- Powerful and flexible editing and formatting ability for both blind users and sighted transcribers
 - Support bar-over-bar, line-over-line, section-by-section and customized BrailleOrch formats, to fit most countries' braille music publishing standards
 - Support transposition, part extraction etc, producing various editions from one document
 - Support multiple language braille output with the help of Liblouis translation tables
@@ -965,9 +967,30 @@ The options are nearly the same as in the previous two referred formats, and I e
 
 The current BMML is an incomplete implementation. There are lots of items not mapped from Musicxml, and the DTD is based on Musicxml 2.0.
 
-First, we should map most elements of Musicxml 3.0 or 3.1 to BMML, no matter whether the item has corresponding braille presentation, because braille music code is always under development, and can be flexibly customized. Elements such as instrument changes and percussion beaters must be mapped as common texts but with special indications to reserve future development of BMML to Musicxml conversion.
+<h3 id="4-1">4.1 Limited Learning Resources</h3>
 
-Then, we need to create a convertion tool to generate braille according to the elements, and place both elements of musicxml and braille into BMML source using braille music rules. Symbols not implemented in braille can be left empty for future development or customizing using the Definition feature under Debugging Mode of the GUI. If the generated BMML doesn't contain formatting rules, it should not generate braille, because it needs reposition of elements. On the other hand, if initial formatting is changed after transcription, there may  be an additional implementation to store original position of elements to reserve correct reformatting. Or we can make an additional copy of BMML which contains the raw mappings to reserve these changes. Manually added, deleted or changed items should be marked to let the users choose whether to keep them during reformatting.
+Before doing many enhancements, we must get to know BMML as much as possible. There's not a formal document describing every element of BMML, but we can learn from some sources. There are three documents from two different sites. Each of them gives information fragments about BMML's definition together with other points regarding braille music transcription. Some of the source websites mentioned in these articles are obsolete and in fact of no use.
+
+- [site 1 article 1](https://www.irit.fr/publis/SIG/2008_ICOMP_EJMR.pdf)
+- [site 1 article 2](https://www.irit.fr/publis/SIG/2009_TOISJ_EJMRA.pdf)
+- [site 2 article](http://bpfe.eclap.eu/eclap/axmedis/a/a79/00000-a7927300-b90e-45b9-957d-d450c03d177e/2/~saved-on-db-a7927300-b90e-45b9-957d-d450c03d177e.pdf)
+
+There are also two websites containing similar resources. They are two ended projects which developed BMML. The websites contain libraries of braille music scores in this format, and we can open and read them using Braille Music Reader it provides  for download. BMR is a read-only version of Braille Music Editor 2.
+
+- [contrapunctus (older)](http://www.contrapunctus.it)
+- [Music4vip (newer, now still running but not developing)](http://www.music4vip.eu)
+
+Also, there's a Googlecode archive containing original Python scripts which converts Musicxml into BMML. It's also an old tool, but we can learn from it and develop our own implements. The download is not available now, but I can provide the complete repository at the beginning of the development.
+
+**********
+
+<h3 id="4-2">4.2 Implementation Steps</h3>
+
+To make enhancements of BMML, we should first map most elements of Musicxml 3.0 or 3.1 to BMML, no matter whether the item has corresponding braille presentation, because braille music code is always under development, and can be flexibly customized. Layout information such as page/system/staff sizes and single object position can be ignored, because they are of no use in braille. Elements such as instrument changes and percussion beaters must be mapped as common texts but with special indications to reserve future development of BMML to Musicxml conversion.
+
+Next, we need to create a convertion tool to generate braille according to the elements, and place both elements of musicxml and braille into BMML source using braille music rules. Symbols not implemented in braille can be left empty for future development or customizing using the Definition feature under Debugging Mode of the GUI. If the generated BMML doesn't contain formatting rules, it should not generate braille, because it needs reposition of elements. On the other hand, if initial formatting is changed after transcription, there may  be an additional implementation to store original position of elements to reserve correct reformatting. Or we can make an additional copy of BMML which contains the raw mappings to reserve these changes. Manually added, deleted or changed items should be marked to let the users choose whether to keep them during reformatting.
+
+An additional note: Musicxml is formatted as either time-wise or part-wise, and almost all softwares export it as partwise. But BMML use part tags to render a quasi time-wise format, because braille music is not part-wise. However, we can imitate part-wise in BMML, and insert line breaks or other intermediate objects at certain places. This will ease future development of back-translation.
 
 **********
 
