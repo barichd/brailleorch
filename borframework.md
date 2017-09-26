@@ -4,7 +4,7 @@ By Hu Haipeng
 
 Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Sep 22, 2017  
+Last updated: Sep 26, 2017  
 
 Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
 Project designer: [Hu Haipeng](mailto:hhpcomposer@gmail.com)  
@@ -89,6 +89,8 @@ Part II: General References Of Points During Development
 <h2 id="purpose">A. Purpose</h2>
 
 This is a detailed framework of BrailleOrch, braille music transcription software for advanced formatting and publishing purpose. The final software will convert Musicxml files, or via a separate plugin, Sibelius files, into our extended Braille Music Markup Language (BMML) format (originally created, developed and copyrighted by [Veia Progetti s.r.l.](http://www.veia.it), Italy, as free software. See copyright information in the BMML package for details), which can be flexibly edited and modified, to fulfill most of the requirements of braille music publishment.
+
+Currently, most of the braille music transcription services still prefer to use traditional manual method to transcribe print music into braille, which is both expensive and time consuming. Although there are some free and commercial softwares available for braille music transcription, they are not accepted by transcribers due to their various limitations. What's more, although composers and mainstream music publishers use notation softwares, they are not willing to provide their source files out of office in case of copyright infringement. So it's very difficult to find high-quality original notation sources for authentic transcription. Our goal is to develop a software which makes braille music transcription as easy and smart as possible, and solves copyright problems, building a bridge between composers/publishers and braille music transcribers, and paving the last one kilometer of the way for blind musicians to easily access music scores like sighted people.
 
 Since this software is free, and under GPL and Veia free software licenses, anyone who are willing to help us can join in to develop and enhance it. We welcome people around the world to do anything making convenience to braille music production for blind musicians.
 
@@ -996,7 +998,7 @@ An additional note: Musicxml is formatted as either time-wise or part-wise, and 
 
 <h2 id="braille">Chapter 5: Braille Specified Points</h2>
 
-This chapter will be created and updated on scratch, but all of these points are critical for developing the software. General rules of braille music notation will not be repeated unless none of the current available softwares can do.
+This chapter will be created and updated on scratch, but all of these points are critical for developing the software. General rules of braille music notation will not be repeated unless none of the current available softwares can handle them well.
 
 **********
 
@@ -1031,9 +1033,17 @@ It's impossible to announce CJK texts cell by cell, so we can just announce usin
 
 <h3 id="5-3">5.3 Transcription related</h3>
 
+When a voice in a part has no rest but a "forward" command, we must add rest(s) according to the duration(s). Normally these rests are not shown in print, but in braille they are needed for reference. So we must add dot 5 before them to tell the readers they are "added". See below.
+
+There are two kinds of in-accord signs  for voice writing in braille--full measure and part measure in-accords. We should let the software to determine which one is needed. When there's a voice not occupy the whole measure, we should find a correct point  to let the adjacent voice to use part-measure in-accord. For example, the upper voice has a half and two quarters, while the lower has just one quarter at beat 1, and the rest of the measure is "forwarded" by the "forward" command. Then we can break the measure by two halves, use part-measure in-accord at  the first  part, and add a quarter rest with dot 5 after the quarter note.
+
 In bar-over-bar, line-over-line and BrailleOrch formats, we must let the software smartly detect how many bars it can fit on one line according to the current page settings. Especially in bar-over-bar and BrailleOrch, the amount of bars is also determined by other parts in the same braille   system.
 
-Line break during the music within a bar must have a music hyphen (dot 5) at the end of the line. If the line breaks after a word in long text block, music hyphen is not needed. Although a text block is treated as one "words" element in Musicxml, we must allow the software to add line breaks smartly, or allow manual line breaks, while still keeping the whole block as one object in BMML. Then BMML must contain a line break command on the braille side.
+In bar-over-bar format, when adding tracking dots, make sure there are at least 7 blank spaces. The minimal number of the tracking dots is 5.
+
+Braille line break during the music within a bar must have a music hyphen (dot 5) at the end of the line. If the line breaks after a word in long text block, music hyphen is not needed. Although a text block is treated as one "words" element in Musicxml, we must allow the software to add line breaks smartly, or allow manual line breaks, while still keeping the whole block as one object in BMML. Then BMML must contain a line break command on the braille side.
+
+There are two kinds of glissando lines in notation. One is a "gliss." with a sliding line, mainly placed during two notes, tagged as "glissando line" with start and stop values; the other is a sliding line which cross all notes it applies to, with no "gliss." indication, marked as "slide line" with start and stop values. In braille, both can be transcribed as dots 4-1. When two notes are applied, the sign is placed between two or three notes and after slur; when more than three notes are applied, place dots 4-1-3 after the first note (start) and dots 6-4-1 after the penultimate note.
 
 **********
 
@@ -1140,8 +1150,8 @@ You can create a branch on Github, and upload your definitions there. Or we can 
 
 <h2 id="playalong">Chapter 7: Play-along Function Overview</h2>
 
-The Play-along function will make BrailleOrch like a common notation program, letting blind musicians read music along playing. the cursor and line will follow the playback. Since the current braille displays only has one line to display braille, the user must first choose an instrument or hand of the piano to follow.  
-When pressing ctrl+alt+l, we enter the mode. A dialog will appear, asking you to choose which instrument and which measure it will follow. The default will be the current instrument and cthe current measure. By pressing Enter or OK button, the software comes back to normal working area. But now, all editing functions will be disabled, and we enter the play-along mode. To exit this mode, choose Play-along from the Playback menu or press the shortcut again.
+The brand-new Play-along function will make BrailleOrch like a common notation program, letting blind musicians read and play/sing the music along playback. the cursor and line will follow the playback. Since the current braille displays only has one line to display braille, the user must first choose an instrument (or hand of the piano) to follow.  
+When pressing ctrl+alt+l, we enter the mode. A dialog will appear, asking you to choose which instrument and which measure it will follow. The default will be the current instrument and the current measure. By pressing Enter or OK button, the software comes back to the normal working area with a report of screen reader "play-along". Now, all editing functions will be disabled, and we enter the play-along mode. To exit this mode, choose Play-along from the Playback menu or press the shortcut again. The screen reader will say "play-allong off".
 
 In this mode:  
 pressing Space to start/stop playback;  
