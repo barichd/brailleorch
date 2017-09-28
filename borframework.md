@@ -2,10 +2,9 @@
 
 By Hu Haipeng
 
-Date: Jan 31, 2016  
+Opening Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Sep 26, 2017  
-
+Last updated: Sep 28, 2017  
 Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
 Project designer: [Hu Haipeng](mailto:hhpcomposer@gmail.com)  
 Project development website: <https://github.com/barichd/brailleorch>
@@ -47,7 +46,7 @@ Part I: General Overview Of The Software
 - [1.8 Options](#1-8)
 - [1.9 Window](#1-9)
 - [1.10 Help](#1-10)
-- [Chapter 2: Deeper view of transcription functions](#transcription)
+- [Chapter 2: Deeper View Of Transcription Functions](#transcription)
 - [2.1 Transcription Dialog](#2-1)
 - [2.2 Transpose Dialog](#2-2)
 - [2.3 Score Management Dialog](#2-3)
@@ -73,13 +72,13 @@ Part II: General References Of Points During Development
 - [Chapter 5: Braille Specified Points](#braille)
 - [5.1 Braille Window](#5-1)
 - [5.2 Navigation In The Score](#5-2)
-- [5.3 Transcription related](#5-3)
-- [Chapter 6: Braille Music Editing And Debugging Related Points](#editing)
-- [6.1 GUI specifications](#6-1)
+- [5.3 Transcription Related](#5-3)
+- [Chapter 6: Design Of Braille Music Editing And Other Advanced Features](#editing)
+- [6.1 GUI Specifications](#6-1)
 - [6.2 Entering And Marking Items, Transcription Related](#6-2)
 - [6.3 Debugging Mode](#6-3)
 - [6.4 Define New Features](#6-4)
-- [Chapter 7: Play-along Function Overview](#playalong)
+- [Chapter 7: The Play-along Function](#playalong)
 - [Contact Information](#contact)
 
 **********
@@ -517,7 +516,7 @@ Translation table
 Used for text translation. This can also be seen in Options and Score/Part/Text/Lyrics/Chords management dialogs.
 
 Add hand change signs for selected passage  
-This is for piano or other 2-staff music. See the same item in [section 7.2](#6-2) for details.
+This is for keyboard or harp music. See the same item in [section 6.2](#6-2) for details.
 
 Don't show this dialog (default unchecked)  
 Disable this dialog, using options previously set.
@@ -752,6 +751,20 @@ Use braille repetition signs. All will use measure reference, e.g., 1-8. Since e
 Use repeats across system (checkbox, default checked)  
 In keyboard and vocal scores, this should be checked. In ensemble scores, some countries use full-measure repetition sign when the first measure of the next braille system is the same as the previous measure in previous braille system; while other countries write the measure out verbatimly.
 
+Supress phrasing slurs for vocal part (checkbox)  
+When checked, the software will transcribe the part with lyrics using only common slur (dots 1-4).
+
+Slur options (combo box)  
+Standard  
+Common only  
+Common only except keyboard  
+Phrasing only except vocal parts  
+The Standard option is a hybrid mode, and will use phrasing slurs when the phrase is too long. See corresponding discussion in [section 5.3](#5-3) for details.  
+Keyboard music is preferred to use a hybrid method, so I provide an option to opt it out and use common slurs in all other one-staff parts.
+
+Phrasing slur length (note amount)  
+An edit spinbox, default is 6, i.e., the software will apply phrasing slur to a phrase more than 5 notes.
+
 Add extra accidentals (combo box)  
 None  
 Voice only (default)  
@@ -804,6 +817,8 @@ If checked, two or three full-measure rests will be combined without spaces, and
 **********
 
 <h3 id="3-4">3.4 Bar-over-bar Page</h3>
+
+For detailed rules of the formats discussed in the following sections, please consult Music Braille Code 2015. Some rules are not strictly obeyed by all countries, but their scores are fairly readable. So we have multiple options here.
 
 Extra octave marks (radio button)  
 None  
@@ -1031,7 +1046,7 @@ It's impossible to announce CJK texts cell by cell, so we can just announce usin
 
 **********
 
-<h3 id="5-3">5.3 Transcription related</h3>
+<h3 id="5-3">5.3 Transcription Related</h3>
 
 When a voice in a part has no rest but a "forward" command, we must add rest(s) according to the duration(s). Normally these rests are not shown in print, but in braille they are needed for reference. So we must add dot 5 before them to tell the readers they are "added". See below.
 
@@ -1045,9 +1060,11 @@ Braille line break during the music within a bar must have a music hyphen (dot 5
 
 There are two kinds of glissando lines in notation. One is a "gliss." with a sliding line, mainly placed during two notes, tagged as "glissando line" with start and stop values; the other is a sliding line which cross all notes it applies to, with no "gliss." indication, marked as "slide line" with start and stop values. In braille, both can be transcribed as dots 4-1. When two notes are applied, the sign is placed between two or three notes and after slur; when more than three notes are applied, place dots 4-1-3 after the first note (start) and dots 6-4-1 after the penultimate note.
 
+In vocal music, we usually use common slurs (dots 1-4) instead of phrasing slurs even in long phrases. If a part is detected with lyrics, the software must automatically supress phrasing slurs and use common slurs only.
+
 **********
 
-<h2 id="editing">Chapter 6: Braille Music Editing And Debugging Related Points</h2>
+<h2 id="editing">Chapter 6: Braille Music Editing And Other Advanced Functions</h2>
 
 This chapter discusses braille music editing and correction related subjects.
 
@@ -1088,6 +1105,9 @@ These are the same dialogs introduced before, but only display selected items on
 Add hand change signs for selected passage  
 This is for piano or other 2-staff music where some hand changes occur on one staff with direction change of stems. This dialog will let you choose which direction is for which hand, and add hand signs into the passage.
 
+Convert slur  
+This option will convert slur in the current phrase, either from common (dots 1-4) to phrasing (dots 5-6-2-3 for open, and 4-5-1-2 for close) or vice versa. Normally, except vocal part, the software will apply phrasing slur when the phrase is very long, usually more than 5 notes. Or we can set the phrase length for detection. Note that this conversion is not applied to the music with nested slurs, since the outer one should always be phrasing slur.
+
 combining and split  
 There must be a submenu of this. When in post production, sometimes a multipart braille system containing only one measure can be combined to another one, or a multimeasure braille system has to be splitted into two (after adding missing items) or more.  
 Combine with  
@@ -1124,7 +1144,7 @@ For compressed Musicxml files (.mxl), some pieces may contain pictures for eithe
 
 <h3 id="6-4">6.4 Defining New Features</h3>
 
-Sometimes a musicxml file contains advanced symbols which are not available in braille, or there are unexported signs marked as certain tags, or there may contain dozens of images. Moreover, as musicxml version updates, more unknown elements can be included. So we must invent a tool to store our new definitions, without troubling the programmers to update the software too frequently. The defined rules and signs will be stored as a user configuration file in "My Document\BrailleOrch\User Config" folder, and can be shared and even included in future versions of the software.
+Sometimes a musicxml file contains advanced symbols which are not available in braille, or there are unknown, unrecognized and unexported signs marked as certain tags, or there may contain dozens of images for symbols or lines not available in the notation software. Moreover, as musicxml version updates, more unexpected elements can be included, such as tons of glyphs from [SMUFL](http://www.smufl.org) fonts. So we must invent a tool to store our new definitions, without troubling the programmers to update the software too frequently. The defined rules and signs will be stored as a user configuration file in "My Document\BrailleOrch\User Config" folder, and can be shared and even included in future versions of the software.
 
 In the Musicxml window, choose "Search for unknown" (ctrl+u), and the software will bring us to the first place it finds an unrecognized thing. Press Ctrl+d to define. Or press ctrl+shift+u to list all unrecognized signs and images. In the list, press Enter to go to the place, or choose Define to begin the definition.
 
@@ -1148,7 +1168,7 @@ You can create a branch on Github, and upload your definitions there. Or we can 
 
 **********
 
-<h2 id="playalong">Chapter 7: Play-along Function Overview</h2>
+<h2 id="playalong">Chapter 7: The Play-along Function</h2>
 
 The brand-new Play-along function will make BrailleOrch like a common notation program, letting blind musicians read and play/sing the music along playback. the cursor and line will follow the playback. Since the current braille displays only has one line to display braille, the user must first choose an instrument (or hand of the piano) to follow.  
 When pressing ctrl+alt+l, we enter the mode. A dialog will appear, asking you to choose which instrument and which measure it will follow. The default will be the current instrument and the current measure. By pressing Enter or OK button, the software comes back to the normal working area with a report of screen reader "play-along". Now, all editing functions will be disabled, and we enter the play-along mode. To exit this mode, choose Play-along from the Playback menu or press the shortcut again. The screen reader will say "play-allong off".
