@@ -76,8 +76,12 @@ Part II: General References Of Points During Development
 - [Chapter 6: Design Of Braille Music Editing And Other Advanced Features](#editing)
 - [6.1 GUI Specifications](#6-1)
 - [6.2 Entering And Marking Items, Transcription Related](#6-2)
-- [6.3 Debugging Mode](#6-3)
-- [6.4 Define New Features](#6-4)
+- [6.3 Split And Merge](#6-3)
+- [6.3.1 Split Dialog](#6-3-1)
+- [6.3.2 Merge Dialog](#6-3-2)
+- [6.3.3 Merge Non-splitted Files](#6-3-3)
+- [6.4 Debugging Mode](#6-4)
+- [6.5 Define New Features](#6-5)
 - [Chapter 7: The Play-along Function](#playalong)
 - [Contact Information](#contact)
 
@@ -156,7 +160,7 @@ Since this is an extensive project for a highly sophisticated software, we have 
 
 The first phase is to build up a general GUI, containing basic menus and functions. Use original BMML source and extend it. Map most Musicxml elements except visual layout to BMML, create coresponding braille symbol elements, and define rules for transcription. Basic functions in Page setup, Score/Part/Text/Lyrics/Chords/Metronome management and Transcription options dialogs should be done. Bar-over-bar and line-over-line formats are firstly considered, also my special BrailleOrch format is OK. The result braille music score can represent at least 95% information of print version. The  score can be manually edited, but not reformatted and retagged automatically, since this requires deeper research of BMML and further development of the software. The user-edited strings are gray-colored, and simply marked as "other" in BMML, and can be tagged in future versions of the software.
 
-The second phase is to enhance transcription quality. Items in Musicxml 3.1 or later should be added, and the formatting function must be more flexible. Add [Define New Features](#6-4) function. Add section-by-section format. Enhance translation table to add support to Chinese Mandarin braille (Cantonese and Taiwanese Chinese braille have already been done in Liblouis).
+The second phase is to enhance transcription quality. Items in Musicxml 3.1 or later should be added, and the formatting function must be more flexible. Add [Define New Features](#6-5) function. Add section-by-section format. Enhance translation table to add support to Chinese Mandarin braille (Cantonese and Taiwanese Chinese braille have already been done in Liblouis).
 
 The third phase is to enhance the reformatting function. The software can recognize most user-entered strings as music signs, texts etc, and can correctly break lines when reformatted.
 
@@ -197,8 +201,12 @@ open Version
 Versioning function is for further comparison of the score. The version files will be saved using .bor format, with a time/date stamp after the extension. E.G., foo.bor~01312016.  
 Saving an earlier version will bring up a dialog, asking whether you want to save a new version or overwrite the current non-version file.
 
+Split  
+Merge  
+The above two menus will open dialogs for transcribers to control voluming of the book or work with colleagues on the same book. This idea is taken from both music notation and literary braille translation softwares. Please see [section 6-3](#6-3) for details.
+
 Set copy protection  
-This is a special function for protecting music pubisher's copyright. After they convert their scores into musicxml and import into BrailleOrch, they can immediately set this option. The braille score can still be edited, reformatted and embossed, but can't be exported into musicxml for back-translation. The file is also encrypted, so it also can't be saved as bmml format. Any debugging process upon the xml source and bmml score can, however, be done using the internal [debugging](#6-3) interface.  
+This is a special function for protecting music pubisher's copyright. After they convert their scores into musicxml and import into BrailleOrch, they can immediately set this option. The braille score can still be edited, reformatted and embossed, but can't be exported into musicxml for back-translation. The file is also encrypted, so it also can't be saved as bmml format. Any debugging process upon the xml source and bmml score can, however, be done using the internal [debugging](#6-4) interface.  
 Be careful to use this function, since it's not reversable. We should provide two times of verification dialog for this. Another possibility is, we can toggle this item visible and invisible in the [Settings dialog](#settings), to prevent accidental operation by common users.
 
 Make final document  
@@ -343,7 +351,7 @@ Format
 Format or reformat the braille score after manual editing and correction. Formatting layout will follow rules set in Score/Part/Text/Lyrics/Chords/Metronome, Options and Page setup dialogs. Options changed after transcription process can also be applied.
 
 Debugging mode  
-A special mode used for checking errors and enhancing the software. See [Debugging Mode](#6-3) for details.
+A special mode used for checking errors and enhancing the software. See [Debugging Mode](#6-4) for details.
 
 Output interval direction description  
 A dialog appears, letting you to view the description. There are 2 kinds of description:  
@@ -369,11 +377,13 @@ A reversed operation of part extraction. A dialog appears, letting you add files
 This menu gives us several functions of editing and correcting braille music score. Some are very sophisticated functions.  
 This menu will be modified and extended when we decide to develop braille music composing function.
 
-Input (submenu)  
-Insert notes (n)  
+Insert (submenu)  
+Insert music (n)  
 Enter notes/rests/voices, generally all music-related signs.  
 Insert texts (x)  
 Enter texts using standard input method. Untranslated unicode texts such as Chinese will be accepted, and can be edited later. All text-related adjustment can be done in [Text management dialog](#2-5).  
+Insert braille file (shift+f)
+Insert a .brf file, then the software saves all braille ASCII to braille dots inormation. This is useful when inserting long document in music, while the text is translated by software like Duxbury Braille Translator (commercial) or (free) BrailleBlaster. You can choose whether to maintain page information like form feeds. It's better to disable braille page numbers when translating texts in such softwares.  
 Insert key signature (shift+k) (to solve conflict with braille key)  
 Insert time signature (t)  
 These two use braille input.  
@@ -389,6 +399,8 @@ Centered 12 division characters. Choose from dots 2-5's and dot 5's.
 Insert new print page (shift+p)  
 Insert new braille page (shift+b)  
 These are for modification and/or reformatting, or when no print pages are available in musicxml 1.0. Also useful when developing braille music composing. Print page will be inserted at the beginning of the measure, while braille page will be inserted at the beginning of the current braille line.  
+Insert splt point (shift+s)  
+Put a split point under current location. The point must be at the beginning of a braille system or section, including measure number. If the current location is not suitable, the software will try to find a correct location and bring the cursor there for you to confirm. For splitting and merging function, please see [section 6.3](#6-3) for details.  
 Set current measure number (m)  
 Set number of current measure, overriding measure numbering in Musicxml. The consequent measure numbers will be changed accordingly, until Musicxml specifies a new sequence of measure numbers (e.g., starting a new movement from measure 1 or 0).  
 Set current braille page (b)  
@@ -396,12 +408,12 @@ Set current braille page number. The extra choices for numbering are arabic, rom
 Set current print page (p)  
 Set current print page number, overriding Musicxml's settings. The extra choices are arabic, roman and none.
 
-Other tags and properties can be marked using context menu directly on braille objects. Transcribers can also edit the score without using the above insert and context functions, but the result input will be marked as "other" in BMML, and can't be automatically reformatted correctly. They should be manually formatted.
+Other insertion of music objects may be implemented later. Other tags and properties can be marked using context menu directly on braille objects. Transcribers can also edit the score without using the above insert and context functions, but the result input will be marked as "other" in BMML, and can't be automatically reformatted correctly. They should be manually formatted.
 
 Display images  
 This menu is for extracting pictures contained in compressed Musicxml files (.mxl), which may be cover page images or special music symbols not being able to enter in notation programs. The listbox describes the details of every image file as this:  
 filename, part number, staff number, bar number, and beat position.  
-Press View to read the image on screen, and press OK to bring the cursor to the location for transcribers to enter appropriate braille symbols. Press Define to define a symbol globally in this score. See [Define New Features](#6-4) for details.
+Press View to read the image on screen, and press OK to bring the cursor to the location for transcribers to enter appropriate braille symbols. Press Define to define a symbol globally in this score. See [Define New Features](#6-5) for details.
 
 Transpose  
 This dialog will handle score/parts transposition. See [corresponding section](#2-2) for details.
@@ -710,7 +722,7 @@ Open debugging dialog when fatal error occurs (radio button)
 Yes  
 No  
 Ask me first (default)  
-When serious xml errors are found, the software will automatically open the [Debugging mode](#6-3) if Yes. You can use find error function to navigate in all 3 windows. In most case, braille window will be empty, so please choose Transcribe in [Transcription menu](#1-5) after correction.
+When serious xml errors are found, the software will automatically open the [Debugging mode](#6-4) if Yes. You can use find error function to navigate in all 3 windows. In most case, braille window will be empty, so please choose Transcribe in [Transcription menu](#1-5) after correction.
 
 Workspace color (combo box)  
 White screen black braille (default)  
@@ -997,7 +1009,7 @@ There are also two websites containing similar resources. They are two ended pro
 - [contrapunctus (older)](http://www.contrapunctus.it)
 - [Music4vip (newer, now still running but not developing)](http://www.music4vip.eu)
 
-Also, there's a Googlecode archive containing original Python scripts which converts Musicxml into BMML. It's also an old tool, but we can learn from it and develop our own implements. The download is not available now, but I can provide the complete repository at the beginning of the development.
+We can also download a demo of full Braille Music Editor 2 from [VEIA Progetti](http://www.veia.it) and enter various music objects to see how BMML is defined. Also, there's a Googlecode archive containing original Python scripts by VEIA, which converts Musicxml into BMML. It's an old tool, but we can learn from it and develop our own implements. The download is not available now, but I can provide the complete repository at the beginning of the development.
 
 **********
 
@@ -1019,7 +1031,7 @@ This chapter will be created and updated on scratch, but all of these points are
 
 <h3 id="5-1">5.1 Braille Window</h3>
 
-The GUI of BrailleOrch, including the advanced [Debugging](#6-3) windows, must be plain edit fields. The following points are all related to the braille music window.
+The GUI of BrailleOrch, including the advanced [Debugging](#6-4) windows, must be plain edit fields. The following points are all related to the braille music window.
 
 Since different countries have different mapping tables for ASCII to braille, we use Unicode braille from U+2800 to U+283F. The braille entries are already stored in BMML source, so we just need to make the stored Unicode values displayed as braille. To benefit sighted users, we can marked correctly mapped braille with normal color, places containing errors marked as red, and manually entered unprocessed braille as yellow. Sighted user can choose to display more indications like placing vertical bars at bar lines, thin horizontal lines to separate parts (staves), and thick horizontal lines to separate systems (system means a whole group of staves).
 
@@ -1079,7 +1091,7 @@ Some notes about doublings:
 Doubling of intervals can include accidental in certain conditions, thus either the first or the last interval has an accidental. If both have accidentals, it's also ok as long as the total amount of chords is no less than 4.  
 When applying doublings, we should skip any extra elements. For example, there are five staccato chords with 3rd interval, some have accent marks, some also have fifth interval, and there are even rests inserted. The doublings of staccato and 3rd interval should be kept till the end. Another thing is for octave interval. These intervals can be doubled even when there are accidentals, unless the two notes of the chord have different accidentals, thus an augmented or diminished octave.
 
-The "other-dynamics" tag in Musicxml should be considered as standard dynamic marks. For other tags with "other" prefix, we should either make a smart detection and application engine, or let the users determine how to use them in the [Debugging Mode](#6-3).
+The "other-dynamics" tag in Musicxml should be considered as standard dynamic marks. For other tags with "other" prefix, we should either make a smart detection and application engine, or let the users determine how to use them in the [Debugging Mode](#6-4).
 
 Hidden objects in Musicxml may be useful in braille, for example, a hidden note may be used to indicate  the destination of a glissando line. We can add a prefix to indicate this, e.g., dots 2-6,3, which is used for the end destination of a slanted line.
 
@@ -1145,7 +1157,72 @@ Will start a new braille system from the current measure. A confirmation prompt 
 
 **********
 
-<h3 id="6-3">6.3 Debugging Mode</h3>
+<h3 id="6-3">6.3 Split And Merge</h3>
+
+When a score is too large to fit in one braille volume, we can split it into two or more volumes. When we want multiple transcribers to work on a single volume score to speed up the work, we can first split, then merge the sections in the same project. This is why the split and merge functions are needed. In the [file menu](#1-1), we find these two options. Each opens a corresponding dialog, and they will be discussed below.
+
+<h4 id="6-3-1">6.3.1 Split Dialog</h4>
+
+Split point view  
+This list will show split points the user set in [Braille music menu](#1-6). Every item has a checkbox. Choose the required point(s) and press Split button to finish. If none is found, we can't use automatic split function, and then set the split rules here.
+
+Below the list there's a combo box for splitting rules. The first  is split points. If this is still chosen, the software will warn and ask you whether to return to the score and set points manually. If answering no, we can continue with other options.
+
+The second option is print page, and the third option is braille page. These will display a edit spinbox for choosing page numbers. When print page is chosen, the new braille volume will create a new braille page if the print page begins at the middle of a braille page, unless the following checkbox "maintain braille pagination" is chosen. In such a case, the beginning of the new volume will contain an incomplete braille page for merging purpose.
+
+The fourth option is measure and movement. This will display  a list of measures. When double or final barlines are found, the word "double", "dotted" or "final" will be added after the number. If there  are measure changes for multiple movement, an additional number will be added before measure numbers. E.g., 1 15, 2 30 double, etc. There's also an option for whether maintaining braille page.
+
+Add title page to new volumes (checkbox)  
+Whether to apply title page information. If every volume is checked for this, then volume numbers will be filled in the title page automatically, using the language and translation table set in the file.
+
+Continuous braille page (checkbox)  
+When unchecked, the new volumes will always begin with braille page 1.
+
+Continuous measure numbers (checkbox)  
+If unchecked, the new volume begins with measure 1.
+
+Add volume (button)  
+Add a split point according to the above rule. The user can add multiple volumes by continuing selecting pages or measures.
+
+Split  
+After adding volumes, we can finish with this button. The software will create separated files with the same name and a number after them. Each BMML file will store information such as file order, continuation of measures and pages, etc. An INI file is also created to list the files and various options, which are needed for merging.
+
+**********
+
+<h4 id="6-3-2">6.3.2 Merge Dialog</h4>
+
+When the dialog is opened, we are first asked to upload the INI file created when splitting. If no we choose "skip", then please read [the next section](#6-3-3).
+
+Once the INI file is loaded, the real option dialog appears. There's a list of all volumes found. You can navigate in the list and delete the unwanted item(s). However, non-adjacent volumes are not allowed. For example, for volumes 1-7, you can only merge volumes like 1, 2 and 3, 3, 4, 5 and 6, or 6 and 7, but not 1, 3 and 4. This option is provided for either combining transcribed parts, or a transcriber who wants to transcribe more volumes which are not finished by others.
+
+Braille pagination (combo box)  
+Keep original  
+Create new page  
+Keep original means you can combine incomplete braille pages between volumes. If either or both of the half are changed, the software will warn and give a choice for re-paging. Create new page takes no effect when the new volume begins at the top of the page.
+
+Measure option (combo box)  
+Keeporiginal  
+Create double barline  
+Create final barline  
+Create new movement  
+If there are already double or final barline or new movements at the beginning of new volume, just keep the original. Create new movement means the new volume begins at measure 1.
+
+Merge (button)  
+Merge the selected volumes and create the file. If all volumes are checked, the result file will replace volume numbers with "merge". If parts of the volumes are checked, the result file will add merged volume numbers, e.g., score_v1-2-3.
+
+**********
+
+<h4 id="6-3-3">6.3.3 Merge Non-splitted Files</h4>
+
+There may be circumstance that we have to combine separate files which are not from split function into one book. For example, there are several pieces in a book engraved in separated files, or a symphony may have different instrument layout at different places, which has to use separate files to engrave. In such case, we have to skip the INI file and use alternative merging function specified for this situation. The merged files may have a combination of splitted files, but it's unable to use the INI file.
+
+In the dialog, we must manually add files, and the order can be adjusted by pressing moving up/down buttons.
+
+The other options may be as the same as the common merge function. Since every part may have different instrument definitions, the merged BMML file has to keep each part as individual portions, but not simple movements. However, if the instrument definitions are exactly the same, the software will try to make them into one with or without movements, chosen by the user. This can be discussed when enhancing BMML.
+
+**********
+
+<h3 id="6-4">6.4 Debugging Mode</h3>
 
 This is a special tool for advanced users or developers to find errors in both Musicxml and BMML, or define new translation features when new version of Musicxml is released. Most of the errors are from incomplete musicxml, or some undeveloped features making BrailleOrch ill. The debugging mode will show errors and let you correct fatal errors on-the-fly. Newly defined features can be stored in the user definition file for future use. If I die one day, or if my team dismiss one day, future users can still keep my software new with the latest version of musicxml, as long as they know how to do it.
 
@@ -1169,7 +1246,7 @@ For compressed Musicxml files (.mxl), some pieces may contain pictures for eithe
 
 **********
 
-<h3 id="6-4">6.4 Defining New Features</h3>
+<h3 id="6-5">6.5 Defining New Features</h3>
 
 Sometimes a musicxml file contains advanced symbols which are not available in braille, or there are unknown, unrecognized and unexported signs marked as certain tags, or there may contain dozens of images for symbols or lines not available in the notation software. Moreover, as musicxml version updates, more unexpected elements can be included, such as tons of glyphs from [SMUFL](http://www.smufl.org) fonts. So we must invent a tool to store our new definitions, without troubling the programmers to update the software too frequently. The defined rules and signs will be stored as a user configuration file in "My Document\BrailleOrch\User Config" folder, and can be shared and even included in future versions of the software.
 
