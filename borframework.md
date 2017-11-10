@@ -4,7 +4,7 @@ By Hu Haipeng
 
 Opening Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Oct 31, 2017  
+Last updated: Nov 10, 2017  
 Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
 Project designer: [Hu Haipeng](mailto:hhpcomposer@gmail.com)  
 Project development website: <https://github.com/barichd/brailleorch>
@@ -727,7 +727,7 @@ Ah, we come to the most detailed chapter, wholely dedicated to the most sophisti
 <h3 id="3-1">3.1 General Page</h3>
 
 Default language (combo box)  
-Current English only. More languages will be added later. You can even create your own language file.
+Currently English and Simplified Chinese only. More languages will be added later. You can even create your own language file by studying the .ini files in the "Lang" folder of the software's installation directory.
 
 Show transcription dialog after importing (checkbox, default checked)  
 Whether show [Transcription dialog](#2-1) before processing Musicxml file. If not, the transcription will be done according to previously defined settings.
@@ -1023,7 +1023,7 @@ Only currently working or finished phase(s) are present, and they will be consta
 - Lines marked by a plus (+) sign are those need to be done.
 - Lines marked by an equals (=) sign are those have been completed.
 - Lines marked by a minus (-) sign are removed or abandoned points.
-- Line marked by an exclamation mark (!) are critical issues which need to be done or corrected urgently.
+- Line marked by an exclamation mark (!) are important points or critical issues.
 
 **********
 
@@ -1040,6 +1040,17 @@ This phase is mainly focused on implementation of BMML, and basic build of the s
 \+ In the GUI, keys f, d, s and j, k, l should represent braille dots 1-6. Other keys are reserved for shortcuts, and I have implemented all single-key shortcuts which avoid these 6 keys. We can freely enter braille dots in the GUI to test. This is the very first GUI, and doesn't require file format. After this test, we can start to implement BMML reading and braille output.
 
 Note: If we start with Python, a starting point of the WXPython-based GUI has been built by Daniel Barich, and we just use it.
+
+\! **Important:** Put all music object descriptions, texts of menus, controls and plain description texts as well as warning and error messages into a separate file. This will make it possible to add multiple languages in the future. Every language uses one file. Store the files in a "Lang" folder, and make a unified extension (e.g., .ini) for the software to recognize. All items should be callable via variables.
+
+\+ The structure of the installation folder can be defined as this:  
+- Bin: all executable files
+- Doc: Documentations, which can have subdirectories for different languages if HTML pages are used
+- Include/Lib: Dependencies
+- lang/Locale: Language files
+- Modules: Either our own and third-party modules
+- Tables: Liblouis raille tables  
+The configuration files can be put either in the main directory or the user document (thus My Documents) directory. I prefer to use the latter, with a main directory BrailleOrch, which can contain additional data such as example files, user projects, templates, transcription presets etc.
 
 TBC
 
@@ -1190,7 +1201,9 @@ In vocal music, we usually use common slurs (dots 1-4) instead of phrasing slurs
 
 Some notes about doublings:  
 Doubling of intervals can include accidental in certain conditions, thus either the first or the last interval has an accidental. If both have accidentals, it's also ok as long as the total amount of chords is no less than 4.  
-When applying doublings, we should skip any extra elements. For example, there are five staccato chords with 3rd interval, some have accent marks, some also have fifth interval, and there are even rests inserted. The doublings of staccato and 3rd interval should be kept till the end. Another thing is for octave interval. These intervals can be doubled even when there are accidentals, unless the two notes of the chord have different accidentals, thus an augmented or diminished octave.
+When applying doublings, we should skip any extra elements. For example, there are five staccato chords with 3rd interval, some have accent marks, some also have fifth interval, and there are even rests inserted. The doublings of staccato and 3rd interval should be kept till the end. Another thing is for octave interval. These intervals can be doubled even when there are accidentals, unless the two notes of the chord have different accidentals, thus an augmented or diminished octave.  
+Doublings must be stopped if there are fingerings.  
+When a series of different chords contain a similar interval (e.g., C-E-G, B-D-G, A-C-G, B-D-G), the same interval (in the above example, third) can be doubled.
 
 The "other-dynamics" tag in Musicxml should be considered as standard dynamic marks. For other tags with "other" prefix (such as "other-articulation", "other-direction"), we should either make a smart detection and application engine, or let the users determine how to use them in the [Debugging Mode](#7-4).
 
@@ -1220,7 +1233,7 @@ Items in the edit window must be announced via screen readers such as NVDA. The 
 
 <h3 id="7-2">7.2 Entering, Selecting And Marking Items, Transcription Related</h3>
 
-The software should have wrapping function like MS Word. It's simple when entering literary texts, but  for music, we can implement it step by step. Generally speaking, it's better to put the break point at the beginning of a beat or half of a beat. For long tuplet or unmeasured music, breaks can be free. Auto indentation follows rules and settings. We can also first ignore this, but display a warning when trying to save or print the document. Saving is certainly allowed, and the next time we can find such unformatted items via menu (find error).
+The software should have wrapping function like MS Word. It's simple when entering literary texts, but  for music, we can implement it step by step. Generally speaking, it's better to put the break point at the beginning of a beat or half of a beat. For long tuplet or unmeasured music, breaks can be free according to note groupings. Auto indentation follows rules and settings. We can also first ignore those issues, but display a warning message saying there are non-formatted lines which exceed line length when trying to save or print the document. Saving is certainly allowed, but the software will warn again when the file ii opened the next time, and we can find such unformatted items via find error function.
 
 When correcting the music, for example, adding missing signs, moving words' position etc, please press letter n to start entering notes/rests/articulations. BrailleOrch will recognize them automatically. Unfinished enter will be tagged and announced as "other".  
 (Note: make this complicated function later, now just tag all user-entered strings as "other". So reformatting of individual lines must be done manually, like manual transcription.)  
