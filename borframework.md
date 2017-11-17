@@ -4,7 +4,7 @@ By Hu Haipeng
 
 Opening Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Nov 10, 2017  
+Last updated: Nov 17, 2017  
 Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
 Project designer: [Hu Haipeng](mailto:hhpcomposer@gmail.com)  
 Project development website: <https://github.com/barichd/brailleorch>
@@ -27,7 +27,7 @@ Preliminary Materials
 
 - [A. Purpose](#purpose)
 - [B. About This Framework](#framework)
-- [C. About BrailleOrch And BMML Formats](#formats)
+- [C. The BrailleOrch Format, Why And How To](#formats)
 - [D. Braille Music Notation Codebooks Used In This Development](#codebooks)
 - [E. Capabilities The Software Must Reach](#capability)
 - [F. Development Requirements](#requirements)
@@ -115,15 +115,15 @@ A note on the reading convention of braille dot number indications: Dots within 
 
 **********
 
-<h2 id="formats">C. About BrailleOrch And BMML Formats</h2>
+<h2 id="formats">C. The BrailleOrch Format, Why And How To</h2>
+
+This software is based on a format which will either use and extend the  existing BMML, or create a new descriptive format. Most of the current braille music transcription softwares only output pure braille code in either ASCII or Unicode form. The disadvantage of this way is, there are no flexible formatting and editing possibilities available. Transcribers must do all adjustments manually, and they prefer to use totally manual method to transcribe the whole music. Moreover, different countries have different formatting rules from the same source, so one kind of output can't fulfill all requirements. Therefore, a descriptive format is needed. It it will ease the publishing process, leaving less effort to the transcribers, saving their time and energy, and eventually reduce the cost of transcription. Currently, I resume we'll develop the software based on BMML. If we decide to create a new format, I'll open a new document about that.
 
 BrailleOrch (.bor) format is a compressed file. It contains original musicxml (if transcribed from musicxml) and bmml sources, and additional debugging information such as error records. When the final editing and correction has been finished, the musicxml source and most debugging information can be removed to save file size. People can still edit and reformat braille output, though. See Make final document in [File Menu](#1-1).
 
 For BMML format, I think we should design two stages.  
 The one is the current format, and we can just extend it to include more signs and functions. This kind of BMML file contains both musical and braille information.  
 The second one is a BMML file which is just a mapped format from Musicxml, and is ready for braille transcription. Music publishers can first generate such an intermediate file for transcribers or end users, and the braille users can check and format music with their own preferences. This format can be developed later, since it needs very smart on-the-fly formatting. and previewing functions of the software. This format is inspired by Sunshine professional, a Chinese braille translation software made by China Braille Publishing House. The wording, hyphening and formatting are constantly changed while the user is editing the file, like MS Word, and this interface is very friendly and smart.  
-
-For line endings, I hope we use Windows format (cr-lf) to code the software and its format.
 
 **********
 
@@ -1032,6 +1032,8 @@ Only currently working or finished phase(s) are present, and they will be consta
 This phase is mainly focused on implementation of BMML, and basic build of the software. We can begin with the original BMML format, researching its DTD file and build braille equivalences according to excisting materials. Then we can enhance BMML to present more symbols. For how to deal with limited BMML materials and how to implement it, please read [the next chapter](#bmml).
 
 \+ First, choose a suitable programming language or language bundle. The software should be at least completely accessible. Use [NVDA](http://www.nvaccess.org) to test the GUI.
+
+\+ For line endings, I hope we use Windows format (cr-lf) to code the software and its format. It's easier to view the codes with Windows line endings in a plain text editor such as the common Notepad.
 
 \+ The software should accept any size of Musicxml files. Many large-scaled musical works can generate more than 50mb of single XML file, and if it's in UTF-16 format, the size is doubled. We should find a way to load and parse XML data as fast and light as possible.
 
