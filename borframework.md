@@ -4,7 +4,7 @@ By Hu Haipeng
 
 Opening Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Nov 17, 2017  
+Last updated: Dec 3, 2017  
 Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
 Project designer: [Hu Haipeng](mailto:hhpcomposer@gmail.com)  
 Project development website: <https://github.com/barichd/brailleorch>
@@ -129,9 +129,9 @@ The second one is a BMML file which is just a mapped format from Musicxml, and i
 
 <h2 id="codebooks">D. Braille Music Notation Codebooks Used In This Development</h2>
 
-Braille music code used by BrailleOrch is based on New International Manual Of Braille Music Notation published in 1996 in Switzerland. You can download a MS Word version [here](http://www.rnib.org.uk/sites/default/files/New%20International%20Manual.doc) from RNIB, and a zipped braille version which contains both Grades 1 and 2 English braille editions [here](https://www.sbs.ch/fileadmin//documents/musik/sy_engl.zip) from the original publisher SBS. This manual is just a brief introduction to all available signs. For detailed rules, some additional features and symbols, we can consult the newer Music Braille Code 2015 published in The US. You can download the 2015 American code as both PDF and Braille formats [here](http://www.brailleauthority.org/music/music.html). Since this book is mainly used by American countries, the format may be slightly different, especially the braille version, which is written using Unified English Braille. So the New International Manual should always be the first reference when there are any conflicts. In future development, we can implement both codebooks to output both formats via the users' choice.
+Braille music code used by BrailleOrch is based on New International Manual Of Braille Music Notation published in 1996 in Switzerland. You can download a MS Word version [here](http://www.rnib.org.uk/sites/default/files/New%20International%20Manual.doc) from RNIB, and a zipped braille version which contains both Grades 1 and 2 English braille editions [here](https://www.sbs.ch/fileadmin//documents/musik/sy_engl.zip) from the original publisher SBS. This manual is just a brief introduction to all available signs. For detailed rules, some additional features and symbols, it's highly recommended to consult the newer Music Braille Code 2015 published in The US. You can download the 2015 American code as both PDF and Braille formats [here](http://www.brailleauthority.org/music/music.html). Since this book is mainly used by American countries, the format may be slightly different, especially the braille version, which is written using Unified English Braille. So the New International Manual should always be the first reference when there are any conflicts. In future development, we can implement both codebooks to output both formats via the users' choice.
 
-Literary braille transcription can be considered later, because we rely on the automatic transcription package [Liblouis](http://www.liblouis.org). There's only one exception, Chinese braille used in the main continent other than Hongkong and Taiwan. It needs additional complex wording and toning rules, so there must be a  separate development in the future.
+Literary braille transcription can be considered later, because we rely on the automatic transcription package [Liblouis](http://www.liblouis.org). There's only one exception, Chinese braille used in the main continent other than Hongkong and Taiwan. It needs additional complex wording and toning rules, so there must be a  separate development in the future. (The Zh-chn table is currently under check, and we hope it will appear in the next release of Liblouis. Then this exception can be removed, and we only need to do some implementations for Chinese texts within music context.)
 
 **********
 
@@ -172,7 +172,7 @@ The software will run under any Microsoft Windows systems, from Windows 2000/XP 
 
 Since this is an extensive project for a highly sophisticated software, we have to divide the development session into several phases. Below is an overview of every phase. For detailed points on every phase, please read [Chapter 4](#phases).
 
-The first phase is to build up a general GUI, containing basic menus and functions. Use original BMML source and extend it. Map most Musicxml elements except visual layout to BMML, create coresponding braille symbol elements, and define rules for transcription. Basic functions in Page setup, Score/Part/Text/Lyrics/Chords/Metronome management and Transcription options dialogs should be done. Bar-over-bar and line-over-line formats are firstly considered, also my special BrailleOrch format is OK. The result braille music score can represent at least 95% information of print version. The  score can be manually edited, but not reformatted and retagged automatically, since this requires deeper research of BMML and further development of the software. The user-edited strings are gray-colored, and simply marked as "other" in BMML, and can be tagged in future versions of the software.
+The first phase is to build up a general GUI, containing basic menus and functions. Use original BMML source and extend it. Map most Musicxml elements except visual layout to BMML, create coresponding braille symbol elements, and define rules for transcription. Basic functions in Page setup, Score/Part/Text/Lyrics/Chords/Metronome management and Transcription dialogs should be done. Bar-over-bar and line-over-line formats are firstly considered, also my special BrailleOrch format is OK. The result braille music score can represent at least 95% information of print version. The  score can be manually edited, but not reformatted and retagged automatically, since this requires deeper research of BMML and further development of the software. The user-edited strings are gray-colored, and simply marked as "other" in BMML, and can be tagged in future versions of the software.
 
 The second phase is to enhance transcription quality. Items in Musicxml 3.1 or later should be added, and the formatting function must be more flexible. Add [Define New Features](#7-5) function. Add section-by-section format. Enhance translation table to add support to Chinese Mandarin braille (Cantonese and Taiwanese Chinese braille have already been done in Liblouis).
 
@@ -803,6 +803,9 @@ When the above combo box is switched to Off, this checkbox will disappear.
 Add extra tie to new system (checkbox, default unchecked)  
 Some countries have such a custom, to add a reference tie when the tied measure starts at a new system in bar-over-bar/line-over-line formats, or a new section in section-by-section format.
 
+Apply extended lines for non-text use (checkbox)  
+If checked, temporary braille symbols will be applied for the user to change freely. In Musicxml, an extended line is usually marked as a dashed line. See discussion in [section 6.4](#6-4) for details.
+
 Harp pedalling format (combobox)  
 Text  
 USA  
@@ -1043,8 +1046,6 @@ This phase is mainly focused on implementation of BMML, and basic build of the s
 
 Note: If we start with Python, a starting point of the WXPython-based GUI has been built by Daniel Barich, and we just use it.
 
-\! **Important:** Put all music object descriptions, texts of menus, controls and plain description texts as well as warning and error messages into a separate file. This will make it possible to add multiple languages in the future. Every language uses one file. Store the files in a "Lang" folder, and make a unified extension (e.g., .ini) for the software to recognize. All items should be callable via variables.
-
 \+ The structure of the installation folder can be defined as this:  
 - Bin: all executable files
 - Doc: Documentations, which can have subdirectories for different languages if HTML pages are used
@@ -1053,6 +1054,10 @@ Note: If we start with Python, a starting point of the WXPython-based GUI has be
 - Modules: Either our own and third-party modules
 - Tables: Liblouis raille tables  
 The configuration files can be put either in the main directory or the user document (thus My Documents) directory. I prefer to use the latter, with a main directory BrailleOrch, which can contain additional data such as example files, user projects, templates, transcription presets etc.
+
+\! **Important:** Put all music object descriptions, texts of menus, controls and plain description texts as well as warning and error messages into a separate file. This will make it possible to add multiple languages in the future. Every language uses one file. Store the files in a "Lang" folder, and make a unified extension (e.g., .ini) for the software to recognize. All items should be callable via variables.
+
+\! **Important:** The components of Liblouis Braille Translator in the software directory should be able to be updated and replaced freely, so that the software can keep up with the latest improvements even if we can't maintain the software due to any unexpectable reason. The software should automatically detect new or modified language files and braille tables, picking up their names and rules.
 
 TBC
 
@@ -1178,7 +1183,13 @@ The "accidental" and "accidental-mark" are two different tags. "Accidental" is u
 
 Sometimes in contemporary scores, there are accidentals of triple sharps or flats. They are not implemented in braille, but we can simply transcribe them as three sharp or flat signs.
 
-When the note or chord after a tie doesn't  contain any notes of the previous note or chord, we can ensure the tie is for a different purpose, thus letting the note ringing. The software should detect this, and replace the tie with a correct sign, dots 5-6,1-4.
+Some points on value distinction signs:  
+1\. When the pickup (implicit) measure only contain a note or rest of 16th or shorter, the short value sign (dots 6,1-2-6,2) must be added;  
+2\. When the first note of a measure is 16th or shorter, while the next note is an eighth, the long value sign (dots 4-5,1-2-6,2) must be added before the eighth;  
+3\. If a long note is followed by a short note which has the same braille pattern (thus a half followed by a 32nd), the short value sign should be added before the short one;  
+4\. If a group of short note is followed by a long note which have the same braille pattern (thus a group of 32nds followed by a half), the long value sign should be added before the long one;
+
+When the note or chord after a tie doesn't contain any notes of the previous note or chord, we can ensure the tie is for a different purpose, thus letting the note ringing. The software should detect this, and replace the tie with a correct sign, dots 5-6,1-4.
 
 Transcription of parenthesized objects:  
 Music parenthesis (thus for notes, accidentals, articulations and other musical objects) in braille is dots 6,3, placed before and after the object.  
@@ -1198,6 +1209,8 @@ When the break occurs during the music, it's better to split the line at the beg
 If the line breaks after a word in long text block, music hyphen is not needed. Although a text block is treated as one "words" element in Musicxml, we must allow the software to add line breaks smartly, or allow manual line breaks, while still keeping the whole block as one object in BMML. Then BMML must contain a line break command on the braille side.
 
 There are two kinds of glissando lines in notation. One is a "gliss." with a sliding line, mainly placed during two notes, tagged as "glissando line" with start and stop values; the other is a sliding line which cross all notes it applies to, with no "gliss." indication, marked as "slide line" with start and stop values. In braille, both can be transcribed as dots 4,1. When two notes are applied, the sign is placed between two or three notes and after slur; when more than three notes are applied, place dots 4,1,3 after the first note (start) and dots 6,4,1 after the penultimate note.
+
+The "dashed" line in Musicxml can be rendered as this: When it follows a text immediately, the end of the text should be marked as two dot 3's (begin of extended lines), and the end of line is marked as dots 3-4-5,3; When the line doesn't follow a text, it's up to the user. The latter can be set as whether to display dashed lines in the [General page](#3-2) of [Settings Dialog](#settings). If set, the beginning is marked as dots 3-4-5,3,3, which can be modified according to the context. For example, if a fingering is extended (in string music), the user can add appropriate symbol after the fingering. But since these are very uncertain circumstances, we currently only implement text for applying extended lines.
 
 In vocal music, we usually use common slurs (dots 1-4) instead of phrasing slurs even in long phrases. If a part is detected with lyrics, the software must automatically supress phrasing slurs and use common slurs only.
 
