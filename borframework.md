@@ -4,7 +4,7 @@ By Hu Haipeng
 
 Opening Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Jan 30, 2018  
+Last updated: Feb 17, 2018  
 Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
 Project designer: [Hu Haipeng](mailto:brailleorch@outlook.com)  
 Project development website: <https://github.com/barichd/brailleorch>
@@ -734,7 +734,7 @@ This is a list of all metronome marks in the score. Press F2 to edit in either b
 
 Ah, we come to the most detailed chapter, wholely dedicated to the most sophisticated part--Settings dialog! This is a multipage dialog, with several category pages dealing with almost all problems with braille music transcription. Settings in this dialog will apply globally to any newly imported Musicxml files, and also the current opened transcribed scores (we can also design to apply the changes with "reformat" process). The settings must be stored in both the BMML (individual preferences) and software .ini files (global preferences).
 
-All of the following pages shouldhave a "save as default" and a "reset" buttons, letting users manage pages separately. The "Reset all" will revert all settings to fa`ctory mode, and load/save presets buttons can make custom presets containing all settings for future use or sharing purpose.
+All of the following pages shouldhave a "save as default" and a "reset" buttons, letting users manage pages separately. The "Reset all" will revert all settings to factory mode, and load/save presets buttons can make custom presets containing all settings for future use or sharing purpose.
 
 <h3 id="3-1">3.1 General Page</h3>
 
@@ -810,6 +810,11 @@ Keyboard music is preferred to use a hybrid method, so I provide an option to op
 
 Phrasing slur length (note amount)  
 An edit spinbox, default is 6, i.e., the software will apply phrasing slur to a phrase more than 5 notes.
+
+Slur for grace notes (radio button)  
+Common slur (dots 14)  
+Grace slur (dots 56,14, default)
+Some countries still use common slurs on grace notes.
 
 Use "from" signs for crossing slurs and ties (checkbox)  
 If this is turned on, any slurs/ties crossing voices/staves, besides the "to" sign, will have a "from" sign before the first applied note/chord of the destination voice/staff. This will show the way of the slur/tie clearly.
@@ -903,6 +908,9 @@ When a single measure needs more than one line in a part, this controls how to i
 Indent by (spin box)  
 default: 2 cells  
 This will add additional cells after the set indentation point.
+
+Ignore non-musical elements (checkbox, default unchecked)  
+Some countries don't align the music by the first musical symbol. They just align the parallel with the first braille cell. So texts or dynamics are aligned with notes, articulations or measure repeats.
 
 Keyboard measure number format (combo box)  
 Don't show  
@@ -1004,6 +1012,7 @@ Most of the settings of bar-over-bar are the same, except the following:
 Extra octave marks: only None and Yes, Yes equals New line only.  
 Measure number format: no Above system for all measures
 
+No alignment options for texts  
 No Add tracking dots
 
 Add Combine full-measure rests checkbox
@@ -1284,7 +1293,7 @@ There are two kinds of in-accord signs  for voice writing in braille--full measu
 
 Points of braille line break:  
 Break during the music within a bar must have a music hyphen (dot 5) at the end of the line, except there's a full-measure in-accord sign, division sign for part-measure in-accord, or it occurs between two words of a text block or after a long text block.  
-When the break occurs during the music, it's better to split the line at the beginning of a beat. If it's impossible, for example, a dotted quarter note is here, simply break  after it. When there are grouped short notes (16th and below), the break should not interrupt the grouping, unless there's a long tuplet with large number of notes. In the latter case, grouping must be disabled. Also, we can co`nsider subdivision of beams for breaks for very short notes (usually 32ndss and below).  
+When the break occurs during the music, it's better to split the line at the beginning of a beat. If it's impossible, for example, a dotted quarter note is here, simply break  after it. When there are grouped short notes (16th and below), the break should not interrupt the grouping, unless there's a long tuplet with large number of notes. In the latter case, grouping must be disabled. Also, we can consider subdivision of beams for breaks for very short notes (usually 32ndss and below).  
 If the line breaks after a word in long text block, music hyphen is not needed. Although a text block is treated as one "words" element in Musicxml, we must allow the software to add line breaks smartly, or allow manual line breaks, while still keeping the whole block as one object in BMML. Then BMML must contain a line break command on the braille side.
 
 There are two kinds of glissando lines in notation. One is a "gliss." with a sliding line, mainly placed during two notes, tagged as "glissando line" with start and stop values; the other is a sliding line which cross all notes it applies to, with no "gliss." indication, marked as "slide line" with start and stop values. In braille, both can be transcribed as dots 4,1. When two notes are applied, the sign is placed between two or three notes and after slur; when more than three notes are applied, place dots 4,1,3 after the first note (start) and dots 6,4,1 after the penultimate note.
@@ -1401,7 +1410,7 @@ Users can also select a passage and add hand signs manually, by entering braille
 
 Remove empty  
 Remove all empty  
-When one staff only contains "forward" instead of measure rest, we `can either remove it or keep it filled with a measure rest preceded by dot 5. If choose to remove, and system numbers are shown, the first parallel of the system must keep completely, for we must have a staff for placing line numbers. But this is not used for chamber and orchestral music. The latter option is designed for this case.
+When one staff only contains "forward" instead of measure rest, we can either remove it or keep it filled with a measure rest preceded by dot 5. If choose to remove, and system numbers are shown, the first parallel of the system must keep completely, for we must have a staff for placing line numbers. But this is not used for chamber and orchestral music. The latter option is designed for this case.
 
 **********
 
@@ -1409,7 +1418,7 @@ When one staff only contains "forward" instead of measure rest, we `can either r
 
 When a score is too large to fit in one braille volume, we can split it into two or more volumes. When we want multiple transcribers to work on a single volume score to speed up the work, we can first split, then merge the sections in the same project. This is why the split and merge functions are needed. In the [file menu](#1-1), we find these two options. Each opens a corresponding dialog, and they will be discussed below.
 
-<h4 id="`7-4-1">7.4.1 Split Dialog</h4>
+<h4 id="7-4-1">7.4.1 Split Dialog</h4>
 
 Split point view  
 This list will show split points the user set in [Braille music menu](#1-6). Every item has a checkbox. Choose the required point(s) and press Split button to finish. If none is found, we can't use automatic split function, and then set the split rules here.
