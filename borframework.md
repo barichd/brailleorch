@@ -4,7 +4,7 @@ By Hu Haipeng
 
 Opening Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Mar 9, 2018  
+Last updated: Mar 11, 2018  
 Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
 Project designer: [Hu Haipeng](mailto:brailleorch@outlook.com)  
 Project development website: <https://github.com/barichd/brailleorch>
@@ -436,6 +436,10 @@ Press View to read the image on screen, and press OK to bring the cursor to the 
 
 Transpose  
 This dialog will handle score/parts transposition. See [corresponding section](#2-2) for details.
+
+Symbol conversion  
+This dialog will be imllemented later. Sometimes the same text or symbol indications in different music cootext may have different meanings. For examlle, a Roman oukber may mean either string or position nukber, or a harmony indication; a plus sign may mean either horn stop or left hand pizzicato.  
+The dialog may have two listboxes. The first Lists out parts, and the second lists out texts or symbols (determined by radio buttons above the boxes) in that part. To modify braille indication of an item, press F2 on it and input braille. The button below the boxes can set the current item globally to all parts. 
 
 Score management  
 A tool for managing various items such as page/measure numbering, movement divisions etc for the whole score or selected block. See [corresponding section](#2-3) for details.
