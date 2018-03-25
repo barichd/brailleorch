@@ -4,7 +4,7 @@ By Hu Haipeng
 
 Opening Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Mar 11, 2018  
+Last updated: Mar 25, 2018  
 Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
 Project designer: [Hu Haipeng](mailto:brailleorch@outlook.com)  
 Project development website: <https://github.com/barichd/brailleorch>
@@ -35,7 +35,7 @@ Preliminary Materials
 
 Part I: General Overview Of The Software
 
-- [Chapter 1: Menus Overview](#overview)
+- [Chapter 1: Menus Overview](#menus)
 - [1.1 File](#1-1)
 - [1.2 Edit](#1-2)
 - [1.3 View](#1-3)  
@@ -65,7 +65,7 @@ Part I: General Overview Of The Software
 - [3.6 Section-by-section Page](#3-6)
 - [3.7 BrailleOrch Format Page](#3-7)
 
-Part II: General References Of Points During Development
+Part II: General References Of Important Points
 
 - [Chapter 4: Development Phases](#phases)
 - [4.1 First Phase](#4-1)
@@ -157,9 +157,9 @@ Literary braille transcription can be considered later, because we rely on the a
 
 **********
 
-<h2 id="require">F. Development Requirements</h2>
+<h2 id="requirements">F. Development Requirements</h2>
 
-An experienced C++ or Python skill plus XML knowledge is required for developing this software. C++ can process large XML files fast, but Python or other advanced languages can make programing easier. We have to decide what programing language or language combination should be used. A basic Git knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius (see the fifth phase in [the next section](#progress)). Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
+An experienced C++ or Python skill plus XML knowledge is required for developing this software. C++ can process large XML files fast, but Python or other advanced languages can make programing easier. We have to decide what programing language or language combination should be used. A basic Git knowledge is required for committing changes. Knowledge of music, musicxml, braille and/or braille music is recommended, which will largely enhance the efficiency and quality of development. Sibelius Reference is required for learning some notation, selection and advanced functions which can be borrowed. Sibelius Manuscript Language is required if anyone who wants to make a BrailleOrch export plugin for Sibelius (see the fifth phase in [the next section](#progress)). Some items in Sibelius can't be correctly exported into musicxml via its internal export function and/or Dolet For Sibelius plugin.
 
 The software must be accessible via keyboard and screen readers in all of its parts. Every menu and toolbar item, every music object name and all messages must be put in plain text files to make it possible to add more language support in the future. The initial languages are English and simplified Chinese (if developed by Chinese programmers).
 
@@ -185,7 +185,7 @@ The third phase is to enhance the reformatting function. The software can recogn
 
 The fourth phase is to develop the Play-along function described in the last chapter. This will ease braille music reading, and enhance the learning progress and quality for blind musicians.
 
-The fifth phase is to develop a Sibelius plug-in, directly exporting .bor files from Sibelius. Musicxml exported from Sibelius has some information missing, because there are special user items. We can use Manuscript Language to make the braille version more close to the original score. Unspecified items can also be exported and tagged for manual editing. BMML exported from this plugin is not correctly formatted, so this tool has to be delayed to the time BrailleOrch is powerful and flexible enough.
+The fifth phase is to develop a Sibelius plug-in, directly exporting .bor files from Sibelius. Musicxml exported from Sibelius has some information missing, because there are special user items. We can use Manuscript Language to make the braille version more close to the original. Unspecified items can also be exported and tagged for manual editing. BMML exported from this plugin may not correctly formatted, so this tool has to be delayed to the time BrailleOrch is powerful and flexible enough.
 
 The last phase is to develop the braille music composing function. Since the software can already recognize common braille music signs entered, the main focus is on advanced signs, creating parts and groups, writing chord symbols, handling visual appearance, Midi functions etc.
 
@@ -193,7 +193,9 @@ The last phase is to develop the braille music composing function. Since the sof
 
 # Part I: General Overview Of The Software
 
-<h2 id="overview">Chapter 1: Menus Overview</h2>
+The three sections below will give a very brief view of the software. Some items may contain detailed description, while others will be directed to corresponding topics in Part II.
+
+<h2 id="menus">Chapter 1: Menus Overview</h2>
 
 This chapter describes all menus and submenus. It gives us a brief view of the major functions of BrailleOrch.
 
@@ -429,8 +431,16 @@ Set current print page number, overriding Musicxml's settings. The extra choices
 
 Other insertion of music objects may be implemented later. Other tags and properties can be marked using context menu directly on braille objects. Transcribers can also edit the score without using the above insert and context functions, but the result input will be marked as "other" in BMML, and can't be automatically reformatted correctly. They should be manually formatted.
 
+Show/hide objects  
+This dialog determines whether to show or hide hidden objects in Musicxml, or force some objects hidden in braille for other purposes. Hidden objects in Musicxml may be useful in braille. For example, a hidden note may be used to indicate  the destination of a glissando line. We can add a prefix to indicate this, e.g., dots 26,3, which is used for the end destination of a slanted line. But sometimes they are for layouting purpose and unwanted in braille, so we can implement this option to show/hide such items contextually or globally.  
+The dialog has two radio buttons for show (default) or hide, and a checkbox to set globally. Once an item  is hidden, the "set globally" checkbox will be unchecked, unless you set all hidden globally, and vice versa. In the future, we should implement more sophisticated filtering capability to make show/hide function apply to certain kind of objects contextually or globally.  
+Note that when showing hidden rests, accidentals and texts, there must be a dot 5 before them. Normally hidden rests must be shown to fill the bar length, but sometimes they are also unnecessary.
+
+Show/hide current part name  
+This is a contextual version of show/hide part name function in [Part Management Dialog](#2-4). It only show/hide current part name througrout the music, unless you put the cursor right on the part name, which will be hidden only once.
+
 Display images  
-This menu is for extracting pictures contained in compressed Musicxml files (.mxl), which may be cover page images or special music symbols not being able to enter in notation programs. The listbox describes the details of every image file as this:  
+This menu is for extracting pictures contained in compressed Musicxml files (.mxl), which may be cover page images or special music symbols not being able to enter in notation programs. The listbox describes the details of every image (usually .svg files) as this:  
 filename, part number, staff number, bar number, and beat position.  
 Press View to read the image on screen, and press OK to bring the cursor to the location for transcribers to enter appropriate braille symbols. Press Define to define a symbol globally in this score. See [Define New Features](#7-7) for details.
 
@@ -606,7 +616,7 @@ Part names and abbreviations will be automatically transcribed into braille, exc
 All line breaks in the Musicxml part field will be shown as \n, and discarded in braille. Such kind of part names must be manually edited.
 
 Print part list  
-List all original items in <score-partlist> of Musicxml, plus part names caused by any instrument changes during the music.  
+List all original items in "score-partlist" of Musicxml, plus part names caused by any instrument changes during the music.  
 Items in this extensive table view can be navigated using up/down and left/right arrow keys, selected using shift+up/down, edited by pressing F2, and deleted using Del key. Its format is managed as the following grids from left to right:  
 group name, group abbreviation, part ID, part name, and part abbreviation.  
 If there are part names of instrument changes, these names and abbreviations will be marked as "instrument change".  
@@ -617,6 +627,8 @@ When a multi-stave part is available, number or letter sequences will be added a
 Context menu items:  
 Undo/Redo  
 Common undo/redo function.  
+Show/Hide  
+Whether to show or hide certain part(s).  
 Combine these staves  
 Piano/harp/organ parts in some orchestral scores are not grouped correctly. Use this item to make selected staves into group.  
 Treat as piano  
@@ -1120,11 +1132,11 @@ The options are nearly the same as in the previous two referred formats, and I e
 
 **********
 
-# Part II: General References Of Points During Development
+# Part II: General References Of Important Points
+
+The four sections below will be written on scratch, and only represent my own opinions. It is welcome if anyone feels it better to try different ways.
 
 <h2 id="phases">Chapter 4: Development Phases</h2>
-
-The sections below will be written on scratch, and only represent my own opinion. It's welcome if anyone feels it better to try different ways.
 
 Only currently working or finished phase(s) are present, and they will be constantly supplemented and improved.
 
@@ -1215,11 +1227,11 @@ We can also download a demo of full Braille Music Editor 2 from [VEIA Progetti](
 
 <h3 id="5-2">5.2 Implementation Steps</h3>
 
-To make enhancements of BMML, we should first map most elements of Musicxml 3.0 or 3.1 to BMML, no matter whether the item has corresponding braille presentation, because braille music code is always under development, and can be flexibly customized. Layout information such as page/system/staff sizes and single object position can be ignored, because they are of no use in braille. Elements such as instrument changes and percussion beaters must be mapped as common texts but with special indications to reserve future development of BMML to Musicxml conversion.
+To make enhancements of BMML, we should first map most elements of Musicxml 3.0 or 3.1 to BMML, no matter whether the items have corresponding braille signs. Because braille music code is always under development, and can be flexibly customized, with transcriber's notes for special symbols before the music. Layout information such as page/system/staff sizes and single object position can be ignored, because they are of no use in braille. But sometimes text positions can override the  sequence of their appearance in print, and this is sometimes needed in braille. Elements such as instrument changes and percussion symbols must be mapped as common texts, but with special indications to reserve future development of BMML to Musicxml back-translation.
 
-Next, we need to create a conversion tool to generate braille according to the elements, and place both elements of musicxml and braille into BMML source using braille music rules. Symbols not implemented in braille can be left empty for future development or customizing using the Definition feature under Debugging Mode of the GUI. If the generated BMML doesn't contain formatting rules, it should not generate braille, because it needs reposition of elements. On the other hand, if initial formatting is changed after transcription, there may  be an additional implementation to store original position of elements to reserve correct reformatting. Or we can make an additional copy of BMML which contains the raw mappings to reserve these changes. Manually added, deleted or changed items should be marked to let the users choose whether to keep them during reformatting.
+Next, we need to create a conversion tool to generate braille according to the mapped elements, and place both elements of musicxml and braille into BMML source using braille music rules. Symbols not implemented in braille can be left empty for future development, or customizing using the [Defining New Features](#7-7) function. If the generated BMML doesn't contain braille formatting rules, it should not generate braille automatically, because it needs reposition of elements. On the other hand, if the initial formatting is changed after transcription, there may  be an additional implementation to store original position of elements to reserve correct reformatting. Or we can make an additional copy of BMML which contains the raw mappings to reserve these changes. Manually added, deleted or changed items should be marked to let the users choose whether to keep them during reformatting. these latter points can be implemented later.
 
-An additional note: Musicxml is formatted as either time-wise or part-wise, and almost all softwares export it as partwise. But BMML use part tags to render a quasi time-wise format, because braille music is not part-wise. However, we can imitate part-wise in BMML, and insert line breaks or other intermediate objects at certain places. This will ease future development of back-translation.
+An additional note: Musicxml is formatted as either Timewise or Partwise, and almost all softwares export it as partwise. But BMML use part tags to render a quasi Timewise format, because braille music is not Partwise. However, we can imitate Partwise in BMML, and insert line breaks or other intermediate objects at certain places, specific for braille use. This will also ease the future development of back-translation.
 
 **********
 
@@ -1270,7 +1282,7 @@ Although MusicXML is itself very complete, there shuld still be some attention t
 
 The XML based formats can commonly have two kinds of encoding, UTF-8 and UTF-16, with or without BOM prefixes. The software and its format should be based on UTF-8, but files in the other encoding can also be opened. Sibelius and Encore export Musicxml in UTF-16 format.
 
-The software must allow some non-critical errors in Musicxml files which are exported from old-fashioned (such as Encore) or music recognition softwares (such as ShapEye and PDFtomusic Pro). Old softwares have incomplete support of Musicxml, and music recognition itself contains errors which need to be corrected in notation softwares. For example, there may be non-matched slurs, incomplete note description, wrong measure duration, and even wrong or missing values of elements. Unless there are extremely critical validation issues, the software should allow and process the file, giving some warnings such as at which line what error is found. In braille, the errors are also allowed, partially transcribed, letting the end-user to correct. Unsupported characters in text field are not transcribed, but the error finding function should take care of them.
+The software must allow some non-critical errors in Musicxml files which are exported from old-fashioned (such as Encore) or music recognition softwares (such as SharpEye and PDFtomusic Pro). Old softwares have incomplete support of Musicxml, and music recognition itself contains errors which need to be corrected in notation softwares. For example, there may be non-matched slurs, incomplete note description, wrong measure duration, and even wrong or missing values of elements. Unless there are extremely critical validation issues, the software should allow and process the file, giving some warnings such as at which line what error is found. In braille, the errors are also allowed, partially transcribed, letting the end-user to correct. Unsupported characters in text field are not transcribed, but the error finding function should take care of them.
 
 **********
 
@@ -1280,9 +1292,14 @@ The "movement-title" and "work" tags at the very beginning of the xml file are n
 
 The "credit" subtags have different properties. If both toplevel and credit title and composer fields are found, we can either give a warning message showing those two different places for comparison and choice, or simply apply the "credit" ones, which may contain additional text fields for title pages. Credit page numbers can be treated as print page numbers.
 
+If there are texts at the pages other than page 1 in the credit section, it's better to include and put these texts at the beginning of each corresponding pages, below print page indications and above the first measure of the page. Of course, if the music starts from page 3 while there are texts on page 2, the texts will be placed as its pcorrect position on print page 2 before 3.
+
 In the music, right below the "measure number", there are two kinds of statements controlling system and page breaks. "print new-page='yes'" means a new page turn. If there are also page numbers specified, we can use them as print page numbers. If not, simply do increment page numbering. "print new-system='yes'" is for systems within a page, and the first appearance of it should be treated as beginning of print system 2.
 
 The "implicit" statement in "measure number" field means a pickup measure. When it's at the beginning  of a piece, this measure should be counted as 0. When is appears at the middle of music, it should be numbered according to the last numbered measure before it, and put a dot 3 before the measure number. When multiple implicit measures appear, they share the same measure number until the next numbered measure appears. In piano music whose measure numbers are put before hand sign, dot 3 replace space, thus no space is between measure number and hand sign.
+
+Some metronome marks are not standard. For example, some metronome marks exported from Finale have the note values marked as "other", and the tempo speed is entered as texts, usually because there are text and number combined, e.g., quarter = ca 120. In Musicxml exported from Dolet for Sibelius, note values in a tempo + metronome combination are usually expressed as single letter, period (dot) or letter combination (e.g., Allegro q=120, Moderato q.=80, q=q, e=e, q.=q, etc). The software should convert such special combinations into correct braille indications, and there may no mistakes, thus there may be no plain text saying q=, h= etc, unless we are expressing mathematic formulas.  
+(In Sibelius, note values are presented by letters using a special font: w = whole, h = half, q = quarter, e = 8th, x = 16th, and y = 32nd.)
 
 The "accidental" and "accidental-mark" are two different tags. "Accidental" is used for notating an accidental of the current note; while the "accidental-mark" tag is used for other circumstances, such as an ornament with auxiliary note(s) containing accidental(s). The latter tag is placed under "notations". In braille, just put it  before any ornaments which is below it ("ornaments" is also put under "notations", one line below "accidental-mark").
 
@@ -1334,9 +1351,7 @@ The "other-dynamics" tag in Musicxml should be considered as standard dynamic ma
 
 There are no special indication for string and position numbers. They are written as Roman numbers in print, and the transcriber should determine which kind they belong to, and modify them manually. So we only need to allow string/position/fret signs (including doubling and extending line) to be accepted in BMML as braille music objects. Octave mark is needed after a position sign.
 
-When dealing with MusicXML exported from Dolet plugin for Sibelius, the "Doletsibelius unknown symbol index" and other unrecognized items are very useful. For example, for symbols, we can read Sibelius' Manuscript Language Reference and get index numbers of all symbols listed in the Symbols gallery. When there are symbols unable to be exported, Dolet will give a line with symbol index. We can use this number to  convert the symbol into braille. When no braille equivalence is available, we can still give the English name of the symbol in the [feature defining function](#7-7) for users to create their own equivalence. We should store  all the English symbol names in our software, in case some non-English Sibelius put other languages in the "other-direction" field below the index line. Many of these translations are not as accurate as their original English version.
-
-Hidden objects in Musicxml may be useful in braille, for example, a hidden note may be used to indicate  the destination of a glissando line. We can add a prefix to indicate this, e.g., dots 26,3, which is used for the end destination of a slanted line.
+When dealing with MusicXML exported from Dolet plugin for Sibelius, the "Doletsibelius unknown symbol index" and other unrecognized items are very useful. For example, for symbols, we can read Sibelius' Manuscript Language Reference and get index numbers of all symbols listed in the Symbols gallery. When there are symbols unable to be exported, Dolet will give a line with symbol index. We can use this number to  convert the symbol into braille. When no braille equivalence is available, we can still give the English name of the symbol in the [feature defining function](#7-7) for users to create their own equivalence. We should store all the English symbol names in our software library, in case some non-English copies of Sibelius put other languages in the "other-direction" field below the index line. Many of these translations are not as accurate as their original English version, or even very weird.
 
 According to rules in Music Braille Code 2015, metronome marks during the music may be enclosed in music parenthesis to avoid misreading. In ensemble music, we can move the mark above the braille system if it appears at the very beginning. This may be done manually using specified  context menu, and the parens will be removed automatically.
 
@@ -1377,6 +1392,9 @@ Note to BMML developers: In such case, the partlist will generate an extra sub-e
 
 Selecting parts  
 This function is copied from notation and sequencing softwares like Sibelius and Sonar. You can use ctrl+comma to select parts you want to delete, rename and move globally. For example, selecting parts 1 (piccolo) and 3 (oboes) and then select measure 5-12, then choose [Part management](#2-4), renaming the prefixes will ask you whether to rename them globally or just for selected measures. This will also ease modification for temporary divisi or instrument changes for multiple parts.
+
+Selecting music  
+Common selection may be done usinh shift plus arrows. Ctrl+shift+left/right will select bar(s). We can learn more selection functions by reading the Sibelius' reference manual.
 
 Context menu for marking items  
 Besides common edit context items, here are some special ones:  
@@ -1545,7 +1563,7 @@ For compressed Musicxml files (.mxl), some pieces may contain pictures for eithe
 
 Sometimes a musicxml file contains advanced symbols which are not available in braille, or there are unknown, unrecognized and unexported signs marked as certain tags, or there may contain dozens of images for symbols or lines not available in the notation software. Moreover, as musicxml version updates, more unexpected elements can be included, such as tons of glyphs from [SMUFL](http://www.smufl.org) fonts. So we must invent a tool to store our new definitions, without troubling the programmers to update the software too frequently. The defined rules and signs will be stored as a user configuration file in "My Document\BrailleOrch\User Config" folder, and can be shared and even included in future versions of the software.
 
-In the Musicxml window, choose "Search for unknown" (ctrl+u), and the software will bring us to the first place it finds an unrecognized thing, including those marked as "other" except dynamic marks. Press Ctrl+d to define. Or press ctrl+shift+u to list all unrecognized signs and images. In the list, press Enter to go to the place, or choose Define to begin the definition.
+In the Musicxml window, choose "Search for unknown" (ctrl+u), and the software will bring us to the first place it finds an unrecognized thing, including those marked as "other" except dynamic marks. Some of these are hidden in braille, with only symbol description, because there are no existing braille equivalent symbols. Press Ctrl+d to define. Or press ctrl+shift+u to list all unrecognized signs and images. In the list, press Enter to go to the place, or choose Define to begin the definition.
 
 Definition dialog:  
 Braille symbol  
