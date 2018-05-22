@@ -4,20 +4,10 @@ By Hu Haipeng
 
 Opening Date: Jan 31, 2016  
 First draft: Feb 26, 2016  
-Last updated: Mar 25, 2018  
-Project holder: [Daniel Barich](mailto:barichd@kenyon.edu)  
-Project designer: [Hu Haipeng](mailto:brailleorch@outlook.com)  
-Project development website: <https://github.com/barichd/brailleorch>
+Last updated: May 22, 2018  
+Project designer: [Hu Haipeng](mailto:hhpcomposer@gmail.com)  
 
-Copyright (C) 2016-2018 By Hu Haipeng and Daniel Barich.
-
-**********
-
-BrailleOrch is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-BrailleOrch is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with BrailleOrch. If not, see <http://www.gnu.org/licenses/>.
+Copyright (C) 2016-2018 By Hu Haipeng
 
 **********
 
@@ -107,8 +97,6 @@ Part II: General References Of Important Points
 This is a detailed framework of BrailleOrch, braille music transcription software for advanced formatting and publishing purpose. The final software will convert [Musicxml](http://www.musicxml.org) files, or via a separate plugin, Sibelius files, into our extended Braille Music Markup Language (BMML) format (originally created, developed and copyrighted by [Veia Progetti s.r.l.](http://www.veia.it), Italy, as free software. See copyright information in the BMML package for details), which can be flexibly edited and modified, to fulfill most of the requirements of braille music publishment.
 
 Currently, most of the braille music transcription services still prefer to use traditional manual method to transcribe print music into braille, which is both expensive and time consuming. Although there are some free and commercial softwares available for braille music transcription, they are not accepted by transcribers due to their various limitations. What's more, although composers and mainstream music publishers use notation softwares, they are not willing to provide their source files out of office in case of copyright infringement. So it's very difficult to find high-quality original notation sources for authentic transcription. Our goal is to develop a software which makes braille music transcription as easy and smart as possible, and solves copyright problems, building a bridge between composers/publishers and braille music transcribers, and paving the last one kilometer of the way for blind musicians to easily access music scores like sighted people.
-
-Since this software is free, and under GPL and Veia free software licenses, anyone who are willing to help us can join in to develop and enhance it. We welcome people around the world to do anything making convenience to braille music production for blind musicians.
 
 **********
 
@@ -432,9 +420,9 @@ Set current print page number, overriding Musicxml's settings. The extra choices
 Other insertion of music objects may be implemented later. Other tags and properties can be marked using context menu directly on braille objects. Transcribers can also edit the score without using the above insert and context functions, but the result input will be marked as "other" in BMML, and can't be automatically reformatted correctly. They should be manually formatted.
 
 Show/hide objects  
-This dialog determines whether to show or hide hidden objects in Musicxml, or force some objects hidden in braille for other purposes. Hidden objects in Musicxml may be useful in braille. For example, a hidden note may be used to indicate  the destination of a glissando line. We can add a prefix to indicate this, e.g., dots 26,3, which is used for the end destination of a slanted line. But sometimes they are for layouting purpose and unwanted in braille, so we can implement this option to show/hide such items contextually or globally.  
-The dialog has two radio buttons for show (default) or hide, and a checkbox to set globally. Once an item  is hidden, the "set globally" checkbox will be unchecked, unless you set all hidden globally, and vice versa. In the future, we should implement more sophisticated filtering capability to make show/hide function apply to certain kind of objects contextually or globally.  
-Note that when showing hidden rests, accidentals and texts, there must be a dot 5 before them. Normally hidden rests must be shown to fill the bar length, but sometimes they are also unnecessary.
+This dialog determines whether to show or hide hidden objects in Musicxml, or force some objects hidden in braille for other purposes. Hidden objects in Musicxml may be useful in braille. For example, a hidden note may be used to indicate the destination of a glissando line; a tuplet with both number and bracket set to "no" is often used in unmeasured music or a mathematically scaled passage where the time signature of some instruments may be different from others (e.g., in a 4/4 passage with staves in 12/8, the 12/8 parts have to be written as lots of tripllets of eighths with tullet numbers and brackets turned off). sometimes the hidden objects are only for layouting purpose, e.g., for placing a symbol, and unwanted in braille. So we can implement this option to show/hide such items contextually or globally.  
+The dialog has two radio buttons for show (default) or hide, and a checkbox to set globally. Once an item is hidden, the "set globally" checkbox will be unchecked, unless you set all hidden globally, and vice versa. In the future, we should implement more sophisticated filtering capability to make show/hide function apply to certain kind of objects contextually or globally.  
+Note that when showing hidden rests, accidentals, tuplets and texts, there must be a dot 5 before them. Normally hidden rests must be shown to fill the bar length, but sometimes they are also unnecessary.
 
 Show/hide current part name  
 This is a contextual version of show/hide part name function in [Part Management Dialog](#2-4). It only show/hide current part name througrout the music, unless you put the cursor right on the part name, which will be hidden only once.
@@ -1161,8 +1149,6 @@ This phase is mainly focused on implementation of BMML, and basic build of the s
 
 \+ In the GUI, keys f, d, s and j, k, l should represent braille dots 1-6. Other keys are reserved for shortcuts, and I have implemented all single-key shortcuts which avoid these 6 keys. We can freely enter braille dots in the GUI to test. This is the very first GUI, and doesn't require file format. After this test, we can start to implement BMML reading and braille output.
 
-Note: If we start with Python, a starting point of the WXPython-based GUI has been built by Daniel Barich, and we just use it.
-
 \+ The structure of the installation folder can be defined as this:  
 - Bin: all executable files
 - Doc: Documentations, which can have subdirectories for different languages if HTML pages are used
@@ -1609,9 +1595,7 @@ TBC: playback of other selections; navigation and playback etc.
 
 <h2 id="contact">Contact Information</h2>
 
-If you are willing to help us, or want to join in the projecet, please write to [Daniel](mailto:barichd@kenyon.edu) for requesting of adding colleagues into Github, and/or for questions about software development.
-
-If you have any questions about music, braille and braille music, please write to [me](mailto:brailleorch@outlook.com).
+If you have any questions about music, braille and this framework, or want to help me to make this framework to come true, please feel free to [write to me](mailto:hhpcomposer@gmail.com).
 
 Thank you in advance!
 
